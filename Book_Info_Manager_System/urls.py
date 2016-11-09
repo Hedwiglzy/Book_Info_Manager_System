@@ -1,4 +1,4 @@
-"""Book_Info_Manager_System URL Configuration
+"""GraduationProject URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.10/topics/http/urls/
@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.core.urlresolvers import reverse
+import BIMS.views as views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$',views.index,name = 'home'),
+    url(r'^add/$',views.add),
+    url(r'^new_add/(\d+)/(\d+)/$',views.add2),
 ]
