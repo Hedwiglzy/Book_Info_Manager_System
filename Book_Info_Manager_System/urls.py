@@ -20,6 +20,7 @@ import BIMS.views as views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+<<<<<<< HEAD
     url(r'^$',views.index,name = 'home'),
     #url(r'^add/$',views.add),
     url(r'^add/(\d+)/(\d+)/$',views.add2),
@@ -27,4 +28,9 @@ urlpatterns = [
     url(r'^$',views.hello),
     url(r'^plus/(\d+)/$',views.time_plus),
     url(r'^template/(.+?)/(\d+)/$',views.test_template),
+=======
+    # url(r'^$',views.index,name = 'home'),
+    # url(r'^add/$',views.add),
+    # url(r'^new_add/(\d+)/(\d+)/$',views.add2),
+>>>>>>> origin/master
 ]
