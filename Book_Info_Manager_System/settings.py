@@ -104,11 +104,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-<<<<<<< HEAD
-LANGUAGE_CODE = 'zh-hans'
-=======
+
 LANGUAGE_CODE = 'zh-Hans'
->>>>>>> origin/master
 
 TIME_ZONE = 'Asia/Shenyang'
 
@@ -134,5 +131,3 @@ INSTALLED_APPS = [
 
     'BIMS',
 ]
-
-
