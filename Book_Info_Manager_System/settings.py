@@ -130,3 +130,5 @@ INSTALLED_APPS = [
 
     'BIMS',
 ]
+
+APPEND_SLASH = True
