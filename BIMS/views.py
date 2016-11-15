@@ -14,24 +14,17 @@ def hello(request):
     now = datetime.datetime.now()
     html = '''<html>
 	            <title>welcome</title>
-	            <style>
-	                #text{
-	                    position: absolute;
-	                    top: 0;
-                        bottom: 0;
-                        left: 0;
-                        right: 0;
-                        margin: auto;
-                        height: 240px;
-                        width:70%%;
-                        color:#2693FF}
-	            </style>
-              <body>
-                    <div id = "text">
-                        <h1><font face = "Monaco" size = 30 ><center> Welcome Django! <center></font></h1>
-                            <font face = "Monaco"><center> 当前时间为:%s <center></font>
-                    </div>
-                </body>
+                    <style>
+                      #null{height:30px}
+                      #text{font-size:80px;font-family:HYMiaoHunTiW;text-align: center;}
+                      #time{font-size:16px;font-family:Monaco;text-align: center;}
+                    </style>
+	          <body>
+	            <div id = "null"></div>
+	            <div id = "text">Django is running!</div>
+                <p></p>
+                <div id = "time">当前时间为:%s</div>
+              </body>
             </html>''' % now
     return HttpResponse(html)
 
