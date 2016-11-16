@@ -1,13 +1,16 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
+    <style>
+		body{ font-family: "汉仪喵魂体W"; text-align:center;}
+    </style>
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
     <h1>Welcome Django</h1>
     {% block content %}{% endblock %}
-    {% block footer %}
-    {% endblock %}
+    <hr>
+    {% block footer %}{% endblock %}
 </body>
 </html>
