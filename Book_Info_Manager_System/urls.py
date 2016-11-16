@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'^$',views.hello),
     url(r'^plus/(\d+)/$',views.time_plus),
     url(r'^template/(.+?)/(\d+)/$',views.test_template),
-
+    url(r'^keke/$',views.test_keke),
+    url(r'^haha/$',views.test_haha),
 ]

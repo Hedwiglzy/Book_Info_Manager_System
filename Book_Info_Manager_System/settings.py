@@ -25,7 +25,7 @@ SECRET_KEY = 'q&8q8p4x^g44%#0s)rdp)(dal_1l-wgz*x@4g2n20_qlc_3u+h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.167.211',]
+ALLOWED_HOSTS = ['127.0.0.1','192.168.167.211','192.168.1.101',]
 
 
 # Application definition
@@ -54,7 +54,7 @@ ROOT_URLCONF = 'Book_Info_Manager_System.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),os.path.join(os.path.dirname(__file__),'templates').replace('\\','/')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {

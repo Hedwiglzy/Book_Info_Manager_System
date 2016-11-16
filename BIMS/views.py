@@ -6,6 +6,8 @@ from django.http import HttpResponse,Http404
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import Template,Context
+from django.template.loader import get_template
+from django.shortcuts import render_to_response
 import datetime
 
 # Create your views here.
@@ -75,3 +77,16 @@ def test_template(request,name,age):
     ct_object = Context({'name':name,'age':age,'date': datetime.datetime.now()})
     last_html = tl_object.render(ct_object)
     return HttpResponse(last_html)
+
+def test_keke(request):
+    now = datetime.datetime.now()
+    tl_object = get_template('home.html')
+    ct_object =Context({'time':now})
+    last_html = tl_object.render(ct_object)
+    return HttpResponse(last_html)
+
+def test_haha(request):
+    now = datetime.datetime.now()
+    return render_to_response('current_datetime.html',{'time':now})
+
+
