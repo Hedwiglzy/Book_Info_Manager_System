@@ -2,37 +2,59 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
+    <script type="text/javascript"> 
+		function init(){ 
+			var text=document.getElementById("password"); 
+			text.onfocus=function(){ 
+				var p=this.parentNode; 
+				var password=document.createElement("input"); 
+				password.type="password"; 
+				p.replaceChild(password,this); 
+				window.setTimeout(function(){password.focus()},50); 
+			} 
+		} 
+window.onload=init; 
+</script> 
     <style>
-		#s1{ height:500px;width:10%; float:left;}
-		#s2{ height:500px;width:40%; float: left;}
-		#s20{ height:150px;width:100%;float:left;}
-		#s21{ height:50px;width:100%;float:left; font-family:"汉仪喵魂体W"; font-size:40px;text-align:end;}
-		#s22{ height:50px;width:100%;float:left; font-family:"汉仪喵魂体W"; font-size:40px;text-align:right;}
-		#s23{ height:250px;width:100%;float:left; font-family:"汉仪喵魂体W"; font-size:40px;text-align:right;}
-		#s3{ height:500px; width:35%; float:left;}
-		#s4{ height:500px; width:15%; float:right;}
+		#s1{ height:500px;width:50%; float: left;}
+		#s10{ height:150px;width:100%;float:left;}
+		#s11{ height:50px;width:100%;float:left; font-family:"汉仪喵魂体W"; font-size:40px;text-align:end;}
+		#s12{ height:50px;width:100%;float:left; font-family:"汉仪喵魂体W"; font-size:40px;text-align:right;}
+		#s13{ height:250px;width:100%;float:left; font-family:"汉仪喵魂体W"; font-size:40px;text-align:right;}
+		#s2{ height:500px; width:4%; float:left;}
+		#s3{ height:500px; width:46%; float:right;}
+		#s30{ height:170px;width:100%;float:left;}
+		#s31{ height:50px;width:100%;float:left; font-family:"汉仪喵魂体W"; font-size:20px;text-align:left;}
 		footer{ height:50px;width:100%;float:left; font-family:"汉仪喵魂体W"; font-size:17px;text-align:center;position:fixed;bottom:0px;}
-		
-	
-    </style>
+		#name{border-radius:5px;font-size:17px;font-family:"微软雅黑";}
+		#password{border-radius:5px;font-size:17px;font-family:"微软雅黑";}
+		</style>
     <title>登录</title>
 </head>
 <body>
-    <section id="s1"></section>
-    <section id="s2">
-    	<section id="s20"></section>
-    	<section id="s21">
+    <section id="s1">
+    	<section id="s10"></section>
+    	<section id="s11">
         Welcome
         </section>
-        <section id="s22">
+        <section id="s12">
         Book Information Manage System
         </section>
-        <section id="s23">
+        <section id="s13">
         beta
         </section>
     </section>
-    <section id="s3"></section>
-    <section id="s4"></section>
+    <section id="s2"></section>
+    <section id="s3">
+    	<section id="s30"></section>
+    	<section id="s31">
+    		<input type="text" id="name" size="20" maxlength="50" value="在此输入用户名">
+        <p></p>
+        <input type="text" id="test" size="20" maxlength="50" value="在此输入密码">
+        <p></p>
+        <input type="submit"  name="login" value="登录">
+    	</section>
+    </section>
     <footer>by hedwig</footer>
 </body>
 </html>

@@ -89,4 +89,5 @@ def test_haha(request):
     now = datetime.datetime.now()
     return render_to_response('current_datetime.html',{'time':now})
 
-
+def test_login(request):
+    return render_to_response('login.html')
