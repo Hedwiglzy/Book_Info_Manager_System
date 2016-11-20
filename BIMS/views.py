@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.template import Template,Context
 from django.template.loader import get_template
 from django.shortcuts import render_to_response
+from BIMS.models import User
 import datetime
 
 # Create your views here.
@@ -30,35 +31,6 @@ def hello(request):
             </html>''' % now
     return HttpResponse(html)
 
-def add(request):
-    a = request.GET.get('a',0)
-    b = request.GET.get('b',0)
-    c = int(a) + int(b)
-    return  HttpResponse(str(c))
-
-def add2(request, a, b):
-    c = int(a) + int(b)
-    return HttpResponse(str(c))
-
-def index(request):
-    return render(request,'home.html')
-
-def time_plus(request,i):
-    try:
-        i = int(i)
-    except ValueError:
-        raise Http404()
-    now  = datetime.datetime.now()
-    time = now + datetime.timedelta(hours = i)
-    html = '''<html>
-                <title>time plus</title>
-                <body>
-                    <h1><center> 当前时间为%s <center></h1>
-                    <h1><center> %s小时之后为%s <center></h1>
-                </body>
-              </html>''' % (now,i,time)
-    return HttpResponse(html)
-
 def test_template(request,name,age):
     raw_template = '''
               <html>
@@ -78,23 +50,12 @@ def test_template(request,name,age):
     last_html = tl_object.render(ct_object)
     return HttpResponse(last_html)
 
-def test_keke(request):
-    now = datetime.datetime.now()
-    tl_object = get_template('home.html')
-    ct_object =Context({'time':now})
-    last_html = tl_object.render(ct_object)
-    return HttpResponse(last_html)
-
-def test_haha(request):
-    now = datetime.datetime.now()
-    return render_to_response('current_datetime.html',{'time':now})
-
 def test_login(request):
     return render_to_response('login.html')
 
-class animals:
-    def __init__(self,name):
-        self.name = name
-cat = animals('tom')
-def test_if_for(requset):
-    return render_to_response('test_if_for.html',{'names':[cat]})
+def get_user_info(request,user_id):
+    user_id = int(user_id)
+    user = User.objects.get(user_id=user_id)
+    sex = {1:'男',2:'女',0:'其他'}
+    return render_to_response('user_info.html',{'user_name':user.user_name,'tel':user.tel,'email':user.email,'sex':sex[user.sex],'birthday':user.birthday,'locate':user.locate})
+
