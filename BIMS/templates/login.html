@@ -28,7 +28,9 @@ window.onload=init;
 		footer{ height:50px;width:100%;float:left; font-family:"汉仪喵魂体W"; font-size:17px;text-align:center;position:fixed;bottom:0px;}
 		#name{border-radius:5px;font-size:17px;font-family:"微软雅黑";}
 		#password{border-radius:5px;font-size:17px;font-family:"微软雅黑";}
-		</style>
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/buttons.css">
+        
     <title>登录</title>
 </head>
 <body>
@@ -50,10 +52,10 @@ window.onload=init;
     	<section id="s31">
     		<input type="text" id="name" size="20" maxlength="50" value="在此输入用户名">
         <p></p>
-        <input type="text" id="test" size="20" maxlength="50" value="在此输入密码">
+            <input type="text" id="password" size="20" maxlength="50" value="在此输入密码">
         <p></p>
-        <input type="submit"  name="login" value="登录">
-    	</section>
+            <input type="submit" id="login" value="登录" class="button button-pill button-primary">
+  		</section>
     </section>
     <footer>by hedwig</footer>
 </body>

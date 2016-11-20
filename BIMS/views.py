@@ -91,3 +91,10 @@ def test_haha(request):
 
 def test_login(request):
     return render_to_response('login.html')
+
+class animals:
+    def __init__(self,name):
+        self.name = name
+cat = animals('tom')
+def test_if_for(requset):
+    return render_to_response('test_if_for.html',{'names':[cat]})

@@ -30,4 +30,5 @@ urlpatterns = [
     url(r'^keke/$',views.test_keke),
     url(r'^haha/$',views.test_haha),
     url(r'^login/$',views.test_login),
+    url(r'^if/$',views.test_if_for),
 ]
