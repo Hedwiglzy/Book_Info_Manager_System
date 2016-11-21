@@ -30,7 +30,6 @@
       </column>
       <column id="9" parent="2" name="sex">
         <data-type>int(11)</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
       </column>
       <column id="10" parent="2" name="birthday">
         <data-type>date</data-type>
