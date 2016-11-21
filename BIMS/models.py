@@ -15,5 +15,7 @@ class User(models.Model):
     remark    = models.CharField(max_length=500,null=True)      #个人简介
     image     = models.ImageField(null=True)                    #头像
 
-    def __unicode__(self):
-        return u'%s' % self.user_name
+    def __str__(self):
+        return  self.user_name
+    class Meta:
+            verbose_name = "user_info_detail"

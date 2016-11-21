@@ -84,7 +84,7 @@ DATABASES = {
     'default': {
         'ENGINE'  : 'django.db.backends.mysql',
         'NAME'    : 'BIMS',
-        'USER'    : 'hedwig',
+        'USER'    : 'root',
         'PASSWORD': 'qwer1234',
         'HOST'    : '127.0.0.1',
         'PORT'    : '3306',
