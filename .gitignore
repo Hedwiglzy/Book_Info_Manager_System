@@ -139,4 +139,11 @@ $RECYCLE.BIN/
 *.lnk
 *.name
 *.iml
-*.xml
+
+.idea/encodings.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/modules.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/misc.xml
+.idea/sqldialects.xml
+.idea/workspace.xml
