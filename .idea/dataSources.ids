@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="MySQL - BIMS@localhost" uuid="74a2f338-a812-4272-aeaa-a07a141e7ad4">
+  <data-source name="BIMS_Database" uuid="1efca8b8-7a1c-4a94-98aa-3a4bceac4185">
     <database-info product="MySQL" version="5.7.15-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
@@ -8,96 +8,66 @@
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
     <database-model serializer="dbm" rdbms="MYSQL" format-version="2.4">
       <schema id="1" name="bims"/>
-      <table id="2" parent="1" name="django_migrations"/>
-      <table id="3" parent="1" name="bims_user"/>
-      <column id="4" parent="2" name="id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="5" parent="2" name="app">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="6" parent="2" name="name">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="7" parent="2" name="applied">
-        <mandatory>1</mandatory>
-        <data-type>datetime(6)</data-type>
-      </column>
-      <key id="8" parent="2" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-      <column id="9" parent="3" name="user_id">
+      <table id="2" parent="1" name="bims_user"/>
+      <table id="3" parent="1" name="django_migrations"/>
+      <column id="4" parent="2" name="user_id">
         <mandatory>1</mandatory>
         <data-type>bigint(20)</data-type>
       </column>
-      <column id="10" parent="3" name="user_name">
+      <column id="5" parent="2" name="user_name">
         <mandatory>1</mandatory>
         <data-type>varchar(30)</data-type>
       </column>
-      <column id="11" parent="3" name="password">
+      <column id="6" parent="2" name="password">
         <mandatory>1</mandatory>
         <data-type>varchar(30)</data-type>
       </column>
-      <column id="12" parent="3" name="tel">
+      <column id="7" parent="2" name="tel">
         <data-type>bigint(20)</data-type>
       </column>
-      <column id="13" parent="3" name="email">
+      <column id="8" parent="2" name="email">
         <data-type>varchar(254)</data-type>
       </column>
-      <column id="14" parent="3" name="sex">
+      <column id="9" parent="2" name="sex">
         <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="15" parent="3" name="birthday">
+      <column id="10" parent="2" name="birthday">
         <data-type>date</data-type>
       </column>
-      <column id="16" parent="3" name="age">
+      <column id="11" parent="2" name="age">
         <data-type>int(11)</data-type>
       </column>
-      <column id="17" parent="3" name="locate">
+      <column id="12" parent="2" name="locate">
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="18" parent="3" name="remark">
+      <column id="13" parent="2" name="remark">
         <data-type>varchar(500)</data-type>
       </column>
-      <column id="19" parent="3" name="image">
+      <column id="14" parent="2" name="image">
         <data-type>varchar(100)</data-type>
       </column>
-      <key id="20" parent="3" name="PRIMARY">
+      <key id="15" parent="2" name="PRIMARY">
         <columns>user_id</columns>
         <primary>1</primary>
       </key>
-    </database-model>
-  </data-source>
-  <data-source name="Django default" uuid="6dc8fba7-54e6-4909-9ad7-0dd7afdb53dc">
-    <database-info product="MySQL" version="5.7.15-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
-      <extra-name-characters>#@</extra-name-characters>
-      <identifier-quote-string>`</identifier-quote-string>
-    </database-info>
-    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
-    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.4">
-      <schema id="1" name="bims"/>
-      <table id="2" parent="1" name="django_migrations"/>
-      <column id="3" parent="2" name="id">
+      <column id="16" parent="3" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="4" parent="2" name="app">
+      <column id="17" parent="3" name="app">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="5" parent="2" name="name">
+      <column id="18" parent="3" name="name">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="6" parent="2" name="applied">
+      <column id="19" parent="3" name="applied">
         <mandatory>1</mandatory>
         <data-type>datetime(6)</data-type>
       </column>
-      <key id="7" parent="2" name="PRIMARY">
+      <key id="20" parent="3" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
