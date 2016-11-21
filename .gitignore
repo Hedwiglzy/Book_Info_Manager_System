@@ -147,3 +147,8 @@ $RECYCLE.BIN/
 .idea/misc.xml
 .idea/sqldialects.xml
 .idea/workspace.xml
+.idea/dataSources.xml
+*.xml
+.idea/dataSources.ids
+
+.idea/dataSources.ids
