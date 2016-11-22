@@ -19,7 +19,7 @@ from django.core.urlresolvers import reverse
 import BIMS.views as views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/',admin.site.urls),
     url(r'^hello/$',views.hello),
     url(r'^login/$',views.test_login),
     url(r'^user/(\d+)/$',views.get_user_info),
