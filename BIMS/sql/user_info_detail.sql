@@ -13,3 +13,4 @@ CREATE TABLE `BIMS_user`
   `image`     varchar(100)            NULL
 )AUTO_INCREMENT = 10001;
 COMMIT;
+
