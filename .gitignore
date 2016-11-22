@@ -151,3 +151,7 @@ $RECYCLE.BIN/
 *.xml
 .idea/dataSources.ids
 
+.idea/dataSources.ids
+.idea/dataSources.xml
+*.ids
+.idea/dataSources.xml
