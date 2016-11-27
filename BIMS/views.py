@@ -21,14 +21,17 @@ def hello(request):
                       #null{height:30px}
                       #text{font-size:80px;font-family:HYMiaoHunTiW;text-align: center;}
                       #time{font-size:16px;font-family:Monaco;text-align: center;}
+                      #path{font-size:16px;font-family:Monaco;text-align: center;}
                     </style>
 	          <body>
 	            <div id = "null"></div>
 	            <div id = "text">Django is running!</div>
                 <p></p>
                 <div id = "time">当前时间为:%s</div>
+                <p></p>
+                <div id = "path">访问地址为:%s</div>
               </body>
-            </html>''' % now
+            </html>''' % (now,request.path)
     return HttpResponse(html)
 
 def test_template(request,name,age):
