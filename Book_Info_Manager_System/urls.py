@@ -17,11 +17,15 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 import BIMS.views as views
+from django.views.generic import RedirectView
 
 urlpatterns = [
     url(r'^admin/',admin.site.urls),
     url(r'^hello/$',views.hello),
     url(r'^login/$',views.test_login),
     url(r'^user/(\d+)/$',views.get_user_info),
+    url(r'^meta/$',views.display_meta),
+    url(r'^favicon\.ico$',RedirectView.as_view(url = '/static/image/favicon.ico')),
+    url(r'register$',views.register),
 
 ]

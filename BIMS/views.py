@@ -9,6 +9,7 @@ from django.template import Template,Context
 from django.template.loader import get_template
 from django.shortcuts import render_to_response
 from BIMS.models import User
+from .tools.forms import User
 import datetime
 
 # Create your views here.
@@ -62,3 +63,23 @@ def get_user_info(request,user_id):
     sex = {1:'男',2:'女',0:'其他'}
     return render_to_response('user_info.html',{'user_name':user.user_name,'tel':user.tel,'email':user.email,'sex':sex[user.sex],'birthday':user.birthday,'locate':user.locate})
 
+def display_meta(request):
+    values = request.META.items()
+    values = sorted(values)
+    html = []
+    for k, v in values:
+        html.append('<tr><td>%s</td><td>%s</td></tr>' % (k, v))
+    a = '<table>%s</table>' % '\n'.join(html)
+    print(a)
+    return HttpResponse('<table>%s</table>' % '\n'.join(html))
+
+def register(request):
+    if request.method =='POST':
+        form = User(request.POST)
+        if form.is_valid():
+            user_name = form.cleaned_data['user_name']
+            email = form.cleaned_data['email']
+            return HttpResponse(user_name + email)
+    else:
+        form = User()
+        return render_to_response('register.html',{'form':form})
