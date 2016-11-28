@@ -10,5 +10,5 @@ __date__ = '2016/11/27'
 from django import forms
 
 class User(forms.Form):
-    user_name = forms.CharField()
+    user_name = forms.CharField(max_length=30)
     email = forms.EmailField()

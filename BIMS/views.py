@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render
-from django.http import HttpResponse,Http404
+from django.template.loader import get_template
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse,Http404
 from django.template import Template,Context
-from django.template.loader import get_template
 from django.shortcuts import render_to_response
-from BIMS.models import User
-from .tools.forms import User
+from BIMS.models import User as mUser
+from .tools.forms import User as fUser
 import datetime
 
 # Create your views here.
@@ -59,7 +59,7 @@ def test_login(request):
 
 def get_user_info(request,user_id):
     user_id = int(user_id)
-    user = User.objects.get(user_id=user_id)
+    user = mUser.objects.get(user_id=user_id)
     sex = {1:'男',2:'女',0:'其他'}
     return render_to_response('user_info.html',{'user_name':user.user_name,'tel':user.tel,'email':user.email,'sex':sex[user.sex],'birthday':user.birthday,'locate':user.locate})
 
@@ -75,11 +75,14 @@ def display_meta(request):
 
 def register(request):
     if request.method =='POST':
-        form = User(request.POST)
+        form = fUser(request.POST)
         if form.is_valid():
             user_name = form.cleaned_data['user_name']
             email = form.cleaned_data['email']
-            return HttpResponse(user_name + email)
+            user = mUser(user_name = user_name,email = email)
+            user.save()
+            return HttpResponse('注册成功!')
     else:
-        form = User()
+        form = fUser()
+        print(form)
         return render_to_response('register.html',{'form':form})
