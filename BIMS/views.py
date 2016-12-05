@@ -78,8 +78,16 @@ def register(request):
         form = fUser(request.POST)
         if form.is_valid():
             user_name = form.cleaned_data['user_name']
-            email = form.cleaned_data['email']
-            user = mUser(user_name = user_name,email = email)
+            password  = form.cleaned_data['password']
+            tel       = form.cleaned_data['tel']
+            email     = form.cleaned_data['email']
+            sex       = form.cleaned_data['sex']
+            birthday  = form.cleaned_data['birthday']
+            age       = form.cleaned_data['tel']
+            locate    = form.cleaned_data['locate']
+            remark    = form.cleaned_data['remark']
+            user = mUser(user_name = user_name,password = password,tel= tel,email = email,
+                         sex = sex,birthday = birthday,age = age,locate = locate,remark = remark)
             user.save()
             return HttpResponse('注册成功!')
     else:
