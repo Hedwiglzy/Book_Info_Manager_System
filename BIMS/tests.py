@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.db import connection
 import os
 from BIMS.models import User
+
 #alist = User.objects.all()
 #print(alist)
 
