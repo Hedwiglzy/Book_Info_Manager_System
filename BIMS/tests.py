@@ -12,3 +12,4 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'Book_Info_Manager_System.settings'
 cursor = connection.cursor()
 
 
+#test git
