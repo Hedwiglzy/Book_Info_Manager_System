@@ -11,7 +11,6 @@ from django.shortcuts import render_to_response
 from BIMS.models import User as mUser
 from .tools.forms import User as fUser
 import datetime
-
 # Create your views here.
 
 def hello(request):
