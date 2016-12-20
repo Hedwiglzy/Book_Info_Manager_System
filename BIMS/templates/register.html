@@ -4,13 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" type="text/css" href="../static/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../static/bootstrap/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" media="all" href="../static/bootstrap/css/daterangepicker-bs3.css">
-    <link rel="stylesheet" type="text/css" media="all" href="../static/bootstrap/css/city-picker.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/city-picker.css">
 
     <title>register</title>
     <style>
+        body {
+            background-image: url(../static/image/background/6.png);
+            /*background-repeat: no-repeat;
+            background-position: center;*/
+            background-size: cover;
+        }
+
         .top {
             height: 30px;
         }
@@ -18,21 +25,32 @@
         .welcome {
             height: 100px;
             text-align: center;
-            font-family: 微软雅黑;
-            font-size: 40px;
+            font-family: HYMiaoHunTiW, Helvetica, Arial, sans-serif, serif;
+            font-size: 50px;
+            color: white;
         }
 
-        .c_form {
+        .middle {
             height: 500px;
             text-align: center;
         }
 
         .c_sex {
             width: 50px;
+            margin-bottom: 15px;
         }
 
         .c_time {
             margin: 15px auto 15px auto;
+        }
+
+        .a {
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+
+        .m {
+            border: 1px solid red;
         }
     </style>
 </head>
@@ -48,106 +66,110 @@
             <div class="col-lg-4 welcome"></div>
         </div>
         <div class="row">
-            <div class="col-lg-5 c_form"></div>
-            <div class="col-lg-2 c_form">
-                <form role="form-horizontal">
-                    <div class="form-group">
+            <div class="col-lg-4 middle"></div>
+            <div class="col-lg-4 middle m">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group a">
                         <div class="input-prepend input-group">
                             <span class="add-on input-group-addon">
-                          <i class="glyphicon glyphicon-user"></i>
-                        </span>
+                            <i class="glyphicon glyphicon-user"></i>
+                          </span>
                             <label for="username" class="sr-only"></label>
                             <input type="text" class="form-control" id="username" placeholder="输入用户名">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group a">
                         <div class="input-prepend input-group">
                             <span class="add-on input-group-addon">
-                            <i class="glyphicon glyphicon-eye-close"></i>
-                          </span>
+                              <i class="glyphicon glyphicon-eye-close"></i>
+                            </span>
                             <label for="password" class="sr-only"></label>
                             <input type="password" class="form-control" id="password" placeholder="输入密码">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group a">
                         <div class="input-prepend input-group">
                             <span class="add-on input-group-addon">
-                              <i class="glyphicon glyphicon-earphone"></i>
-                            </span>
+                                <i class="glyphicon glyphicon-earphone"></i>
+                              </span>
                             <label for="tel" class="sr-only"></label>
                             <input type="text" class="form-control" id="tel" placeholder="输入手机号">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group a">
                         <div class="input-prepend input-group">
                             <span class="add-on input-group-addon">
-                              <i class="glyphicon glyphicon-envelope"></i>
-                            </span>
+                                  <i class="glyphicon glyphicon-envelope"></i>
+                                </span>
                             <label for="email" class="sr-only"></label>
                             <input type="email" class="form-control" id="email" placeholder="输入邮箱">
                         </div>
                     </div>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default c_sex" value="1">男</button>
-                        <button type="button" class="btn btn-default c_sex" value="2">女</button>
-                        <button type="button" class="btn btn-default c_sex" value="0">其他</button>
+                        <!-- <label for="sex" class="sr-only"></label> -->
+                        <button type="button" class="btn btn-default c_sex" id="sex" value="1">男</button>
+                        <button type="button" class="btn btn-default c_sex" id="sex" value="2">女</button>
+                        <button type="button" class="btn btn-default c_sex" id="sex" value="0">其他</button>
                     </div>
-                    <div class="control-group">
-                        <div class="controls">
-                            <div class="input-prepend input-group c_time">
-                                <span class="add-on input-group-addon">
+
+                    <div class="form-group a">
+                        <label for="sex" class="sr-only"></label>
+                        <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                            <span class="input-group-addon">
                                   <i class="glyphicon glyphicon-calendar"></i>
                                 </span>
-                                <label for="birthday" class="sr-only"></label>
-                                <input type="text" class="form-control" name="birthday" id="birthday" placeholder="选择生日">
-                            </div>
+                            <label for="birthday" class="sr-only"></label>
+                            <input class="form-control" type="text" value="" id="birthday" placeholder="输入生日" readonly>
                         </div>
-                    </div>
-                    <script type="text/javascript">
-                        $(document).ready(function() {
-                            $('#birthday').daterangepicker({
-                                singleDatePicker: true
-                            }, function(start, end, label) {
-                                console.log(start.toISOString(), end.toISOString(), label);
-                            });
-                        });
-                    </script>
-
-
-                    <div class="form-group">
-                        <div class="input-prepend input-group">
-                            <span class="add-on input-group-addon">
-                                <i class="glyphicon glyphicon-home"></i>
-                            </span>
-                            <input id="locate" class="form-control" type="text" value="辽宁省/沈阳市/和平区" data-toggle="city-picker" readonly>
-                        </div>
+                        <!-- <input type="hidden" id="dtp_input2" value="" /> -->
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group a">
                         <div class="input-prepend input-group">
                             <span class="add-on input-group-addon">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </span>
+                                  <i class="glyphicon glyphicon-pencil"></i>
+                              </span>
                             <label for="username" class="sr-only"></label>
                             <input type="text" class="form-control" id="username" placeholder="一句话介绍自己">
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-group-lg">注册</button>
+                    <div data-toggle="distpicker">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group form-inline">
+                                    <label class="sr-only" for="province"></label>
+                                    <select class="form-control" id="province"></select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group form-inline">
+                                    <label class="sr-only" for="city"></label>
+                                    <select class="form-control" id="city"></select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default btn-group-lg">注册</button>
+                    </div>
+
                 </form>
             </div>
-            <div class="col-lg-5 c_form"></div>
+            <div class="col-lg-4 middle"></div>
         </div>
     </div>
-    <script type="text/javascript" src="../static/bootstrap/js/jquery.js"></script>
-    <script type="text/javascript" src="../static/bootstrap/js/bootstrap.js"></script>
-    <script type="text/javascript" src="../static/bootstrap/js/moment.js"></script>
-    <script type="text/javascript" src="../static/bootstrap/js/daterangepicker.js"></script>
-    <script type="text/javascript" src="../static/bootstrap/js/city-picker.data.js"></script>
-    <script type="text/javascript" src="../static/bootstrap/js/city-picker.js"></script>
-    <script type="text/javascript" src="../static/bootstrap/js/main.js"></script>
+    <script type="text/javascript" src="../static/js/jquery.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../static/js/city-picker.data.js"></script>
+    <script type="text/javascript" src="../static/js/city-picker.js"></script>
+    <script type="text/javascript" src="../static/js/main.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap-datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap-datetimepicker/bootstrap-datetimepicker.main.js"></script>
+    <script type="text/javascript" src="../static/js/distpicker/distpicker.data.js"></script>
+    <script type="text/javascript" src="../static/js/distpicker/distpicker.js"></script>
+    <script type="text/javascript" src="../static/js/distpicker/main.js"></script>
+
 </body>
 
 </html>
