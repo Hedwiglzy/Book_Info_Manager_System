@@ -5,12 +5,14 @@ from django.shortcuts import render
 from django.template.loader import get_template
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse,Http404
-from django.template import Template,Context
+from django.http import HttpResponse, Http404
+from django.template import Template, Context
 from django.shortcuts import render_to_response
 from BIMS.models import User as mUser
 from .tools.forms import User as fUser
 import datetime
+
+
 # Create your views here.
 
 def hello(request):
@@ -31,10 +33,11 @@ def hello(request):
                 <p></p>
                 <div id = "path">访问地址为:%s</div>
               </body>
-            </html>''' % (now,request.path)
+            </html>''' % (now, request.path)
     return HttpResponse(html)
 
-def test_template(request,name,age):
+
+def test_template(request, name, age):
     raw_template = '''
               <html>
                 <title>template</title>
@@ -49,18 +52,23 @@ def test_template(request,name,age):
               '''
     age = int(age)
     tl_object = Template(raw_template)
-    ct_object = Context({'name':name,'age':age,'date': datetime.datetime.now()})
+    ct_object = Context({'name': name, 'age': age, 'date': datetime.datetime.now()})
     last_html = tl_object.render(ct_object)
     return HttpResponse(last_html)
+
 
 def test_login(request):
     return render_to_response('login.html')
 
-def get_user_info(request,user_id):
+
+def get_user_info(request, user_id):
     user_id = int(user_id)
     user = mUser.objects.get(user_id=user_id)
-    sex = {1:'男',2:'女',0:'其他'}
-    return render_to_response('user_info.html',{'user_name':user.user_name,'tel':user.tel,'email':user.email,'sex':sex[user.sex],'birthday':user.birthday,'locate':user.locate})
+    sex = {1: '男', 2: '女', 0: '其他'}
+    return render_to_response('user_info.html',
+                              {'user_name': user.user_name, 'tel': user.tel, 'email': user.email, 'sex': sex[user.sex],
+                               'birthday': user.birthday, 'locate': user.locate})
+
 
 def display_meta(request):
     values = request.META.items()
@@ -72,24 +80,39 @@ def display_meta(request):
     print(a)
     return HttpResponse('<table>%s</table>' % '\n'.join(html))
 
+
+# def register(request):
+#     if request.method == 'POST':
+#         form = fUser(request.POST)
+#         if form.is_valid():
+#             user_name = form.cleaned_data['user_name']
+#             password = form.cleaned_data['password']
+#             tel = form.cleaned_data['tel']
+#             email = form.cleaned_data['email']
+#             sex = form.cleaned_data['sex']
+#             birthday = form.cleaned_data['birthday']
+#             age = form.cleaned_data['tel']
+#             locate = form.cleaned_data['locate']
+#             remark = form.cleaned_data['remark']
+#             user = mUser(user_name=user_name, password=password, tel=tel, email=email,
+#                          sex=sex, birthday=birthday, age=age, locate=locate, remark=remark)
+#             user.save()
+#             return HttpResponse('注册成功!')
+#     else:
+#         form = fUser()
+#         print(form)
+#         return render_to_response('register.html', {'form': form})
+
 def register(request):
-    if request.method =='POST':
+    if request.method == 'POST':
         form = fUser(request.POST)
         if form.is_valid():
-            user_name = form.cleaned_data['user_name']
-            password  = form.cleaned_data['password']
-            tel       = form.cleaned_data['tel']
-            email     = form.cleaned_data['email']
-            sex       = form.cleaned_data['sex']
-            birthday  = form.cleaned_data['birthday']
-            age       = form.cleaned_data['tel']
-            locate    = form.cleaned_data['locate']
-            remark    = form.cleaned_data['remark']
-            user = mUser(user_name = user_name,password = password,tel= tel,email = email,
-                         sex = sex,birthday = birthday,age = age,locate = locate,remark = remark)
+            username = form.cleaned_data['username']
+            user = mUser(user_name=username)
             user.save()
             return HttpResponse('注册成功!')
     else:
         form = fUser()
         print(form)
-        return render_to_response('register.html',{'form':form})
+        return render_to_response('from_test.html', {'form': form})
+
