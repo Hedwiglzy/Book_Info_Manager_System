@@ -8,8 +8,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, Http404
 from django.template import Template, Context
 from django.shortcuts import render_to_response
-from BIMS.models import User as mUser
-from .tools.forms import User as fUser
+from BIMS.models import User
+from .tools.forms import RegisterForm
 import datetime
 
 
@@ -63,7 +63,7 @@ def test_login(request):
 
 def get_user_info(request, user_id):
     user_id = int(user_id)
-    user = mUser.objects.get(user_id=user_id)
+    user = User.objects.get(user_id=user_id)
     sex = {1: '男', 2: '女', 0: '其他'}
     return render_to_response('user_info.html',
                               {'user_name': user.user_name, 'tel': user.tel, 'email': user.email, 'sex': sex[user.sex],
@@ -105,14 +105,10 @@ def display_meta(request):
 
 def register(request):
     if request.method == 'POST':
-        form = fUser(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            user = mUser(user_name=username)
-            user.save()
+        register_form = RegisterForm(request.POST)
+        if register_form.is_valid():
             return HttpResponse('注册成功!')
     else:
-        form = fUser()
-        print(form)
-        return render_to_response('from_test.html', {'form': form})
+        register_form = RegisterForm()
+        return render_to_response('from_test.html', {'register_form': register_form})
 

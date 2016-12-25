@@ -1,12 +1,18 @@
-<!-- <!DOCTYPE html>
+{% load staticfiles %}
+<!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
 	<title>表单测试</title>
 	<style>
+		body {
+			background-image: url({% static 'image/background/6.png' %});
+			background-size: cover;
+		}
+
 		.top {
 			height: 30px;
 		}
@@ -24,6 +30,11 @@
 			text-align: center;
 		}
 
+		.c_sex {
+			width: 50px;
+			margin-bottom: 15px;
+		}
+
 		.a {
 			padding-left: 100px;
 			padding-right: 100px;
@@ -32,63 +43,114 @@
 </head>
 
 <body>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-12 top"></div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-4 welcome"></div>
-			<div class="col-lg-4 welcome">表单测试</div>
-			<div class="col-lg-4 welcome"></div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-4 middle"></div>
-
-			<div class="col-lg-4 middle m">
-				<form method="post" class="form-horizontal" role="form">
-					<div class="form-group a">
-
-						<div class="input-prepend input-group">
-							<span class="add-on input-group-addon">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-12 top"></div>
+	</div>
+	<div class="row">
+		<div class="col-lg-4 welcome"></div>
+		<div class="col-lg-4 welcome">欢迎注册图书管理系统</div>
+		<div class="col-lg-4 welcome"></div>
+	</div>
+	<div class="row">
+		<div class="col-lg-4 middle"></div>
+		<div class="col-lg-4 middle m">
+			<form  method="post" class="form-horizontal" role="form">
+				<div class="form-group a">
+					<div class="input-prepend input-group">
+                            <span class="add-on input-group-addon">
                             <i class="glyphicon glyphicon-user"></i>
                           </span>
-							<label for="username" class="sr-only"></label>
-							<input type="text" class="form-control" id="username" placeholder="输入用户名">
+						{{ register_form.username }}
+					</div>
+				</div>
+				<div class="form-group a">
+					<div class="input-prepend input-group">
+                            <span class="add-on input-group-addon">
+                              <i class="glyphicon glyphicon-eye-close"></i>
+                            </span>
+						{{ register_form.password }}
+					</div>
+				</div>
+				<div class="form-group a">
+					<div class="input-prepend input-group">
+                            <span class="add-on input-group-addon">
+                                <i class="glyphicon glyphicon-earphone"></i>
+                              </span>
+						{{ register_form.tel }}
+					</div>
+				</div>
+				<div class="form-group a">
+					<div class="input-prepend input-group">
+                            <span class="add-on input-group-addon">
+                                  <i class="glyphicon glyphicon-envelope"></i>
+                                </span>
+						{{ register_form.email }}
+					</div>
+				</div>
+
+{#					<div class="form-group a sex">#}
+{#						{{ register_form.sex }}1#}
+{#					</div>#}
+
+				<div class="form-group a sex">
+					{% for sex in register_form.sex %}
+					{{ sex }}
+					{% endfor %}
+				</div>
+
+<div class="form-group a">
+					<label for="sex" class="sr-only"></label>
+					<div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd"
+							 data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                            <span class="input-group-addon">
+                                  <i class="glyphicon glyphicon-calendar"></i>
+                                </span>
+						{{ register_form.birthday }}
+					</div>
+					<!-- <input type="hidden" id="dtp_input2" value="" /> -->
+				</div>
+
+				<div class="form-group a">
+					<div class="input-prepend input-group">
+                            <span class="add-on input-group-addon">
+                                  <i class="glyphicon glyphicon-pencil"></i>
+                              </span>
+						{{ register_form.introduce }}
+					</div>
+				</div>
+				<div data-toggle="distpicker">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group form-inline">
+								{{ register_form.province }}
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group form-inline">
+								{{ register_form.city }}
+							</div>
 						</div>
 					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-default btn-group-lg">注册</button>
+				</div>
 
-					<div class="form-group">
-						<button type="submit" class="btn btn-default btn-group-lg">注册</button>
-					</div>
-
-				</form>
-			</div>
-			<div class="col-lg-4 middle"></div>
+			</form>
 		</div>
+		<div class="col-lg-4 middle"></div>
 	</div>
-	<script type="text/javascript" src="../static/js/jquery.js"></script>
-	<script type="text/javascript" src="../static/js/bootstrap.js"></script>
-	<script type="text/javascript" src="../static/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
-	<script type="text/javascript" src="../static/js/bootstrap-datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
-	<script type="text/javascript" src="../static/js/bootstrap-datetimepicker/bootstrap-datetimepicker.main.js"></script>
-	<script type="text/javascript" src="../static/js/distpicker/distpicker.data.js"></script>
-	<script type="text/javascript" src="../static/js/distpicker/distpicker.js"></script>
-	<script type="text/javascript" src="../static/js/distpicker/main.js"></script>
+</div>
+	<script type="text/javascript" src={% static 'js/jquery.js' %}></script>
+	<script type="text/javascript" src={% static 'js/bootstrap.js' %}></script>
+	<script type="text/javascript" src={% static 'js/bootstrap-datetimepicker/bootstrap-datetimepicker.js' %}></script>
+	<script type="text/javascript" src={% static 'js/bootstrap-datetimepicker/bootstrap-datetimepicker.zh-CN.js' %}></script>
+	<script type="text/javascript" src={% static 'js/bootstrap-datetimepicker/bootstrap-datetimepicker.main.js' %}></script>
+	<script type="text/javascript" src={% static 'js/distpicker/distpicker.data.js' %}></script>
+	<script type="text/javascript" src={% static 'js/distpicker/distpicker.js' %}></script>
+	<script type="text/javascript" src={% static 'js/distpicker/main.js' %}></script>
 
 </body>
-
-</html> -->
-<html>
-<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
-<script type="text/javascript" src="../static/js/bootstrap.js"></script>
-<script type="text/javascript" src="../static/js/jquery.js"></script>
-<body>
-	{{ form.name_of_field }}
-		<input type="submit" value="Submit" />
-	</form>
-</body>
-
 
 </html>
