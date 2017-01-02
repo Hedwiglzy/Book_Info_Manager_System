@@ -1,64 +1,86 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
-    <script type="text/javascript"> 
-		function init(){ 
-			var text=document.getElementById("password"); 
-			text.onfocus=function(){ 
-				var p=this.parentNode; 
-				var password=document.createElement("input"); 
-				password.type="password"; 
-				p.replaceChild(password,this); 
-				window.setTimeout(function(){password.focus()},50); 
-			} 
-		} 
-window.onload=init; 
-</script> 
-    <style>
-        body{color:#1B9AF7;}
-		#s1{ height:500px;width:50%; float: left;}
-		#s10{ height:150px;width:100%;float:left;}
-		#s11{ height:50px;width:100%;float:left; font-family:"汉仪喵魂体W"; font-size:40px;text-align:end;}
-		#s12{ height:50px;width:100%;float:left; font-family:"汉仪喵魂体W"; font-size:40px;text-align:right;}
-		#s13{ height:250px;width:100%;float:left; font-family:"汉仪喵魂体W"; font-size:40px;text-align:right;}
-		#s2{ height:500px; width:4%; float:left;}
-		#s3{ height:500px; width:46%; float:right;}
-		#s30{ height:170px;width:100%;float:left;}
-		#s31{ height:50px;width:100%;float:left; font-family:"汉仪喵魂体W"; font-size:20px;text-align:left;}
-		#name{border-radius:5px;font-size:17px;font-family:"幼圆";}
-		#password{border-radius:5px;font-size:17px;font-family:"幼圆";}
-        footer{ height:50px;width:100%;float:left; font-family:"汉仪喵魂体W"; font-size:17px;text-align:center;position:fixed;bottom:0px;}
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-datetimepicker.css">
 
+    <title>注册</title>
+    <style>
+        body {
+            background-image: url(../static/image/background/6.png);
+            background-size: cover;
+        }
+
+        .top {
+            height: 100px;
+        }
+
+        .welcome {
+            height: 100px;
+            text-align: center;
+            font-family: HYMiaoHunTiW, Helvetica, Arial, sans-serif, serif;
+            font-size: 50px;
+            color: white;
+        }
+
+        .middle {
+            height: 500px;
+            text-align: center;
+        }
+
+        .a {
+            padding-left: 100px;
+            padding-right: 100px;
+        }
     </style>
-    <link rel="stylesheet" type="text/css" href="../static/css/buttons.css">
-        
-    <title>登录</title>
 </head>
+
 <body>
-    <section id="s1">
-    	<section id="s10"></section>
-    	<section id="s11">
-        Welcome
-        </section>
-        <section id="s12">
-        Book Information Manage System
-        </section>
-        <section id="s13">
-        beta
-        </section>
-    </section>
-    <section id="s2"></section>
-    <section id="s3">
-    	<section id="s30"></section>
-    	<section id="s31">
-    		<input type="text" id="name" size="20" maxlength="50" value="在此输入用户名">
-        <p></p>
-            <input type="text" id="password" size="20" maxlength="50" value="在此输入密码">
-        <p></p>
-            <input type="submit" id="login" value="登录" class="button button-pill button-primary">
-  		</section>
-    </section>
-    <footer>by hedwig</footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 top"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 welcome"></div>
+            <div class="col-lg-4 welcome">欢迎登录图书管理系统</div>
+            <div class="col-lg-4 welcome"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 middle"></div>
+            <div class="col-lg-4 middle m">
+                <form method="post" class="form-horizontal" role="form">
+                    <div class="form-group a">
+                        <div class="input-prepend input-group">
+                            <span class="add-on input-group-addon">
+              	              <i class="glyphicon glyphicon-user"></i>
+                            </span>
+                            <label for="username" class="sr-only"></label>
+														{{ LoginForm.username }}
+                        </div>
+                    </div>
+                    <div class="form-group a">
+                        <div class="input-prepend input-group">
+                            <span class="add-on input-group-addon">
+              	              <i class="glyphicon glyphicon-eye-close"></i>
+                            </span>
+                            <label for="password" class="sr-only"></label>
+														{{ LoginForm.password }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default btn-group-lg">登录</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-4 middle"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../static/js/jquery.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js"></script>
 </body>
+
 </html>

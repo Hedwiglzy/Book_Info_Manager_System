@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap-datetimepicker.css">
 
-	<title>register</title>
+	<title>注册</title>
 	<style>
 		body {
 			background-image: url(../static/image/background/6.png);
@@ -31,10 +31,6 @@
 			height: 500px;
 			text-align: center;
 		}
-		/*.c_sex {
-			width: 50px;
-			margin-bottom: 15px;
-		}*/
 
 		.sex {
 			margin-bottom: 10px;
@@ -64,67 +60,55 @@
 					<div class="form-group a">
 						<div class="input-prepend input-group">
 							<span class="add-on input-group-addon">
-                            <i class="glyphicon glyphicon-user"></i>
-                          </span>
+              	<i class="glyphicon glyphicon-user"></i>
+              </span>
 							<label for="username" class="sr-only"></label>
-							<input type="text" class="form-control" id="username" placeholder="输入用户名">
+							{{ register_form.username }}
 						</div>
 					</div>
 					<div class="form-group a">
 						<div class="input-prepend input-group">
 							<span class="add-on input-group-addon">
-                              <i class="glyphicon glyphicon-eye-close"></i>
-                            </span>
+              	<i class="glyphicon glyphicon-eye-close"></i>
+              </span>
 							<label for="password" class="sr-only"></label>
-							<input type="password" class="form-control" id="password" placeholder="输入密码">
-						</div>
-					</div>
-					<div class="form-group a">
-						<div class="input-prepend input-group">
-							<span class="add-on input-group-addon">
-                                <i class="glyphicon glyphicon-earphone"></i>
-                              </span>
-							<label for="tel" class="sr-only"></label>
-							<input type="text" class="form-control" id="tel" placeholder="输入手机号">
-						</div>
-					</div>
-					<div class="form-group a">
-						<div class="input-prepend input-group">
-							<span class="add-on input-group-addon">
-                                  <i class="glyphicon glyphicon-envelope"></i>
-                                </span>
-							<label for="email" class="sr-only"></label>
-							<input type="email" class="form-control" id="email" placeholder="输入邮箱">
+							{{ register_form.password }}
 						</div>
 					</div>
 
-					<!-- <div class="btn-group">
-						<label for="sex" class="sr-only"></label>
-						<button type="button" class="btn btn-default c_sex" id="sex" value="1">男</button>
-						<button type="button" class="btn btn-default c_sex" id="sex" value="2">女</button>
-						<button type="button" class="btn btn-default c_sex" id="sex" value="0">其他</button>
-					</div> -->
+					<div class="form-group a">
+						<div class="input-prepend input-group">
+							<span class="add-on input-group-addon">
+              	<i class="glyphicon glyphicon-earphone"></i>
+              </span>
+							<label for="tel" class="sr-only"></label>
+							{{ register_form.tel }}
+						</div>
+					</div>
+
+					<div class="form-group a">
+						<div class="input-prepend input-group">
+							<span class="add-on input-group-addon">
+              	<i class="glyphicon glyphicon-envelope"></i>
+              </span>
+							<label for="email" class="sr-only"></label>
+							{{ register_form.email }}
+						</div>
+					</div>
 
 					<div class="form-group a sex">
-						<label for="sex" class="sr-only">
-							<input type="radio" name="sex" id="sex1" value="1"> 男
-						</label>
-						<label for="sex" class="sr-only">
-							<input type="radio" name="sex" id="sex2" value="2"> 女
-						</label>
-						<label for="sex" class="sr-only">
-							<input type="radio" name="sex" id="sex0" value="0"> 其他
-						</label>
+						{% for radio in register_form.sex %}
+								{{ radio }}
+						{% endfor %}
 					</div>
 
 					<div class="form-group a">
-						<label for="sex" class="sr-only"></label>
 						<div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
 							<span class="input-group-addon">
-                                  <i class="glyphicon glyphicon-calendar"></i>
-                                </span>
+              <i class="glyphicon glyphicon-calendar"></i>
+              </span>
 							<label for="birthday" class="sr-only"></label>
-							<input class="form-control" type="text" value="" id="birthday" placeholder="输入生日" readonly>
+							{{ register_form.birthday }}
 						</div>
 						<!-- <input type="hidden" id="dtp_input2" value="" /> -->
 					</div>
@@ -132,28 +116,30 @@
 					<div class="form-group a">
 						<div class="input-prepend input-group">
 							<span class="add-on input-group-addon">
-                                  <i class="glyphicon glyphicon-pencil"></i>
-                              </span>
+              	<i class="glyphicon glyphicon-pencil"></i>
+              </span>
 							<label for="introduce" class="sr-only"></label>
-							<input type="text" class="form-control" id="username" placeholder="一句话介绍自己">
+							{{ register_form.introduce }}
 						</div>
 					</div>
+
 					<div data-toggle="distpicker">
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group form-inline">
 									<label class="sr-only" for="province"></label>
-									<select class="form-control" id="province"></select>
+									{{ register_form.province }}
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group form-inline">
 									<label class="sr-only" for="city"></label>
-									<select class="form-control" id="city"></select>
+									{{ register_form.city }}
 								</div>
 							</div>
 						</div>
 					</div>
+
 					<div class="form-group">
 						<button type="submit" class="btn btn-default btn-group-lg">注册</button>
 					</div>
