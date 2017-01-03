@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.template.loader import get_template
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
 from django.http import HttpResponse, Http404
 from django.template import Template, Context
 from django.shortcuts import render_to_response
@@ -36,10 +37,6 @@ def hello(request):
             </html>''' % (now, request.path)
     return HttpResponse(html)
 
-def test_login(request):
-    return render_to_response('login.html')
-
-
 def get_user_info(request, user_id):
     user_id = int(user_id)
     user = User.objects.get(user_id=user_id)
@@ -64,8 +61,8 @@ def register(request):
             age = int(str(datetime.date.today())[0:4]) - int(str(birthday)[0:4])
             user = User(user_name=username, password=password, tel=tel, email=email,
             birthday=birthday, age=age, sex=sex, locate=province+city, remark=remark)
-            # user.save()
-            return render_to_response('registersuccessed.html',)
+            user.save()
+            return render_to_response('register_successed.html', )
     else:
         register_form = RegisterForm()
         return render_to_response('register.html', {'register_form': register_form})
@@ -76,10 +73,14 @@ def login(request):
         if Login_Form.is_valid():
             username = Login_Form.cleaned_data['username']
             password = Login_Form.cleaned_data['password']
+            try:
+                User.objects.get(user_name=username)
+            except User.DoesNotExist:
+                return render_to_response('user_not_exist.html',)
             real_pswd = User.objects.get(user_name=username).password
             user_id = User.objects.get(user_name=username).user_id
             if password ==real_pswd:
-                return HttpResponseRedirect('/user/',)
+                return HttpResponseRedirect(reverse(get_user_info,args=[user_id]))
             else:
                 return HttpResponse('密码错误!')
     else:

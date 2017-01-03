@@ -21,10 +21,10 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     url(r'^admin/',admin.site.urls),
+    url(r'^favicon\.ico$',RedirectView.as_view(url = '/static/image/favicon.ico')),
     url(r'^hello/$',views.hello),
     url(r'^login/$',views.login),
     url(r'^user/(\d+)/$',views.get_user_info),
-    url(r'^favicon\.ico$',RedirectView.as_view(url = '/static/image/favicon.ico')),
-    url(r'register$',views.register),
+    url(r'^register/$',views.register),
 
 ]
