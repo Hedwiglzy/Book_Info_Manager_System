@@ -66,22 +66,39 @@
 			height: 70px;
 		}
 
+		.blank_2 {
+			height: 20px;
+		}
+
 		.img-thumbnail {
 			height: 200px;
 			width: 200px;
 		}
 
-		.info {
-			height: 200px;
-		}
-
-		.a,
-		.b {
+		.img {
 			border: 1px solid red;
 		}
 
-		.c {
-			height: 50px;
+		.userinfo {
+			border: 1px solid red;
+			height: 180px;
+			font-size: 16px;
+			font-family: 微软雅黑, sans-serif;
+		}
+
+		#username {
+			font-size: 26px;
+		}
+
+		.dl-horizontal dt {
+			width: 80px;
+			text-align: left;
+			padding-top: 10px;
+		}
+
+		.dl-horizontal dd {
+			margin-left: 80px;
+			padding-top: 10px;
 		}
 	</style>
 </head>
@@ -90,16 +107,18 @@
 	<nav class="navbar navbar-default navbar-fixed-top top" role="navigation">
 		<div class="row">
 			<div class="col-lg-2"></div>
-			<div class="col-lg-7">
+			<div class="col-lg-6">
 				<div class="container-fluid">
 					<a class="navbar-brand" href="#">图书管理系统</a>
 					<form class="navbar-form navbar-left" role="search">
+						<label for="screach" class="sr-only"></label>
 						<div class="input-group">
-							<!-- <label for="screach" class="sr-only"></label> -->
 							<input type="text" class="form-control" placeholder="输入你感兴趣的东西">
-							<div class="input-group-btn">
-								<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-							</div>
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default">
+									<span class="glyphicon glyphicon-search"></span>
+							</button>
+							</span>
 						</div>
 					</form>
 					<ul class="nav navbar-nav">
@@ -108,56 +127,48 @@
 						<li><a href="#">预留</a></li>
 						<li><a href="#">预留</a></li>
 					</ul>
-					<ul class=" nav navbar-nav navbar-right">
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<img alt="username" src="../static/image/tx.jpg" class="img-circle">
-								<span class="name">Hedwig</span>
-							</a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#">我的主页</a></li>
-								<li><a href="#">设置</a></li>
-								<li><a href="#">退出</a></li>
-							</ul>
-						</li>
-					</ul>
+
 				</div>
 			</div>
-			<div class="col-lg-3"></div>
+			<div class="col-lg-4">
+				<ul class=" nav navbar-nav navbar-left">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<img alt="username" src="../static/image/tx.jpg" class="img-circle">
+							<span class="name">Hedwiggg</span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">我的主页</a></li>
+							<li><a href="#">设置</a></li>
+							<li><a href="#">退出</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</nav>
 	<div class="row blank"></div>
 	</div>
 	<div class="row info">
 		<div class="col-lg-2"></div>
-		<div class="col-lg-2 a">
+		<div class="col-lg-2 img">
 			<img src="../static/image/owl.jpg" alt="haha" class="img-thumbnail">
 		</div>
-		<div class="col-lg-1 b">
-			<div class="row c">用户名:</div>
-			<div class="row c">手机号:</div>
-			<div class="row c">邮箱:</div>
-			<div class="row c">性别:</div>
+		<div class="row blank_2"></div>
+		<div class="col-lg-3 userinfo">
+			<dl class="dl-horizontal">
+				<dt>Hedwig</dt>
+				<dd>hahahahhahahah</dd>
+				<dt>邮箱</dt>
+				<dd>1432569378@qq.com</dd>
+				<dt>居住地</dt>
+				<dd>辽宁沈阳</dd>
+				<dt>性别</dt>
+				<dd>男</dd>
+				<dt>注册时间</dt>
+				<dd>2017-01-09</dd>
+			</dl>
 		</div>
-		<div class="col-lg-2 b">
-			<div class="row c">1</div>
-			<div class="row c">2</div>
-			<div class="row c">3</div>
-			<div class="row c">4</div>
-		</div>
-		<div class="col-lg-1 b">
-			<div class="row c">生日</div>
-			<div class="row c">地址</div>
-			<div class="row c">个人简介</div>
-			<div class="row c">注册时间</div>
-		</div>
-		<div class="col-lg-2 b">
-			<div class="row c">1</div>
-			<div class="row c">2</div>
-			<div class="row c">3</div>
-			<div class="row c">4</div>
-		</div>
-		<div class="col-lg-2"></div>
 	</div>
 	</div>
 
