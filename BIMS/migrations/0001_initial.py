@@ -27,6 +27,7 @@ class Migration(migrations.Migration):
                 ('locate', models.CharField(max_length=50, null=True)),
                 ('remark', models.CharField(max_length=500, null=True)),
                 ('image', models.ImageField(null=True, upload_to='')),
+                ('create_date',models.DateField(null=True)),
             ],
             options={
                 'verbose_name': 'user_info_detail',

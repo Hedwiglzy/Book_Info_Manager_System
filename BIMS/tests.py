@@ -13,8 +13,5 @@ import datetime
 # cursor = connection.cursor()
 #test git
 # birthday = '1995-10-02'
-# age = datetime.date.today().year - int(str(birthday)[0:4])
-# print(age)
-
-a = 2==2
-print(a)
+today = datetime.date.today()
+print(today)

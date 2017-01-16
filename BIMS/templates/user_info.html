@@ -1,17 +1,218 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-    <meta charset="UTF-8">
-    <title>个人信息</title>
-    <style>body{text-align: center;color: #1B9AF7;font-family:微软雅黑;font-size:10px}</style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/font-awesome.min.css">
+
+	<title>{{ user_name }}的主页</title>
+	<style>
+		.top {
+			background-image: linear-gradient(rgb(8, 110, 213), rgb(5, 93, 181));
+		}
+
+		.navbar-default .navbar-brand {
+			color: #ffffff;
+			font-family: Helvetica, sans-serif;
+		}
+
+		.navbar-default .navbar-brand:hover,
+		.navbar-default .navbar-brand:focus {
+			color: #ffffff;
+			background-color: transparent;
+		}
+
+		.navbar-default .navbar-nav>li>a {
+			color: #ffffff;
+			font-family: Helvetica, sans-serif;
+		}
+
+		.navbar-default .navbar-nav>li>a:hover,
+		.navbar-default .navbar-nav>li>a:focus {
+			color: #ffffff;
+			font-family: Helvetica, sans-serif;
+		}
+
+		.navbar-default .navbar-nav>.open>a,
+		.navbar-default .navbar-nav>.open>a:hover,
+		.navbar-default .navbar-nav>.open>a:focus {
+			color: #ffffff;
+			background-image: linear-gradient(rgb(8, 110, 213), rgb(5, 93, 181));
+		}
+
+		.dropdown-menu {
+			background-color: #095fb3;
+		}
+
+		.dropdown-menu>li>a {
+			color: #ffffff;
+			background-color: #095fb3;
+		}
+
+		.dropdown-menu>li>a:hover,
+		.dropdown-menu>li>a:focus {
+			color: #ffffff;
+			background-color: #095fb3;
+		}
+
+		.name {
+			margin-left: 5px;
+		}
+
+		.blank {
+			height: 70px;
+		}
+
+		.img-thumbnail {
+			height: 200px;
+			width: 200px;
+		}
+
+		.img {
+			height: 200px;
+			width: 200px;
+			padding: 0;
+			margin-right: 10px;
+		}
+
+		.userinfo {
+			height: 200px;
+			font-family: 微软雅黑, sans-serif;
+			color: #404040;
+		}
+
+		.userinfo_top {
+			font-family: 微软雅黑, sans-serif;
+			margin-bottom: 10px;
+		}
+
+		.username {
+			font-size: 26px;
+			color: black;
+		}
+
+		.remark {
+			height: 40px;
+			font-size: 18px;
+			padding-top: 12px;
+		}
+
+		.other_info {
+			height: 32px;
+			font-size: 16px;
+		}
+	</style>
 </head>
+
 <body>
-    <h1>个人信息</h1>
-    <p>用户名:{{ user_name }}</p>
-    <p>手机号:{{ tel }}</p>
-    <p>邮箱:{{ email }}</p>
-    <p>性别:{{ sex }}</p>
-    <p>生日:{{ birthday }}</p>
-    <p>地址:{{ locate }}</p>
+	<nav class="navbar navbar-default navbar-fixed-top top" role="navigation">
+		<div class="row">
+			<div class="col-lg-2"></div>
+			<div class="col-lg-6">
+				<div class="container-fluid">
+					<a class="navbar-brand" href="#">图书管理系统</a>
+					<form class="navbar-form navbar-left" role="search">
+						<label for="screach" class="sr-only"></label>
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="输入你感兴趣的东西">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default">
+									<span class="glyphicon glyphicon-search"></span>
+							</button>
+							</span>
+						</div>
+					</form>
+					<ul class="nav navbar-nav">
+						<li><a href="#">首页</a></li>
+						<li><a href="#">发现</a></li>
+						<li><a href="#">预留</a></li>
+						<li><a href="#">预留</a></li>
+					</ul>
+
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<ul class=" nav navbar-nav navbar-left">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<img alt="username" src="../../static/image/tx.jpg" class="img-circle">
+							<span class="name">{{ user_name }}</span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">我的主页</a></li>
+							<li><a href="#">设置</a></li>
+							<li><a href="#">退出</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="row blank"></div>
+	</div>
+	<div class="row info">
+		<div class="col-lg-2"></div>
+		<div class="col-lg-2 img">
+			<img src="../../static/image/owl.jpg" alt="haha" class="img-thumbnail">
+		</div>
+		<div class="col-lg-3 userinfo">
+			<div class="row userinfo_top">
+				<div class="col-lg-4 username">
+					{{ user_name }}
+				</div>
+				<div class="col-lg-8 remark">
+					{{ remark }}
+				</div>
+			</div>
+			<div class="row other_info">
+				<div class="col-lg-4">
+					邮箱
+				</div>
+				<div class="col-lg-8">
+					{{ email }}
+				</div>
+			</div>
+			<div class="row other_info">
+				<div class="col-lg-4">
+					所在地
+				</div>
+				<div class="col-lg-8">
+					{{ locate }}
+				</div>
+			</div>
+			<div class="row other_info">
+				<div class="col-lg-4">
+					生日
+				</div>
+				<div class="col-lg-8">
+					{{ birthday }}
+				</div>
+			</div>
+			<div class="row other_info">
+				<div class="col-lg-4">
+					性别
+				</div>
+				<div class="col-lg-8">
+					{{ sex }}
+				</div>
+			</div>
+			<div class="row other_info">
+				<div class="col-lg-4">
+					注册日期
+				</div>
+				<div class="col-lg-8">
+					{{ create_date }}
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<script type="text/javascript" src="../../static/js/jquery.js"></script>
+	<script type="text/javascript" src="../../static/js/bootstrap.js"></script>
 </body>
+
 </html>
+>

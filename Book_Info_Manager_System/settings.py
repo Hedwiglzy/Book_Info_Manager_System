@@ -144,4 +144,4 @@ STATIC_ROOT = os.path.join(BASE_DIR,'BIMS/static')
 #     ('image', os.path.join(STATIC_ROOT, 'image')),
 # )
 
-# favicon.cio
+# favicon.ico

@@ -42,8 +42,8 @@ def get_user_info(request, user_id):
     user = User.objects.get(user_id=user_id)
     sex = {1: '男', 2: '女', 0: '其他'}
     return render_to_response('user_info.html',
-                              {'user_name': user.user_name, 'tel': user.tel, 'email': user.email, 'sex': sex[user.sex],
-                               'birthday': user.birthday, 'locate': user.locate})
+                              {'user_name': user.user_name,'remark':user.remark,'email': user.email, 'sex': sex[user.sex],
+                               'birthday': user.birthday, 'locate': user.locate,'create_date':user.create_date})
 
 def register(request):
     if request.method == 'POST':
@@ -57,11 +57,13 @@ def register(request):
             birthday = register_form.cleaned_data['birthday']
             province = register_form.cleaned_data['province']
             city = register_form.cleaned_data['city']
-            remark = register_form.cleaned_data['introduce']
+            remark = register_form.cleaned_data['remark']
             age = int(str(datetime.date.today())[0:4]) - int(str(birthday)[0:4])
+            create_date = datetime.date.today()
             user = User(user_name=username, password=password, tel=tel, email=email,
-            birthday=birthday, age=age, sex=sex, locate=province+city, remark=remark)
+            birthday=birthday, age=age, sex=sex, locate=province+city, remark=remark,create_date=create_date)
             user.save()
+
             return render_to_response('register_successed.html', )
     else:
         register_form = RegisterForm()

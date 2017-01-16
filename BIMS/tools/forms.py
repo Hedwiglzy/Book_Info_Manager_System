@@ -19,7 +19,7 @@ class RegisterForm(forms.Form):
     birthday = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control' ,'id':'birthday', 'placeholder': '输入生日','value':'','readonly':'readonly'}),required=False)
     province = forms.CharField(widget=forms.Select(attrs={'class':'form-control','id':'province'}))
     city = forms.CharField(widget=forms.Select(attrs={'class':'form-control','id':'city'}))
-    introduce = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control' ,'id':'introduce', 'placeholder': '一句话介绍自己'}),required=False)
+    remark = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control' ,'id':'remark', 'placeholder': '一句话介绍自己'}),required=False)
     required_css_class = 'sr-only'
 
 class LoginForm(forms.Form):
