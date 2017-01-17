@@ -104,7 +104,7 @@
 			font-size: 16px;
 		}
 
-		.collection {
+		.my_collection {
 			margin-top: 20px;
 			height: 250px;
 			padding-left: 0px;
@@ -217,13 +217,19 @@
 	</div>
 	<div class="row ">
 		<div class="col-lg-2"></div>
-		<div class="col-lg-8 collection">
+		<div class="col-lg-8 my_collection">
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#">首页</a></li>
-				<li><a href="#">资讯</a></li>
-				<li><a href="#">产品</a></li>
-				<li><a href="#">关于</a></li>
+				<li class="active"><a href="#book" data-toggle='tab'>book</a></li>
+				<li><a href="#author" data-toggle='tab'>author</a></li>
+				<li><a href="#other" data-toggle='tab'>other</a></li>
+				<li><a href="#other2" data-toggle='tab'>other2</a></li>
 			</ul>
+			<div class="tab-content">
+				<div class="tab-pane fade  in active" id="book">book</div>
+				<div class="tab-pane fade" id="author">author</div>
+				<div class="tab-pane fade" id="other">other</div>
+				<div class="tab-pane fade" id="other2">other2</div>
+			</div>
 		</div>
 		<div class="col-lg-2"></div>
 	</div>
