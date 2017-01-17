@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css">
 
-	<title>{{ user_name }}的主页</title>
+	<title>Hedwig的主页</title>
 	<style>
 		.top {
 			background-image: linear-gradient(rgb(8, 110, 213), rgb(5, 93, 181));
@@ -103,6 +103,13 @@
 			height: 32px;
 			font-size: 16px;
 		}
+
+		.collection {
+			margin-top: 20px;
+			height: 250px;
+			padding-left: 0px;
+			padding-right: 0px;
+		}
 	</style>
 </head>
 
@@ -137,8 +144,8 @@
 				<ul class=" nav navbar-nav navbar-left">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<img alt="username" src="../static/image/tx.jpg" class="img-circle">
-							<span class="name">{{ user_name }}</span>
+							<img alt="username" src="../static/image/avatar/thumb/hedwig.jpg" class="img-circle">
+							<span class="name">Hedwig</span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="#">我的主页</a></li>
@@ -155,15 +162,15 @@
 	<div class="row info">
 		<div class="col-lg-2"></div>
 		<div class="col-lg-2 img">
-			<img src="../static/image/owl.jpg" alt="haha" class="img-thumbnail">
+			<img src="../static/image/avatar/hd/hedwig.jpg" alt="hedwig" class="img-thumbnail">
 		</div>
 		<div class="col-lg-3 userinfo">
 			<div class="row userinfo_top">
 				<div class="col-lg-4 username">
-					{{ user_name }}
+					Hedwig
 				</div>
 				<div class="col-lg-8 remark">
-					{{ remark }}
+					这是一段个人简介
 				</div>
 			</div>
 			<div class="row other_info">
@@ -171,7 +178,7 @@
 					邮箱
 				</div>
 				<div class="col-lg-8">
-					{{ email }}
+					1432659378@qq.com
 				</div>
 			</div>
 			<div class="row other_info">
@@ -179,7 +186,7 @@
 					所在地
 				</div>
 				<div class="col-lg-8">
-					{{ locate }}
+					辽宁沈阳
 				</div>
 			</div>
 			<div class="row other_info">
@@ -187,7 +194,7 @@
 					生日
 				</div>
 				<div class="col-lg-8">
-					{{ birthday }}
+					1995-10-02
 				</div>
 			</div>
 			<div class="row other_info">
@@ -195,12 +202,12 @@
 					性别
 				</div>
 				<div class="col-lg-8">
-					{{ sex }}
+					男
 				</div>
 			</div>
 			<div class="row other_info">
 				<div class="col-lg-4">
-					注册时间
+					注册日期
 				</div>
 				<div class="col-lg-8">
 					2017-01-16
@@ -208,17 +215,22 @@
 			</div>
 		</div>
 	</div>
+	<div class="row ">
+		<div class="col-lg-2"></div>
+		<div class="col-lg-8 collection">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#">首页</a></li>
+				<li><a href="#">资讯</a></li>
+				<li><a href="#">产品</a></li>
+				<li><a href="#">关于</a></li>
+			</ul>
+		</div>
+		<div class="col-lg-2"></div>
+	</div>
 	</div>
 
 	<script type="text/javascript" src="../static/js/jquery.js"></script>
 	<script type="text/javascript" src="../static/js/bootstrap.js"></script>
-	<script type="text/javascript" src="../static/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
-	<script type="text/javascript" src="../static/js/bootstrap-datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
-	<script type="text/javascript" src="../static/js/bootstrap-datetimepicker/bootstrap-datetimepicker.main.js"></script>
-	<script type="text/javascript" src="../static/js/distpicker/distpicker.data.js"></script>
-	<script type="text/javascript" src="../static/js/distpicker/distpicker.js"></script>
-	<script type="text/javascript" src="../static/js/distpicker/main.js"></script>
-
 </body>
 
 </html>

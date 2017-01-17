@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
 	<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/font-awesome.min.css">
-
 	<title>{{ user_name }}的主页</title>
 	<style>
 		.top {
@@ -137,7 +136,7 @@
 				<ul class=" nav navbar-nav navbar-left">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<img alt="username" src="../../static/image/tx.jpg" class="img-circle">
+							<img alt="{{ user_name }}" src="../../image/avatar/thumb/{{ user_name }}.jpg" class="img-circle">
 							<span class="name">{{ user_name }}</span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
@@ -155,7 +154,7 @@
 	<div class="row info">
 		<div class="col-lg-2"></div>
 		<div class="col-lg-2 img">
-			<img src="../../static/image/owl.jpg" alt="haha" class="img-thumbnail">
+			<img src="../../static/image/avatar/hd/{{ user_name }}.jpg" alt="{{ user_name }}" class="img-thumbnail">
 		</div>
 		<div class="col-lg-3 userinfo">
 			<div class="row userinfo_top">
