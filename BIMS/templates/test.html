@@ -106,9 +106,26 @@
 
 		.my_collection {
 			margin-top: 20px;
-			height: 250px;
+			height: 300px;
 			padding-left: 0px;
 			padding-right: 0px;
+		}
+
+		.book_info {
+			padding-left: 0px;
+			height: 255px;
+			text-align: center;
+		}
+
+		.book_cover {
+			height: 215px;
+			padding-top: 10px;
+			padding-left: 0px;
+		}
+
+		.author_info {
+			height: 255px;
+			background-color: #8be5f9;
 		}
 	</style>
 </head>
@@ -219,16 +236,72 @@
 		<div class="col-lg-2"></div>
 		<div class="col-lg-8 my_collection">
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#book" data-toggle='tab'>book</a></li>
-				<li><a href="#author" data-toggle='tab'>author</a></li>
-				<li><a href="#other" data-toggle='tab'>other</a></li>
-				<li><a href="#other2" data-toggle='tab'>other2</a></li>
+				<li class="active"><a href="#book_collections" data-toggle='tab'>收藏的图书</a></li>
+				<li><a href="#author_collections" data-toggle='tab'>收藏的作者</a></li>
+				<li><a href="#notes" data-toggle='tab'>读书笔记</a></li>
 			</ul>
 			<div class="tab-content">
-				<div class="tab-pane fade  in active" id="book">book</div>
-				<div class="tab-pane fade" id="author">author</div>
-				<div class="tab-pane fade" id="other">other</div>
-				<div class="tab-pane fade" id="other2">other2</div>
+				<div class="tab-pane fade  in active" id="book_collections">
+					<div class="col-lg-2 book_info">
+						<div class="book_cover">
+							<a href="#">
+								<img class=" img-thumbnail" src="../static/image/book/cover/肖申克的救赎.jpg" alt="肖申克的救赎" title="肖申克的救赎">
+							</a>
+						</div>
+						<div><a href="#"><strong>肖申克的救赎</strong></a></div>
+						<div><a href="#">斯蒂芬·金</a></div>
+					</div>
+					<div class="col-lg-2 book_info">
+						<div class="book_cover">
+							<a href="#">
+								<img class=" img-thumbnail" src="../static/image/book/cover/Pyhton学习手册.jpg" alt="Pyhton学习手册" title="Pyhton学习手册">
+							</a>
+						</div>
+						<div><a href="#"><strong>Pyhton学习手册</strong></a></div>
+						<div><a href="#">Mark Lutz</a></div>
+					</div>
+					<div class="col-lg-2 book_info">
+						<div class="book_cover">
+							<a href="#">
+								<img class=" img-thumbnail" src="../static/image/book/cover/龙纹身的女孩.jpg" alt="龙纹身的女孩" title="龙纹身的女孩">
+							</a>
+						</div>
+						<div><a href="#"><strong>龙纹身的女孩</strong></a></div>
+						<div><a href="#">斯蒂格·拉森 </a></div>
+					</div>
+					<div class="col-lg-2 book_info">
+						<div class="book_cover">
+							<a href="#">
+								<img class=" img-thumbnail" src="../static/image/book/cover/挪威的森林.jpg" alt="挪威的森林" title="挪威的森林">
+							</a>
+						</div>
+						<div><a href="#"><strong>挪威的森林</strong></a></div>
+						<div><a href="#">村上春树</a></div>
+					</div>
+					<div class="col-lg-2 book_info">
+						<div class="book_cover">
+							<a href="#">
+								<img class=" img-thumbnail" src="../static/image/book/cover/哈利波特.jpg" alt="哈利波特" title="哈利波特">
+							</a>
+						</div>
+						<div><a href="#"><strong>哈利波特</strong></a></div>
+						<div><a href="#">J·K·罗琳</a></div>
+					</div>
+					<div class="col-lg-2 book_info">
+						<div class="book_cover">
+							<a href="#">
+								<img class=" img-thumbnail" src="../static/image/book/cover/你的孤独,虽败犹荣.jpg" alt="你的孤独,虽败犹荣" title="你的孤独,虽败犹荣">
+							</a>
+						</div>
+						<div><a href="#"><strong>你的孤独,虽败犹荣</strong></a></div>
+						<div><a href="#">刘同</a></div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="author_collections">
+					<div class="row author_info"></div>
+					<div class="row author_info"></div>
+				</div>
+				<div class="tab-pane fade" id="notes">读书笔记</div>
 			</div>
 		</div>
 		<div class="col-lg-2"></div>
@@ -240,4 +313,3 @@
 </body>
 
 </html>
->
