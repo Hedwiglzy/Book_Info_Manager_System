@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css">
+
+    <title>Hedwig的主页</title>
+    <style>
+        .top {
+            background-image: linear-gradient(rgb(8, 110, 213), rgb(5, 93, 181));
+        }
+
+        .navbar-default .navbar-brand {
+            color: #ffffff;
+            font-family: Helvetica, sans-serif;
+        }
+
+        .navbar-default .navbar-brand:hover,
+        .navbar-default .navbar-brand:focus {
+            color: #ffffff;
+            background-color: transparent;
+        }
+
+        .navbar-default .navbar-nav>li>a {
+            color: #ffffff;
+            font-family: Helvetica, sans-serif;
+        }
+
+        .navbar-default .navbar-nav>li>a:hover,
+        .navbar-default .navbar-nav>li>a:focus {
+            color: #ffffff;
+            font-family: Helvetica, sans-serif;
+        }
+
+        .navbar-default .navbar-nav>.open>a,
+        .navbar-default .navbar-nav>.open>a:hover,
+        .navbar-default .navbar-nav>.open>a:focus {
+            color: #ffffff;
+            background-image: linear-gradient(rgb(8, 110, 213), rgb(5, 93, 181));
+        }
+
+        .dropdown-menu {
+            background-color: #095fb3;
+        }
+
+        .dropdown-menu>li>a {
+            color: #ffffff;
+            background-color: #095fb3;
+        }
+
+        .dropdown-menu>li>a:hover,
+        .dropdown-menu>li>a:focus {
+            color: #ffffff;
+            background-color: #095fb3;
+        }
+
+        .blank {
+            height: 70px;
+        }
+
+        .book_title {
+            height: 30px;
+            font-family: Helvetica, sans-serif;
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .book_infomation {
+            height: 280px;
+        }
+
+        .book_cover {
+            padding-top: 0px;
+            padding-left: 0px;
+        }
+
+        .book_info {
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+
+        .info_left,
+        .info_right {
+            height: 32px;
+            padding-left: 0;
+            font-size: 16px;
+            font-family: Helvetica, sans-serif;
+        }
+
+        .info_left {
+            padding-right: 0;
+            color: #666666;
+        }
+
+        .info_right {
+            margin-left: -15px;
+            border: 1px solid red;
+        }
+
+        footer {
+            color: #999;
+            margin-top: 30px;
+            text-align: center;
+            font-family: Helvetica, sans-serif;
+            border-top: 1px dashed;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top top" role="navigation">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-6">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">图书管理系统</a>
+                    <form class="navbar-form navbar-left" role="search">
+                        <label for="screach" class="sr-only"></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="输入你感兴趣的东西">
+                            <span class="input-group-btn">
+								<button type="button" class="btn btn-default">
+									<span class="glyphicon glyphicon-search"></span>
+                            </button>
+                            </span>
+                        </div>
+                    </form>
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">首页</a></li>
+                        <li><a href="#">发现</a></li>
+                        <li><a href="#">预留</a></li>
+                        <li><a href="#">预留</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <ul class=" nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img alt="username" src="../static/image/avatar/thumb/hedwig.jpg" class="img-circle">
+                            <span class="name">Hedwig</span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">我的主页</a></li>
+                            <li><a href="#">设置</a></li>
+                            <li><a href="#">退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="row blank"></div>
+    </div>
+    <div class="row book_title">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+            <span>嫌疑人X的献身</span>
+        </div>
+    </div>
+    <div class="row book_infomation">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+            <div class="col-lg-2 book_cover">
+                <a href="#">
+                    <img class=" img-thumbnail" src="../static/image/book/cover/嫌疑人X的献身.jpg" alt="Pyhton学习手册" title="Pyhton学习手册">
+                </a>
+            </div>
+            <div class="col-lg-3 book_info">
+                <div class="row info">
+                    <div class="col-lg-3 info_left">作者:</div>
+                    <div class="col-lg-9 info_right">东野圭吾</div>
+                </div>
+                <div class="row info">
+                    <div class="col-lg-3 info_left">出版社:</div>
+                    <div class="col-lg-9 info_right">南海出版公司</div>
+                </div>
+                <div class="row info">
+                    <div class="col-lg-3 info_left">译者:</div>
+                    <div class="col-lg-9 info_right">刘子倩</div>
+                </div>
+                <div class="row info">
+                    <div class="col-lg-3 info_left">出版年:</div>
+                    <div class="col-lg-9 info_right">2009年11月</div>
+                </div>
+                <div class="row info">
+                    <div class="col-lg-3 info_left">页数:</div>
+                    <div class="col-lg-9 info_right">251</div>
+                </div>
+                <div class="row info">
+                    <div class="col-lg-3 info_left">定价:</div>
+                    <div class="col-lg-9 info_right">19.80元</div>
+                </div>
+                <div class="row info">
+                    <div class="col-lg-3 info_left">装帧:</div>
+                    <div class="col-lg-9 info_right">平装</div>
+                </div>
+                <div class="row info">
+                    <div class="col-lg-3 info_left">ISBN:</div>
+                    <div class="col-lg-9 info_right">9787544245555</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript " src="../static/js/jquery.js "></script>
+    <script type="text/javascript " src="../static/js/bootstrap.js "></script>
+</body>
+
+</html>
