@@ -1,0 +1,114 @@
+.img-thumbnail {
+    height: 200px;
+    width: 200px;
+  }
+
+  .img {
+    height: 200px;
+    width: 200px;
+    padding: 0;
+    margin-right: 10px;
+  }
+
+  .userinfo {
+    height: 200px;
+    font-family: 微软雅黑, sans-serif;
+    color: #404040;
+  }
+
+  .userinfo_top {
+    font-family: 微软雅黑, sans-serif;
+    margin-bottom: 10px;
+  }
+
+  .username {
+    font-size: 26px;
+    color: black;
+  }
+
+  .remark {
+    height: 40px;
+    font-size: 18px;
+    padding-top: 12px;
+  }
+
+  .other_info {
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .my_collection {
+    margin-top: 20px;
+    height: 570px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .book_list {
+    margin-bottom: 5px;
+    margin-left: 0px;
+    height: 260px;
+  }
+
+  .book_info {
+    padding-left: 0px;
+    text-align: center;
+  }
+
+  .book_cover {
+    height: 215px;
+    padding-top: 10px;
+    padding-left: 0px;
+  }
+
+  .author_list {
+    height: 260px;
+    margin-bottom: 5px;
+  }
+
+  h1,
+  .h1,
+  h2,
+  .h2,
+  h3,
+  .h3 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+
+  .note_list {
+    margin-bottom: 5px;
+    margin-left: 0px;
+    height: 260px;
+  }
+
+  .note_top {
+    height: 30px;
+    margin-bottom: 10px;
+  }
+
+  .note_title {
+    height: 30px;
+    padding-left: 0;
+  }
+
+  .note_time {
+    height: 30px;
+    padding-top: 10px;
+    text-align: right;
+  }
+
+  .note_content {
+    height: 220px;
+    margin-left: -15px;
+    margin-top: 5px;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  footer {
+    color: #999;
+    margin-top: 30px;
+    text-align: center;
+    font-family: Helvetica, sans-serif;
+    border-top: 1px dashed;
+  }

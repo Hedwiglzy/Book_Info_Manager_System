@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/people.css">
+    <title>Hedwig的主页</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top top" role="navigation">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-6">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">图书管理系统</a>
+                    <form class="navbar-form navbar-left" role="search">
+                        <label for="screach" class="sr-only"></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="输入你感兴趣的东西">
+                            <span class="input-group-btn">
+								<button type="button" class="btn btn-default">
+									<span class="glyphicon glyphicon-search"></span>
+                            </button>
+                            </span>
+                        </div>
+                    </form>
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">首页</a></li>
+                        <li><a href="#">发现</a></li>
+                        <li><a href="#">预留</a></li>
+                        <li><a href="#">预留</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <ul class=" nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img alt="username" src="../static/image/avatar/thumb/hedwig.jpg" class="img-circle">
+                            <span class="name">Hedwig</span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">我的主页</a></li>
+                            <li><a href="#">设置</a></li>
+                            <li><a href="#">退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="row blank"></div>
+    <div class="row top_line">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2500">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="../static/image/top_line/1.jpg" alt="第一张">
+                </div>
+                <div class="item">
+                    <img src="../static/image/top_line/2.jpg" alt="第二张">
+                </div>
+                <div class="item">
+                    <img src="../static/image/top_line/3.jpg" alt="第三张">
+                </div>
+            </div>
+            <a href="#myCarousel" data-slide="prev" class="carousel-control left">&lsaquo;</a>
+            <a href="#myCarousel" data-slide="next" class="carousel-control right">&rsaquo;</a>
+        </div>
+    </div>
+    <div class="row hot_books">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="row hot_books_title">
+                热门书籍
+                <a href="#" class="more_books">更多>></a>
+            </div>
+            <div class="row book_list">
+                <div class="col-lg-2 book_info">
+                    <div class="book_cover">
+                        <a href="#">
+                            <img class=" img-thumbnail" src="../static/image/book/cover/肖申克的救赎.jpg" alt="肖申克的救赎" title="肖申克的救赎">
+                        </a>
+                    </div>
+                    <div><a href="#"><strong>肖申克的救赎</strong></a></div>
+                    <div><a href="#">斯蒂芬·金</a></div>
+                </div>
+                <div class="col-lg-2 book_info">
+                    <div class="book_cover">
+                        <a href="#">
+                            <img class=" img-thumbnail" src="../static/image/book/cover/Pyhton学习手册.jpg" alt="Pyhton学习手册" title="Pyhton学习手册">
+                        </a>
+                    </div>
+                    <div><a href="#"><strong>Pyhton学习手册</strong></a></div>
+                    <div><a href="#">Mark Lutz</a></div>
+                </div>
+                <div class="col-lg-2 book_info">
+                    <div class="book_cover">
+                        <a href="#">
+                            <img class=" img-thumbnail" src="../static/image/book/cover/龙纹身的女孩.jpg" alt="龙纹身的女孩" title="龙纹身的女孩">
+                        </a>
+                    </div>
+                    <div><a href="#"><strong>龙纹身的女孩</strong></a></div>
+                    <div><a href="#">斯蒂格·拉森 </a></div>
+                </div>
+                <div class="col-lg-2 book_info">
+                    <div class="book_cover">
+                        <a href="#">
+                            <img class=" img-thumbnail" src="../static/image/book/cover/挪威的森林.jpg" alt="挪威的森林" title="挪威的森林">
+                        </a>
+                    </div>
+                    <div><a href="#"><strong>挪威的森林</strong></a></div>
+                    <div><a href="#">村上春树</a></div>
+                </div>
+                <div class="col-lg-2 book_info">
+                    <div class="book_cover">
+                        <a href="#">
+                            <img class=" img-thumbnail" src="../static/image/book/cover/哈利波特与火焰杯.jpg" alt="哈利波特与火焰杯" title="哈利波特与火焰杯">
+                        </a>
+                    </div>
+                    <div><a href="#"><strong>哈利波特与火焰杯</strong></a></div>
+                    <div><a href="#">J. K. 罗琳</a></div>
+                </div>
+                <div class="col-lg-2 book_info">
+                    <div class="book_cover">
+                        <a href="#">
+                            <img class=" img-thumbnail" src="../static/image/book/cover/你的孤独,虽败犹荣.jpg" alt="你的孤独,虽败犹荣" title="你的孤独,虽败犹荣">
+                        </a>
+                    </div>
+                    <div><a href="#"><strong>你的孤独,虽败犹荣</strong></a></div>
+                    <div><a href="#">刘同</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row new_books">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="row new_books_title">
+                最新上架
+                <a href="#" class="more_books">更多>></a>
+            </div>
+            <div class="row book_list">
+                <div class="col-lg-2 book_info">
+                    <div class="book_cover">
+                        <a href="#">
+                            <img class=" img-thumbnail" src="../static/image/book/cover/肖申克的救赎.jpg" alt="肖申克的救赎" title="肖申克的救赎">
+                        </a>
+                    </div>
+                    <div><a href="#"><strong>肖申克的救赎</strong></a></div>
+                    <div><a href="#">斯蒂芬·金</a></div>
+                </div>
+                <div class="col-lg-2 book_info">
+                    <div class="book_cover">
+                        <a href="#">
+                            <img class=" img-thumbnail" src="../static/image/book/cover/Pyhton学习手册.jpg" alt="Pyhton学习手册" title="Pyhton学习手册">
+                        </a>
+                    </div>
+                    <div><a href="#"><strong>Pyhton学习手册</strong></a></div>
+                    <div><a href="#">Mark Lutz</a></div>
+                </div>
+                <div class="col-lg-2 book_info">
+                    <div class="book_cover">
+                        <a href="#">
+                            <img class=" img-thumbnail" src="../static/image/book/cover/龙纹身的女孩.jpg" alt="龙纹身的女孩" title="龙纹身的女孩">
+                        </a>
+                    </div>
+                    <div><a href="#"><strong>龙纹身的女孩</strong></a></div>
+                    <div><a href="#">斯蒂格·拉森 </a></div>
+                </div>
+                <div class="col-lg-2 book_info">
+                    <div class="book_cover">
+                        <a href="#">
+                            <img class=" img-thumbnail" src="../static/image/book/cover/挪威的森林.jpg" alt="挪威的森林" title="挪威的森林">
+                        </a>
+                    </div>
+                    <div><a href="#"><strong>挪威的森林</strong></a></div>
+                    <div><a href="#">村上春树</a></div>
+                </div>
+                <div class="col-lg-2 book_info">
+                    <div class="book_cover">
+                        <a href="#">
+                            <img class=" img-thumbnail" src="../static/image/book/cover/哈利波特与火焰杯.jpg" alt="哈利波特与火焰杯" title="哈利波特与火焰杯">
+                        </a>
+                    </div>
+                    <div><a href="#"><strong>哈利波特与火焰杯</strong></a></div>
+                    <div><a href="#">J. K. 罗琳</a></div>
+                </div>
+                <div class="col-lg-2 book_info">
+                    <div class="book_cover">
+                        <a href="#">
+                            <img class=" img-thumbnail" src="../static/image/book/cover/你的孤独,虽败犹荣.jpg" alt="你的孤独,虽败犹荣" title="你的孤独,虽败犹荣">
+                        </a>
+                    </div>
+                    <div><a href="#"><strong>你的孤独,虽败犹荣</strong></a></div>
+                    <div><a href="#">刘同</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row labels">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="row labels_title">
+                全部分类
+            </div>
+            <div class="">
+                <div class="">
+                    <h4>文学 · · · · · · </h4>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><a href="/tag/小说">小说</a><span class="badge">4359516</span></td>
+                                <td><a href="/tag/外国文学">外国文学</a><span class="badge">1489415</span></td>
+                                <td><a href="/tag/文学">文学</a><span class="badge">1102112</span></td>
+                                <td><a href="/tag/随笔">随笔</a><span class="badge">945262</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/中国文学">中国文学</a><span class="badge">783422</span></td>
+                                <td><a href="/tag/经典">经典</a><span class="badge">660590</span></td>
+                                <td><a href="/tag/日本文学">日本文学</a><span class="badge">614667</span></td>
+                                <td><a href="/tag/散文">散文</a><span class="badge">577646</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/村上春树">村上春树</a><span class="badge">383674</span></td>
+                                <td><a href="/tag/诗歌">诗歌</a><span class="badge">262838</span></td>
+                                <td><a href="/tag/童话">童话</a><span class="badge">257196</span></td>
+                                <td><a href="/tag/杂文">杂文</a><span class="badge">191015</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/王小波">王小波</a><span class="badge">188639</span></td>
+                                <td><a href="/tag/古典文学">古典文学</a><span class="badge">183328</span></td>
+                                <td><a href="/tag/儿童文学">儿童文学</a><span class="badge">183198</span></td>
+                                <td><a href="/tag/张爱玲">张爱玲</a><span class="badge">171434</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/名著">名著</a><span class="badge">169006</span></td>
+                                <td><a href="/tag/余华">余华</a><span class="badge">167000</span></td>
+                                <td><a href="/tag/当代文学">当代文学</a><span class="badge">101884</span></td>
+                                <td><a href="/tag/钱钟书">钱钟书</a><span class="badge">90125</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/鲁迅">鲁迅</a><span class="badge">74786</span></td>
+                                <td><a href="/tag/外国名著">外国名著</a><span class="badge">74389</span></td>
+                                <td><a href="/tag/诗词">诗词</a><span class="badge">61879</span></td>
+                                <td><a href="/tag/茨威格">茨威格</a><span class="badge">53441</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/米兰·昆德拉">米兰·昆德拉</a><span class="badge">47343</span></td>
+                                <td><a href="/tag/杜拉斯">杜拉斯</a><span class="badge">41536</span></td>
+                                <td><a href="/tag/港台">港台</a><span class="badge">6615</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="">
+                    <h4>流行 · · · · · · </h4>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><a href="/tag/漫画">漫画</a><span class="badge">1127760</span></td>
+                                <td><a href="/tag/绘本">绘本</a><span class="badge">783487</span></td>
+                                <td><a href="/tag/推理">推理</a><span class="badge">749922</span></td>
+                                <td><a href="/tag/青春">青春</a><span class="badge">568420</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/言情">言情</a><span class="badge">427042</span></td>
+                                <td><a href="/tag/科幻">科幻</a><span class="badge">423091</span></td>
+                                <td><a href="/tag/东野圭吾">东野圭吾</a><span class="badge">394778</span></td>
+                                <td><a href="/tag/悬疑">悬疑</a><span class="badge">355290</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/武侠">武侠</a><span class="badge">280585</span></td>
+                                <td><a href="/tag/奇幻">奇幻</a><span class="badge">270053</span></td>
+                                <td><a href="/tag/韩寒">韩寒</a><span class="badge">256439</span></td>
+                                <td><a href="/tag/日本漫画">日本漫画</a><span class="badge">248447</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/耽美">耽美</a><span class="badge">227285</span></td>
+                                <td><a href="/tag/亦舒">亦舒</a><span class="badge">222103</span></td>
+                                <td><a href="/tag/三毛">三毛</a><span class="badge">184716</span></td>
+                                <td><a href="/tag/推理小说">推理小说</a><span class="badge">176125</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/网络小说">网络小说</a><span class="badge">174232</span></td>
+                                <td><a href="/tag/安妮宝贝">安妮宝贝</a><span class="badge">170161</span></td>
+                                <td><a href="/tag/郭敬明">郭敬明</a><span class="badge">149258</span></td>
+                                <td><a href="/tag/穿越">穿越</a><span class="badge">140847</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/金庸">金庸</a><span class="badge">135546</span></td>
+                                <td><a href="/tag/轻小说">轻小说</a><span class="badge">131421</span></td>
+                                <td><a href="/tag/阿加莎·克里斯蒂">阿加莎·克里斯蒂</a><span class="badge">122950</span></td>
+                                <td><a href="/tag/几米">几米</a><span class="badge">112638</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/魔幻">魔幻</a><span class="badge">100071</span></td>
+                                <td><a href="/tag/青春文学">青春文学</a><span class="badge">97527</span></td>
+                                <td><a href="/tag/张小娴">张小娴</a><span class="badge">96571</span></td>
+                                <td><a href="/tag/幾米">幾米</a><span class="badge">96194</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/科幻小说">科幻小说</a><span class="badge">92925</span></td>
+                                <td><a href="/tag/J.K.罗琳">J.K.罗琳</a><span class="badge">78471</span></td>
+                                <td><a href="/tag/高木直子">高木直子</a><span class="badge">69960</span></td>
+                                <td><a href="/tag/古龙">古龙</a><span class="badge">68265</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/沧月">沧月</a><span class="badge">63783</span></td>
+                                <td><a href="/tag/落落">落落</a><span class="badge">58353</span></td>
+                                <td><a href="/tag/张悦然">张悦然</a><span class="badge">56840</span></td>
+                                <td><a href="/tag/校园">校园</a><span class="badge">51579</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="">
+                    <h4>文化 · · · · · · </h4>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><a href="/tag/历史">历史</a><span class="badge">1592243</span></td>
+                                <td><a href="/tag/心理学">心理学</a><span class="badge">1045998</span></td>
+                                <td><a href="/tag/哲学">哲学</a><span class="badge">876924</span></td>
+                                <td><a href="/tag/传记">传记</a><span class="badge">637631</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/文化">文化</a><span class="badge">570970</span></td>
+                                <td><a href="/tag/社会学">社会学</a><span class="badge">497485</span></td>
+                                <td><a href="/tag/艺术">艺术</a><span class="badge">371532</span></td>
+                                <td><a href="/tag/设计">设计</a><span class="badge">340367</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/社会">社会</a><span class="badge">281016</span></td>
+                                <td><a href="/tag/政治">政治</a><span class="badge">279005</span></td>
+                                <td><a href="/tag/建筑">建筑</a><span class="badge">234120</span></td>
+                                <td><a href="/tag/宗教">宗教</a><span class="badge">207604</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/电影">电影</a><span class="badge">197806</span></td>
+                                <td><a href="/tag/数学">数学</a><span class="badge">179665</span></td>
+                                <td><a href="/tag/政治学">政治学</a><span class="badge">170532</span></td>
+                                <td><a href="/tag/回忆录">回忆录</a><span class="badge">134427</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/思想">思想</a><span class="badge">124726</span></td>
+                                <td><a href="/tag/中国历史">中国历史</a><span class="badge">124703</span></td>
+                                <td><a href="/tag/国学">国学</a><span class="badge">116993</span></td>
+                                <td><a href="/tag/音乐">音乐</a><span class="badge">100203</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/人文">人文</a><span class="badge">96676</span></td>
+                                <td><a href="/tag/人物传记">人物传记</a><span class="badge">89958</span></td>
+                                <td><a href="/tag/戏剧">戏剧</a><span class="badge">87354</span></td>
+                                <td><a href="/tag/绘画">绘画</a><span class="badge">86975</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/艺术史">艺术史</a><span class="badge">81092</span></td>
+                                <td><a href="/tag/佛教">佛教</a><span class="badge">58236</span></td>
+                                <td><a href="/tag/军事">军事</a><span class="badge">56128</span></td>
+                                <td><a href="/tag/西方哲学">西方哲学</a><span class="badge">50255</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/近代史">近代史</a><span class="badge">49335</span></td>
+                                <td><a href="/tag/二战">二战</a><span class="badge">49107</span></td>
+                                <td><a href="/tag/考古">考古</a><span class="badge">40000</span></td>
+                                <td><a href="/tag/自由主义">自由主义</a><span class="badge">37901</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/美术">美术</a><span class="badge">28311</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="">
+                    <h4>生活 · · · · · · </h4>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><a href="/tag/爱情">爱情</a><span class="badge">678924</span></td>
+                                <td><a href="/tag/旅行">旅行</a><span class="badge">511653</span></td>
+                                <td><a href="/tag/生活">生活</a><span class="badge">400751</span></td>
+                                <td><a href="/tag/成长">成长</a><span class="badge">354743</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/励志">励志</a><span class="badge">325588</span></td>
+                                <td><a href="/tag/心理">心理</a><span class="badge">278475</span></td>
+                                <td><a href="/tag/摄影">摄影</a><span class="badge">250096</span></td>
+                                <td><a href="/tag/女性">女性</a><span class="badge">212972</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/职场">职场</a><span class="badge">172105</span></td>
+                                <td><a href="/tag/美食">美食</a><span class="badge">161803</span></td>
+                                <td><a href="/tag/教育">教育</a><span class="badge">154321</span></td>
+                                <td><a href="/tag/游记">游记</a><span class="badge">132724</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/灵修">灵修</a><span class="badge">109000</span></td>
+                                <td><a href="/tag/健康">健康</a><span class="badge">64199</span></td>
+                                <td><a href="/tag/情感">情感</a><span class="badge">62725</span></td>
+                                <td><a href="/tag/手工">手工</a><span class="badge">36679</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/两性">两性</a><span class="badge">31332</span></td>
+                                <td><a href="/tag/养生">养生</a><span class="badge">30992</span></td>
+                                <td><a href="/tag/人际关系">人际关系</a><span class="badge">25366</span></td>
+                                <td><a href="/tag/家居">家居</a><span class="badge">17478</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/自助游">自助游</a><span class="badge">2547</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="">
+                    <h4>经管 · · · · · · </h4>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><a href="/tag/经济学">经济学</a><span class="badge">342316</span></td>
+                                <td><a href="/tag/管理">管理</a><span class="badge">333554</span></td>
+                                <td><a href="/tag/经济">经济</a><span class="badge">270309</span></td>
+                                <td><a href="/tag/商业">商业</a><span class="badge">224916</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/金融">金融</a><span class="badge">220899</span></td>
+                                <td><a href="/tag/投资">投资</a><span class="badge">174969</span></td>
+                                <td><a href="/tag/营销">营销</a><span class="badge">122673</span></td>
+                                <td><a href="/tag/创业">创业</a><span class="badge">88901</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/理财">理财</a><span class="badge">84626</span></td>
+                                <td><a href="/tag/广告">广告</a><span class="badge">55561</span></td>
+                                <td><a href="/tag/股票">股票</a><span class="badge">49819</span></td>
+                                <td><a href="/tag/企业史">企业史</a><span class="badge">15891</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/策划">策划</a><span class="badge">7059</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="">
+                    <h4>科技 · · · · · · </h4>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><a href="/tag/科普">科普</a><span class="badge">424191</span></td>
+                                <td><a href="/tag/互联网">互联网</a><span class="badge">191457</span></td>
+                                <td><a href="/tag/编程">编程</a><span class="badge">128254</span></td>
+                                <td><a href="/tag/科学">科学</a><span class="badge">97143</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/交互设计">交互设计</a><span class="badge">59652</span></td>
+                                <td><a href="/tag/用户体验">用户体验</a><span class="badge">47468</span></td>
+                                <td><a href="/tag/算法">算法</a><span class="badge">42012</span></td>
+                                <td><a href="/tag/web">web</a><span class="badge">20191</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/科技">科技</a><span class="badge">16774</span></td>
+                                <td><a href="/tag/UE">UE</a><span class="badge">4599</span></td>
+                                <td><a href="/tag/通信">通信</a><span class="badge">4198</span></td>
+                                <td><a href="/tag/交互">交互</a><span class="badge">4047</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/tag/UCD">UCD</a><span class="badge">3441</span></td>
+                                <td><a href="/tag/神经网络">神经网络</a><span class="badge">1844</span></td>
+                                <td><a href="/tag/程序">程序</a><span class="badge">1116</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row footer">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <footer>
+                <h5>Design by Hedwig</h5></footer>
+        </div>
+        <div class="col-lg-4">
+        </div>
+    </div>
+    <script type="text/javascript " src="../static/js/jquery.js "></script>
+    <script type="text/javascript " src="../static/js/bootstrap.js "></script>
+</body>
+
+</html>

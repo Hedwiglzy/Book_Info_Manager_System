@@ -1,17 +1,70 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
-    <style>
-		body{ font-family: "汉仪喵魂体W"; text-align:center;}
-        footer{ height:50px;width:100%;float:left; font-family:"汉仪喵魂体W"; font-size:17px;text-align:center;position:fixed;bottom:0px;}
-
-    </style>
-    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/navbar.css">
+    <title>Hedwig的主页</title>
 </head>
+
 <body>
-    <h1>Welcome Django</h1>
-    {% block content %}{% endblock %}
-    {% block footer %}{% endblock %}
+    <nav class="navbar navbar-default navbar-fixed-top top" role="navigation">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-6">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">图书管理系统</a>
+                    <form class="navbar-form navbar-left" role="search">
+                        <label for="screach" class="sr-only"></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="输入你感兴趣的东西">
+                            <span class="input-group-btn">
+								<button type="button" class="btn btn-default">
+									<span class="glyphicon glyphicon-search"></span>
+                            </button>
+                            </span>
+                        </div>
+                    </form>
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">首页</a></li>
+                        <li><a href="#">发现</a></li>
+                        <li><a href="#">预留</a></li>
+                        <li><a href="#">预留</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <ul class=" nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img alt="username" src="../static/image/avatar/thumb/hedwig.jpg" class="img-circle">
+                            <span class="name">Hedwig</span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">我的主页</a></li>
+                            <li><a href="#">设置</a></li>
+                            <li><a href="#">退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="row blank"></div>
+    <div class="row footer">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <footer>
+                <h5>Design by Hedwig</h5></footer>
+        </div>
+        <div class="col-lg-4">
+        </div>
+    </div>
+    <script type="text/javascript " src="../static/js/jquery.js "></script>
+    <script type="text/javascript " src="../static/js/bootstrap.js "></script>
 </body>
+
 </html>

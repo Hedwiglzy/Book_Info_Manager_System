@@ -1,0 +1,39 @@
+.hot_books,
+.new_books,
+.labels{
+  height: 300px;
+  margin-bottom: 5px;
+}
+.hot_books_title,
+.new_books_title,
+.labels_title{
+  height: 40px;
+  font-size: 25px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  margin-left: 0px;
+  margin-right:0px;
+}
+.more_books{
+  font-size: 14px;
+}
+.top_line{
+  height: 500px;
+  margin-bottom: 20px;
+}
+.blank{
+  height: 50px;
+}
+h4,.h4{
+  font-weight: bold;
+}
+tbody{
+  font-size: 18px;
+}
+td{
+  width: 200px;
+  height: 25px;
+}
+.badge{
+  margin-left: 5px;
+}

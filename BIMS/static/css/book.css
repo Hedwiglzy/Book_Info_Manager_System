@@ -1,0 +1,172 @@
+
+    .book_title {
+        height: 30px;
+        font-family: Helvetica, sans-serif;
+        font-size: 26px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .book_infomation {
+        height: 280px;
+    }
+
+    .book_cover {
+        padding-top: 0px;
+        padding-left: 0px;
+    }
+
+    .book_info {
+        margin-top: 10px;
+        margin-left: 20px;
+    }
+
+    .info_left,
+    .info_right {
+        height: 32px;
+        padding-left: 0;
+        font-size: 16px;
+        font-family: Helvetica, sans-serif;
+    }
+
+    .info_left {
+        padding-right: 0;
+        color: #666666;
+    }
+
+    .info_right {
+        margin-left: -15px;
+    }
+
+    .book_score {
+        height: 260px;
+        border-left: 1px solid #eaeaea;
+        text-align: center;
+    }
+
+    .score_title {
+        font-size: 20px;
+        font-family: Helvetica, sans-serif;
+    }
+
+    .score {
+        font-size: 30px;
+        font-family: Helvetica, sans-serif;
+    }
+
+    .star {
+        background: -webkit-image-set(url(../static/image/system/star.png) 1x, url(../static/image/system/big_star.png) 2x) no-repeat;
+        display: inline-block;
+        zoom: 1;
+        width: 75px;
+        height: 15px;
+        margin: 1px 0 0 0;
+        overflow: hidden;
+    }
+
+    .star {
+        background-position-x: 0px;
+        background-position-y: -15px;
+    }
+
+    .my_score {
+        margin-top: 30px;
+    }
+
+    .star_list,
+    .my_score_title,
+    .my_colleciton_title {
+        padding-left: 0;
+        padding-right: 0;
+        font-size: 14px;
+    }
+
+    .my_score_title,
+    .my_colleciton_title {
+        margin-left: 15px;
+        padding-top: 1px;
+    }
+
+    a:hover,
+    a:focus {
+        text-decoration: none;
+    }
+
+    .is_colleciton {
+        margin-top: 10px;
+    }
+
+    .book_introduction {
+        height: 100px;
+    }
+
+    .book_introduction_title,
+    .author_introduction_title,
+    .short_reviews_title {
+        font-size: 16px;
+        font-family: Helvetica, sans-serif;
+        margin-bottom: 5px;
+        color: #095fb3;
+    }
+
+    .author_introduction {
+        height: 200px;
+    }
+
+    .short_reviews {
+        height: 360px;
+    }
+
+    .short_review {
+        height: 65px;
+        border-bottom-color: #DDDDDD;
+        border-bottom-style: dashed;
+        border-bottom-width: 1px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .short_review_info {
+        height: 20px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .short_review_time {
+        margin-left: 10px;
+        color: #666666;
+    }
+
+    .short_review_content {
+        height: 45px;
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 1px;
+        font-family: Helvetica, sans-serif;
+    }
+
+    .notes {
+        height: 300px;
+    }
+
+    .note_top {
+        height: 30px;
+        margin-bottom: 10px;
+    }
+
+    .note_title {
+        height: 30px;
+    }
+
+    .note_time {
+        height: 30px;
+        padding-top: 10px;
+        text-align: right;
+        color: #666666;
+    }
+
+    .note_content {
+        height: 220px;
+        margin-top: 5px;
+        font-family: Helvetica, Arial, sans-serif;
+    }
