@@ -1,0 +1,20 @@
+body {
+    background-size: cover;
+  }
+
+  .top {
+    height: 200px;
+  }
+
+  .welcome {
+    height: 100px;
+    text-align: center;
+    font-family: HYMiaoHunTiW, Helvetica, Arial, sans-serif, serif;
+    font-size: 50px;
+    color: white;
+  }
+
+  .middle {
+    height: 200px;
+    text-align: center;
+  }

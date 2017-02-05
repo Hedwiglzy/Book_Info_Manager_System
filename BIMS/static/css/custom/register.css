@@ -1,0 +1,30 @@
+body {
+    background-image: url(../static/image/background/6.png);
+    background-size: cover;
+  }
+
+  .top {
+    height: 30px;
+  }
+
+  .welcome {
+    height: 100px;
+    text-align: center;
+    font-family: HYMiaoHunTiW, Helvetica, Arial, sans-serif, serif;
+    font-size: 50px;
+    color: white;
+  }
+
+  .middle {
+    height: 500px;
+    text-align: center;
+  }
+
+  .sex {
+    margin-bottom: 10px;
+  }
+
+  .a {
+    padding-left: 100px;
+    padding-right: 100px;
+  }

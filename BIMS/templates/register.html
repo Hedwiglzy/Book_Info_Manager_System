@@ -4,43 +4,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap-datetimepicker.css">
-
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap/bootstrap-datetimepicker.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/custom/register.css">
 	<title>注册</title>
-	<style>
-		body {
-			background-image: url(../static/image/background/6.png);
-			background-size: cover;
-		}
-
-		.top {
-			height: 30px;
-		}
-
-		.welcome {
-			height: 100px;
-			text-align: center;
-			font-family: HYMiaoHunTiW, Helvetica, Arial, sans-serif, serif;
-			font-size: 50px;
-			color: white;
-		}
-
-		.middle {
-			height: 500px;
-			text-align: center;
-		}
-
-		.sex {
-			margin-bottom: 10px;
-		}
-
-		.a {
-			padding-left: 100px;
-			padding-right: 100px;
-		}
-	</style>
 </head>
 
 <body>
@@ -62,8 +30,7 @@
 							<span class="add-on input-group-addon">
               	<i class="glyphicon glyphicon-user"></i>
               </span>
-							<label for="username" class="sr-only"></label>
-							{{ register_form.username }}
+							<label for="username" class="sr-only"></label> {{ register_form.username }}
 						</div>
 					</div>
 					<div class="form-group a">
@@ -71,8 +38,7 @@
 							<span class="add-on input-group-addon">
               	<i class="glyphicon glyphicon-eye-close"></i>
               </span>
-							<label for="password" class="sr-only"></label>
-							{{ register_form.password }}
+							<label for="password" class="sr-only"></label> {{ register_form.password }}
 						</div>
 					</div>
 
@@ -81,8 +47,7 @@
 							<span class="add-on input-group-addon">
               	<i class="glyphicon glyphicon-earphone"></i>
               </span>
-							<label for="tel" class="sr-only"></label>
-							{{ register_form.tel }}
+							<label for="tel" class="sr-only"></label> {{ register_form.tel }}
 						</div>
 					</div>
 
@@ -91,15 +56,12 @@
 							<span class="add-on input-group-addon">
               	<i class="glyphicon glyphicon-envelope"></i>
               </span>
-							<label for="email" class="sr-only"></label>
-							{{ register_form.email }}
+							<label for="email" class="sr-only"></label> {{ register_form.email }}
 						</div>
 					</div>
 
 					<div class="form-group a sex">
-						{% for radio in register_form.sex %}
-								{{ radio }}
-						{% endfor %}
+						{% for radio in register_form.sex %} {{ radio }} {% endfor %}
 					</div>
 
 					<div class="form-group a">
@@ -107,8 +69,7 @@
 							<span class="input-group-addon">
               <i class="glyphicon glyphicon-calendar"></i>
               </span>
-							<label for="birthday" class="sr-only"></label>
-							{{ register_form.birthday }}
+							<label for="birthday" class="sr-only"></label> {{ register_form.birthday }}
 						</div>
 						<!-- <input type="hidden" id="dtp_input2" value="" /> -->
 					</div>
@@ -118,8 +79,7 @@
 							<span class="add-on input-group-addon">
               	<i class="glyphicon glyphicon-pencil"></i>
               </span>
-							<label for="remark" class="sr-only"></label>
-							{{ register_form.remark }}
+							<label for="remark" class="sr-only"></label> {{ register_form.remark }}
 						</div>
 					</div>
 
@@ -127,14 +87,12 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group form-inline">
-									<label class="sr-only" for="province"></label>
-									{{ register_form.province }}
+									<label class="sr-only" for="province"></label> {{ register_form.province }}
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group form-inline">
-									<label class="sr-only" for="city"></label>
-									{{ register_form.city }}
+									<label class="sr-only" for="city"></label> {{ register_form.city }}
 								</div>
 							</div>
 						</div>

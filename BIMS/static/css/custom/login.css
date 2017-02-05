@@ -1,0 +1,26 @@
+
+    body {
+        background-size: cover;
+    }
+
+    .top {
+        height: 100px;
+    }
+
+    .welcome {
+        height: 100px;
+        text-align: center;
+        font-family: Ping Hei, Helvetica, Arial, sans-serif, serif;
+        font-size: 50px;
+        color: #095fb3;
+    }
+
+    .middle {
+        height: 500px;
+        text-align: center;
+    }
+
+    .a {
+        padding-left: 100px;
+        padding-right: 100px;
+    }
