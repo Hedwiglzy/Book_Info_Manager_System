@@ -2,13 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import datetime
+
 from django.core.urlresolvers import reverse
-from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect, render, render_to_response
-from django.template import Context, Template
-from django.template.loader import get_template
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render_to_response
+
 from BIMS.models import User
 from .tools.forms import LoginForm, RegisterForm
+
+
 # Create your views here.
 
 def hello(request):
@@ -37,8 +39,9 @@ def get_user_info(request, user_id):
     user_id = int(user_id)
     user = User.objects.get(user_id=user_id)
     sex = {1: '男', 2: '女', 0: '其他'}
-    return render_to_response('user_info.html',
-                              {'user_name': user.user_name, 'remark': user.remark, 'email': user.email, 'sex': sex[user.sex],
+    return render_to_response('people.html',
+                              {'user_name': user.user_name, 'remark': user.remark, 'email': user.email,
+                               'sex': sex[user.sex],
                                'birthday': user.birthday, 'locate': user.locate, 'create_date': user.create_date})
 
 
@@ -59,7 +62,8 @@ def register(request):
                       0:4]) - int(str(birthday)[0:4])
             create_date = datetime.date.today()
             user = User(user_name=username, password=password, tel=tel, email=email,
-                        birthday=birthday, age=age, sex=sex, locate=province + city, remark=remark, create_date=create_date)
+                        birthday=birthday, age=age, sex=sex, locate=province + city, remark=remark,
+                        create_date=create_date)
             user.save()
 
             return render_to_response('register_successed.html', )
@@ -77,7 +81,7 @@ def login(request):
             try:
                 User.objects.get(user_name=username)
             except User.DoesNotExist:
-                return render_to_response('user_not_exist.html',)
+                return render_to_response('user_not_exist.html', )
             real_pswd = User.objects.get(user_name=username).password
             user_id = User.objects.get(user_name=username).user_id
             if password == real_pswd:
