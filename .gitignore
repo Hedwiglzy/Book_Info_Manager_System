@@ -156,3 +156,4 @@ $RECYCLE.BIN/
 *.ids
 .idea/dataSources.xml
 *.suo
+.vscode/settings.json
