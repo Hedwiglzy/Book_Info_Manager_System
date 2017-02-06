@@ -1,19 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render
-from django.template.loader import get_template
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from django.shortcuts import redirect
-from django.http import HttpResponse, Http404
-from django.template import Template, Context
-from django.shortcuts import render_to_response
-from BIMS.models import User
-from .tools.forms import RegisterForm,LoginForm
 import datetime
-
-
+from django.core.urlresolvers import reverse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect, render, render_to_response
+from django.template import Context, Template
+from django.template.loader import get_template
+from BIMS.models import User
+from .tools.forms import LoginForm, RegisterForm
 # Create your views here.
 
 def hello(request):
@@ -37,13 +32,15 @@ def hello(request):
             </html>''' % (now, request.path)
     return HttpResponse(html)
 
+
 def get_user_info(request, user_id):
     user_id = int(user_id)
     user = User.objects.get(user_id=user_id)
     sex = {1: '男', 2: '女', 0: '其他'}
     return render_to_response('user_info.html',
-                              {'user_name': user.user_name,'remark':user.remark,'email': user.email, 'sex': sex[user.sex],
-                               'birthday': user.birthday, 'locate': user.locate,'create_date':user.create_date})
+                              {'user_name': user.user_name, 'remark': user.remark, 'email': user.email, 'sex': sex[user.sex],
+                               'birthday': user.birthday, 'locate': user.locate, 'create_date': user.create_date})
+
 
 def register(request):
     if request.method == 'POST':
@@ -58,16 +55,18 @@ def register(request):
             province = register_form.cleaned_data['province']
             city = register_form.cleaned_data['city']
             remark = register_form.cleaned_data['remark']
-            age = int(str(datetime.date.today())[0:4]) - int(str(birthday)[0:4])
+            age = int(str(datetime.date.today())[
+                      0:4]) - int(str(birthday)[0:4])
             create_date = datetime.date.today()
             user = User(user_name=username, password=password, tel=tel, email=email,
-            birthday=birthday, age=age, sex=sex, locate=province+city, remark=remark,create_date=create_date)
+                        birthday=birthday, age=age, sex=sex, locate=province + city, remark=remark, create_date=create_date)
             user.save()
 
             return render_to_response('register_successed.html', )
     else:
         register_form = RegisterForm()
         return render_to_response('register.html', {'register_form': register_form})
+
 
 def login(request):
     if request.method == 'POST':
@@ -81,8 +80,8 @@ def login(request):
                 return render_to_response('user_not_exist.html',)
             real_pswd = User.objects.get(user_name=username).password
             user_id = User.objects.get(user_name=username).user_id
-            if password ==real_pswd:
-                return HttpResponseRedirect(reverse(get_user_info,args=[user_id]))
+            if password == real_pswd:
+                return HttpResponseRedirect(reverse(get_user_info, args=[user_id]))
             else:
                 return HttpResponse('密码错误!')
     else:
