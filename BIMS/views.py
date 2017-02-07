@@ -11,36 +11,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 
 from BIMS.models import User
-
-from .tools.forms import LoginForm, RegisterForm
+from BIMS.tools.forms import LoginForm, RegisterForm
 
 
 # Create your views here.
-
-def hello(request):
-    """
-    hello
-    """
-    now = datetime.datetime.now()
-    html = '''<html>
-	            <title>welcome</title>
-                    <style>
-                      #null{height:30px}
-                      #text{font-size:80px;font-family:HYMiaoHunTiW;text-align: center;}
-                      #time{font-size:16px;font-family:Monaco;text-align: center;}
-                      #path{font-size:16px;font-family:Monaco;text-align: center;}
-                    </style>
-	          <body>
-	            <div id = "null"></div>
-	            <div id = "text">Django is running!</div>
-                <p></p>
-                <div id = "time">当前时间为:%s</div>
-                <p></p>
-                <div id = "path">访问地址为:%s</div>
-              </body>
-            </html>''' % (now, request.path)
-    return HttpResponse(html)
-
 
 def get_user_info(request, user_id):
     """
@@ -49,10 +23,8 @@ def get_user_info(request, user_id):
     user_id = int(user_id)
     user = User.objects.get(user_id=user_id)
     sex = {1: '男', 2: '女', 0: '其他'}
-    return render_to_response('people.html', {'user':user, 'sex': sex[user.sex]}, )
-    #   {'user_name': user.user_name, 'remark': user.remark, 'email': user.email,
-    #   'sex': sex[user.sex],
-    #   'birthday': user.birthday, 'locate': user.locate, 'create_date': user.create_date})
+    avatar = {0: 'original', 1: user_id}
+    return render_to_response('people.html', {'user': user, 'sex': sex[user.sex], 'avatar': avatar[user.image]}, )
 
 
 def register(request):
@@ -102,7 +74,7 @@ def login(request):
             if password == real_pswd:
                 return HttpResponseRedirect(reverse(get_user_info, args=[user_id]))
             else:
-                return HttpResponse('密码错误!')
+                return render_to_response('wrong_password.html', )
     else:
         login_form = LoginForm()
         return render_to_response('login.html', {'LoginForm': login_form})

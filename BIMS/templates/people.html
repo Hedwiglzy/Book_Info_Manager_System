@@ -41,8 +41,8 @@
 			<ul class=" nav navbar-nav navbar-left">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<img alt="username" src="../static/image/avatar/thumb/hedwig.jpg" class="img-circle">
-						<span class="name">{{user.username}}</span>
+						<img alt="username" width="25" height="25" src="../../static/image/avatar/hd/{{ avatar }}.jpg" class="img-circle" style="">
+						<span class="name">{{user.user_name}}</span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="#">我的主页</a></li>
@@ -58,7 +58,7 @@
 <div class="row info">
 	<div class="col-lg-2"></div>
 	<div class="col-lg-2 img">
-		<img src="../../static/image/avatar/hd/original.jpg" alt="{{ user.user_name }}" class="img-thumbnail">
+		<img src="../../static/image/avatar/hd/{{ avatar }}.jpg" alt="{{ user.user_name }}" class="img-thumbnail">
 	</div>
 	<div class="col-lg-3 userinfo">
 		<div class="row userinfo_top">
