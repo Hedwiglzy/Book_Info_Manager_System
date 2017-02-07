@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+视图层
+"""
 
 import datetime
 
@@ -8,12 +11,16 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 
 from BIMS.models import User
+
 from .tools.forms import LoginForm, RegisterForm
 
 
 # Create your views here.
 
 def hello(request):
+    """
+    hello
+    """
     now = datetime.datetime.now()
     html = '''<html>
 	            <title>welcome</title>
@@ -36,16 +43,22 @@ def hello(request):
 
 
 def get_user_info(request, user_id):
+    """
+    用户信息
+    """
     user_id = int(user_id)
     user = User.objects.get(user_id=user_id)
     sex = {1: '男', 2: '女', 0: '其他'}
-    return render_to_response('people.html',
-                              {'user_name': user.user_name, 'remark': user.remark, 'email': user.email,
-                               'sex': sex[user.sex],
-                               'birthday': user.birthday, 'locate': user.locate, 'create_date': user.create_date})
+    return render_to_response('people.html', {'user':user, 'sex': sex[user.sex]}, )
+    #   {'user_name': user.user_name, 'remark': user.remark, 'email': user.email,
+    #   'sex': sex[user.sex],
+    #   'birthday': user.birthday, 'locate': user.locate, 'create_date': user.create_date})
 
 
 def register(request):
+    """
+    注册
+    """
     if request.method == 'POST':
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
@@ -58,8 +71,7 @@ def register(request):
             province = register_form.cleaned_data['province']
             city = register_form.cleaned_data['city']
             remark = register_form.cleaned_data['remark']
-            age = int(str(datetime.date.today())[
-                      0:4]) - int(str(birthday)[0:4])
+            age = int(str(datetime.date.today())[0:4]) - int(str(birthday)[0:4])
             create_date = datetime.date.today()
             user = User(user_name=username, password=password, tel=tel, email=email,
                         birthday=birthday, age=age, sex=sex, locate=province + city, remark=remark,
@@ -73,11 +85,14 @@ def register(request):
 
 
 def login(request):
+    """
+    登录
+    """
     if request.method == 'POST':
-        Login_Form = LoginForm(request.POST)
-        if Login_Form.is_valid():
-            username = Login_Form.cleaned_data['username']
-            password = Login_Form.cleaned_data['password']
+        login_form = LoginForm(request.POST)
+        if login_form.is_valid():
+            username = login_form.cleaned_data['username']
+            password = login_form.cleaned_data['password']
             try:
                 User.objects.get(user_name=username)
             except User.DoesNotExist:
@@ -89,5 +104,5 @@ def login(request):
             else:
                 return HttpResponse('密码错误!')
     else:
-        Login_Form = LoginForm()
-        return render_to_response('login.html', {'LoginForm': Login_Form})
+        login_form = LoginForm()
+        return render_to_response('login.html', {'LoginForm': login_form})

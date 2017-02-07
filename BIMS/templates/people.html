@@ -42,7 +42,7 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<img alt="username" src="../static/image/avatar/thumb/hedwig.jpg" class="img-circle">
-						<span class="name">Hedwig</span>
+						<span class="name">{{user.username}}</span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="#">我的主页</a></li>
@@ -58,15 +58,15 @@
 <div class="row info">
 	<div class="col-lg-2"></div>
 	<div class="col-lg-2 img">
-		<img src="../../static/image/avatar/hd/original.jpg" alt="{{ user_name }}" class="img-thumbnail">
+		<img src="../../static/image/avatar/hd/original.jpg" alt="{{ user.user_name }}" class="img-thumbnail">
 	</div>
 	<div class="col-lg-3 userinfo">
 		<div class="row userinfo_top">
 			<div class="col-lg-4 username">
-				{{ user_name }}
+				{{user.user_name}}
 			</div>
 			<div class="col-lg-8 remark">
-				{{ remark }}
+				{{ user.remark }}
 			</div>
 		</div>
 		<div class="row other_info">
@@ -74,7 +74,7 @@
 				邮箱
 			</div>
 			<div class="col-lg-8">
-				{{ email }}
+				{{ user.email }}
 			</div>
 		</div>
 		<div class="row other_info">
@@ -82,7 +82,7 @@
 				所在地
 			</div>
 			<div class="col-lg-8">
-				{{ locate }}
+				{{ user.locate }}
 			</div>
 		</div>
 		<div class="row other_info">
@@ -90,7 +90,7 @@
 				生日
 			</div>
 			<div class="col-lg-8">
-				{{ birthday }}
+				{{ user.birthday }}
 			</div>
 		</div>
 		<div class="row other_info">
@@ -98,7 +98,7 @@
 				性别
 			</div>
 			<div class="col-lg-8">
-				{{ sex }}
+				{{sex}}
 			</div>
 		</div>
 		<div class="row other_info">
@@ -106,7 +106,7 @@
 				注册日期
 			</div>
 			<div class="col-lg-8">
-				{{ create_date }}
+				{{ user.create_date }}
 			</div>
 		</div>
 	</div>

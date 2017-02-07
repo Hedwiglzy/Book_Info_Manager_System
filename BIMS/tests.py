@@ -1,8 +1,13 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+测试用
+"""
 import datetime
-import os
-from django.test import TestCase
-from django.db import connection
-from django import forms
+
+# from django import forms
+# from django.db import connection
+# from django.test import TestCase
 # from BIMS.models import User
 #alist = User.objects.all()
 # print(alist)
@@ -13,5 +18,6 @@ from django import forms
 # cursor = connection.cursor()
 # test git
 # birthday = '1995-10-02'
-atoday = datetime.date.today()
-print(atoday)
+
+v_today = datetime.date.today()
+print(v_today)
