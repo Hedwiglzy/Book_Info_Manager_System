@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 
-from BIMS.models import User
+from BIMS.models import User,Book
 from BIMS.tools.forms import LoginForm, RegisterForm
 
 
@@ -24,7 +24,16 @@ def get_user_info(request, user_id):
     user = User.objects.get(user_id=user_id)
     sex = {1: '男', 2: '女', 0: '其他'}
     avatar = {0: 'original', 1: user_id}
-    return render_to_response('people.html', {'user': user, 'sex': sex[user.sex], 'avatar': avatar[user.image]}, )
+    return render_to_response('user.html', {'user': user, 'sex': sex[user.sex], 'avatar': avatar[user.image]}, )
+
+
+def get_book_info(request, book_id):
+    """
+    图书信息
+    """
+    book_id = int(book_id)
+    book = Book.objects.get(book_id=book_id)
+    return render_to_response('book.html', {'book': book}, )
 
 
 def register(request):

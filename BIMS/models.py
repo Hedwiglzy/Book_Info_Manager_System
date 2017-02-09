@@ -5,7 +5,6 @@
 """
 from django.db import models
 
-
 # Create your models here.
 
 
@@ -37,7 +36,7 @@ class Book(models.Model):
     book_id = models.AutoField(primary_key=True)  # 图书ID
     book_name = models.CharField(max_length=100)  # 图书名
     author_name = models.CharField(max_length=100)  # 作者名
-    press = models.CharField(max_length=100, null=True)  # 出版社
+    press_house = models.CharField(max_length=100, null=True)  # 出版社
     translator = models.CharField(max_length=100, null=True)  # 翻译者
     publication_date = models.CharField(max_length=100, null=True)  # 出版日期
     pages = models.IntegerField(null=True)  # 页数
@@ -66,12 +65,11 @@ class Author(models.Model):
         return self.author_name
 
 
-
 class Collection(models.Model):
     """
     图书收藏表
     """
-    op_id = models.AutoField(primary_key=True) # 流水号
+    op_id = models.AutoField(primary_key=True)  # 流水号
     user_name = models.CharField(max_length=30)  # 用户名
     book_id = models.IntegerField()  # 图书ID
     book_name = models.CharField(max_length=100)  # 图书名
