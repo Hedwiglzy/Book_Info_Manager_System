@@ -36,7 +36,8 @@ CREATE TABLE `BIMS_book` (
   `score`            INTEGER                NULL,
   `evaluate_num`     INTEGER                NULL,
   `collect_num`      INTEGER                NULL,
-  `content_summary`  LONGTEXT               NULL
+  `content_summary`  LONGTEXT               NULL,
+  `title`            VARCHAR(100)           NULL
 )
   AUTO_INCREMENT = 10001;
 --

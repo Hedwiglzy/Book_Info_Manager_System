@@ -19,6 +19,9 @@ from BIMS.tools.forms import LoginForm, RegisterForm
 def get_user_info(request, user_id):
     """
     用户信息
+    :param request:请求
+    :param user_id:用户id
+    :return:用户个人信息
     """
     user_id = int(user_id)
     user = User.objects.get(user_id=user_id)
@@ -30,6 +33,9 @@ def get_user_info(request, user_id):
 def get_book_info(request, book_id):
     """
     图书信息
+    :param request:请求
+    :param book_id:图书id
+    :return:图书信息
     """
     book_id = int(book_id)
     book = Book.objects.get(book_id=book_id)
@@ -39,6 +45,8 @@ def get_book_info(request, book_id):
 def register(request):
     """
     注册
+    :param request:请求
+    :return: 注册成功
     """
     if request.method == 'POST':
         register_form = RegisterForm(request.POST)
@@ -68,6 +76,8 @@ def register(request):
 def login(request):
     """
     登录
+    :param request:请求
+    :return: 登录成功或失败
     """
     if request.method == 'POST':
         login_form = LoginForm(request.POST)

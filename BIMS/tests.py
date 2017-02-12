@@ -9,7 +9,7 @@ import datetime
 # from django.db import connection
 # from django.test import TestCase
 # from BIMS.models import User
-#alist = User.objects.all()
+# alist = User.objects.all()
 # print(alist)
 
 # Create your tests here.
@@ -19,5 +19,8 @@ import datetime
 # test git
 # birthday = '1995-10-02'
 
-v_today = datetime.date.today()
-print(v_today)
+import pymysql
+import re
+DATA = "haha"
+if re.search("'", DATA):
+    print(DATA)
