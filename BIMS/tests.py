@@ -3,7 +3,7 @@
 """
 测试用
 """
-import datetime
+from datetime import datetime
 
 # from django import forms
 # from django.db import connection
@@ -19,8 +19,4 @@ import datetime
 # test git
 # birthday = '1995-10-02'
 
-import pymysql
-import re
-DATA = "haha"
-if re.search("'", DATA):
-    print(DATA)
+
