@@ -46,7 +46,7 @@ def insert_table(table_name, column1, column2, column3, data1, data2, data3):
     cursor = conn.cursor()
     sql = 'INSERT INTO `%s` (`%s`,`%s`,`%s`)VALUES (\'%s\',\'%s\',\'%s\')' % (table_name, column1, column2, column3, data1, data2, data3)
     print(sql)
-    log.write(str(datetime.now()) + '--' + column2 +'正在入表!'+ '\n')
+    #  log.write(str(datetime.now()) + '--' + column2 + '正在入表!' + '\n')
     try:
         cursor.execute(sql)
         conn.commit()
@@ -97,6 +97,35 @@ def get_title_urls():
         print('请求失败!')
 
 
+def get_book_info(book_url):
+    """
+    获取图书信息
+    :param book_url:图书链接
+    """
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+        'Cookie': 'bid=JDkJwopchqY; gr_user_id=2a50a37c-f1e0-4d56-b15c-3b49dd29e51f; ll="118123"; viewed="2158192_1059419"; _ga=GA1.2.1895736562.1482849878; ue="1432659378@qq.com"; dbcl2="83764412:dFc8oOuogsw"; ct=y; ap=1; ck=-y1h; __utmt_douban=1; __utma=30149280.1895736562.1482849878.1486998452.1487161093.49; __utmb=30149280.7.10.1487161093; __utmc=30149280; __utmz=30149280.1486730025.41.18.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; __utmv=30149280.8376; push_noty_num=0; push_doumail_num=0; _vwo_uuid_v2=2444B6545FEA6C4CBA6360C8DCC21CAF|4d0717074c01a40d50a1ea48f9482e2d; gr_session_id_22c937bbd8ebd703f2d8e9445f7dfd03=45072aed-d767-45f5-b7bb-5ce14081ee8a; gr_cs1_45072aed-d767-45f5-b7bb-5ce14081ee8a=user_id%3A1'
+    }
+    web_data = requests.get(book_url, headers=headers)
+    if web_data.status_code == 200:
+        web_data.encoding = 'utf-8'
+        soup = BeautifulSoup(web_data.text, 'lxml')
+        raw_book_info = soup.find_all(id='info')[0]
+        hrefs = raw_book_info.find_all('a')
+        info_text = raw_book_info.get_text()
+        book_info = {
+            'book_name': soup.find_all(property='v:itemreviewed')[0].get_text(),
+            'author_name': hrefs[0].get_text(),
+            'press_house': re.findall(r'出版社:([^\n$]+)', info_text)[0].strip(),
+            'publication_date': re.findall(r'出版年:([^\n$]+)', info_text)[0].strip(),
+            'pages': re.findall(r'页数:([^\n$]+)', info_text)[0].strip(),
+            'price': re.findall(r'定价:([^\n$]+)', info_text)[0].strip(),
+            'package': re.findall(r'装帧:([^\n$]+)', info_text)[0].strip(),
+            'isbn': re.findall(r'ISBN:([^\n$]+)', info_text)[0].strip(),
+        }
+        print(book_info)
+
+
 def get_book_urls(title_url):
     """
     获取某分类所有图书的名称和链接
@@ -122,19 +151,22 @@ def get_book_urls(title_url):
             continue
     return book_urls
 
+# if __name__ == '__main__':
+#     print('go!')
+#     with open('./log.txt', 'a', encoding='utf-8') as log:
+#         log.write(str(datetime.now()) + '-- 程序开始' + '\n')
+#         TITLE_URLS = get_title_urls()
+#         for TITLE_URL in TITLE_URLS:
+#             LOG = '正在爬取' + TITLE_URL['title'] + '类的图书链接' + '\n'
+#             log.write(str(datetime.now()) + '--' + LOG)
+#             print(LOG)
+#             BOOK_URLS = get_book_urls(TITLE_URL['url'])
+#             for BOOK_URL in BOOK_URLS:
+#                 if re.search("'", BOOK_URL['name']):
+#                     continue
+#                 else:
+#                     insert_table('all_book_temp', 'book_class', 'book_name', 'book_url', TITLE_URL['title'], BOOK_URL['name'], BOOK_URL['url'])
+#     print('运行完成!')
+
 if __name__ == '__main__':
-    print('go!')
-    with open('./log.txt', 'a', encoding='utf-8') as log:
-        log.write(str(datetime.now()) + '-- 程序开始' + '\n')
-        TITLE_URLS = get_title_urls()
-        for TITLE_URL in TITLE_URLS:
-            LOG = '正在爬取' + TITLE_URL['title'] + '类的图书链接' + '\n'
-            log.write(str(datetime.now()) + '--' + LOG)
-            print(LOG)
-            BOOK_URLS = get_book_urls(TITLE_URL['url'])
-            for BOOK_URL in BOOK_URLS:
-                if re.search("'", BOOK_URL['name']):
-                    continue
-                else:
-                    insert_table('all_book_temp', 'book_class', 'book_name', 'book_url', TITLE_URL['title'], BOOK_URL['name'], BOOK_URL['url'])
-    print('运行完成!')
+    get_book_info('https://book.douban.com/subject/1770782/')

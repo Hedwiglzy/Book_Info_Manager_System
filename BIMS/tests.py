@@ -18,5 +18,22 @@ from datetime import datetime
 # cursor = connection.cursor()
 # test git
 # birthday = '1995-10-02'
+import re
+
+info_text = """出版社: 上海人民出版社
+原作名: The Kite Runner
+
+ 译者:
 
 
+        李继宏
+
+出版年: 2006-5
+页数: 362
+定价: 29.00元
+装帧: 平装
+丛书: 卡勒德·胡赛尼作品
+ISBN: 9787208061644
+"""
+test = info_text.split(':')
+print(test)
