@@ -46,7 +46,7 @@ def insert_table(table_name, column1, column2, column3, data1, data2, data3):
     cursor = conn.cursor()
     sql = 'INSERT INTO `%s` (`%s`,`%s`,`%s`)VALUES (\'%s\',\'%s\',\'%s\')' % (table_name, column1, column2, column3, data1, data2, data3)
     print(sql)
-    log.write(str(datetime.now()) + '--' + sql + '\n')
+    log.write(str(datetime.now()) + '--' + column2 +'正在入表!'+ '\n')
     try:
         cursor.execute(sql)
         conn.commit()
