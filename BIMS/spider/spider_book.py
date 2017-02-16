@@ -31,26 +31,42 @@ def connect_db():
     return connection
 
 
-def insert_table(table_name, column1, column2, column3, data1, data2, data3):
+def insert_table(table_name, column1, column2, column3, column4, column5, column6, column7, column8, column9, column10, column11, column12, data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12):
     """
     将数据插入表中
     :param table_name:表名
-    :param column1:入表的字段1
-    :param column2:入表的字段2
-    :param column3:入表的字段3
-    :param data1:入表的数据1
-    :param data2:入表的数据2
-    :param data3:入表的数据3
+    :param column1:入表的字段
+    :param data1:入表的数据
     """
     conn = connect_db()
     cursor = conn.cursor()
-    sql = 'INSERT INTO `%s` (`%s`,`%s`,`%s`)VALUES (\'%s\',\'%s\',\'%s\')' % (table_name, column1, column2, column3, data1, data2, data3)
+    sql = 'INSERT INTO `%s` (`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`)VALUES (\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (table_name, column1, column2, column3, column4, column5, column6, column7, column8, column9, column10, column11, column12, data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12)
     print(sql)
-    #  log.write(str(datetime.now()) + '--' + column2 + '正在入表!' + '\n')
+    log.write(str(datetime.now()) + '--' + data1 + '正在入表!' + '\n')
     try:
         cursor.execute(sql)
         conn.commit()
         conn.close()
+    except pymysql:
+        pass
+
+
+def select_table(table_name, column1, column2):
+    """
+    将数据插入表中
+    :param table_name:表名
+    :param column1:查询的字段1
+    :param column2:查询的字段2
+    """
+    conn = connect_db()
+    cursor = conn.cursor()
+    sql = 'SELECT `%s`,`%s` from `%s`' % (column1, column2, table_name)
+    try:
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        conn.commit()
+        conn.close()
+        return result
     except pymysql:
         pass
 
@@ -110,11 +126,12 @@ def get_book_info(book_url):
     if web_data.status_code == 200:
         web_data.encoding = 'utf-8'
         soup = BeautifulSoup(web_data.text, 'lxml')
+        book_name = soup.find_all(property='v:itemreviewed')[0].get_text()
         raw_book_info = soup.find_all(id='info')[0]
         hrefs = raw_book_info.find_all('a')
         info_text = raw_book_info.get_text()
         book_info = {
-            'book_name': soup.find_all(property='v:itemreviewed')[0].get_text(),
+            'book_name': book_name,
             'author_name': hrefs[0].get_text(),
             'press_house': re.findall(r'出版社:([^\n$]+)', info_text)[0].strip(),
             'publication_date': re.findall(r'出版年:([^\n$]+)', info_text)[0].strip(),
@@ -122,8 +139,13 @@ def get_book_info(book_url):
             'price': re.findall(r'定价:([^\n$]+)', info_text)[0].strip(),
             'package': re.findall(r'装帧:([^\n$]+)', info_text)[0].strip(),
             'isbn': re.findall(r'ISBN:([^\n$]+)', info_text)[0].strip(),
+            'score': soup.find_all(property='v:average')[0].get_text().strip(),
+            'evaluate_num': soup.find_all(property='v:votes')[0].get_text().strip(),
+            'content_summary': soup.find_all(class_='intro')[0].get_text().strip(),
         }
-        print(book_info)
+        return book_info
+    else:
+        print('未获取到信息--' + book_url)
 
 
 def get_book_urls(title_url):
@@ -169,4 +191,12 @@ def get_book_urls(title_url):
 #     print('运行完成!')
 
 if __name__ == '__main__':
-    get_book_info('https://book.douban.com/subject/1770782/')
+    print('go!')
+    with open('./log3.txt', 'a', encoding='utf-8') as log:
+        log.write(str(datetime.now()) + '-- 程序开始' + '\n')
+        BOOK_CLASSES_AND_URLS = select_table('all_book', 'book_class', 'book_url')
+        for BOOK_CLASS_AND_URL in BOOK_CLASSES_AND_URLS:
+            BOOK_INFO = get_book_info(BOOK_CLASS_AND_URL['book_url'])
+            insert_table('bims_book', 'book_name', 'author_name', 'press_house', 'publication_date', 'pages', 'price', 'package', 'isbn', 'score', 'evaluate_num', 'content_summary', 'title', BOOK_INFO['book_name'], BOOK_INFO['author_name'], BOOK_INFO['press_house'], BOOK_INFO['publication_date'], BOOK_INFO['pages'], BOOK_INFO['price'], BOOK_INFO['package'], BOOK_INFO['isbn'], BOOK_INFO['score'], BOOK_INFO['evaluate_num'], BOOK_INFO['content_summary'], BOOK_CLASS_AND_URL['book_class'])
+            log.write(str(datetime.now()) + '--' + BOOK_INFO['book_name'] + '入表成功!' + '\n')
+            print(BOOK_INFO['book_name'] + '入库成功!')

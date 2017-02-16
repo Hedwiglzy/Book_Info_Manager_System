@@ -158,3 +158,4 @@ $RECYCLE.BIN/
 *.suo
 .vscode/settings.json
 BIMS/spider/log.txt
+*.txt
