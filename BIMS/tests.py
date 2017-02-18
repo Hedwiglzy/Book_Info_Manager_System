@@ -18,3 +18,7 @@ from datetime import datetime
 # cursor = connection.cursor()
 # test git
 # birthday = '1995-10-02'
+
+with open('./spider/all_book.csv', 'r', encoding='utf-8') as data_source:
+    for line in data_source:
+        print(line)
