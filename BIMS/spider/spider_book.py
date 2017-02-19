@@ -124,7 +124,7 @@ def get_book_info(book_url):
     """
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
-        'Cookie': 'bid=JDkJwopchqY; gr_user_id=2a50a37c-f1e0-4d56-b15c-3b49dd29e51f; ll="118123"; viewed="2158192_1059419"; _ga=GA1.2.1895736562.1482849878; ue="1432659378@qq.com"; dbcl2="83764412:dFc8oOuogsw"; ct=y; ap=1; ck=-y1h; __utmt_douban=1; __utma=30149280.1895736562.1482849878.1486998452.1487161093.49; __utmb=30149280.7.10.1487161093; __utmc=30149280; __utmz=30149280.1486730025.41.18.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; __utmv=30149280.8376; push_noty_num=0; push_doumail_num=0; _vwo_uuid_v2=2444B6545FEA6C4CBA6360C8DCC21CAF|4d0717074c01a40d50a1ea48f9482e2d; gr_session_id_22c937bbd8ebd703f2d8e9445f7dfd03=45072aed-d767-45f5-b7bb-5ce14081ee8a; gr_cs1_45072aed-d767-45f5-b7bb-5ce14081ee8a=user_id%3A1'
+        'Cookie': 'guid=74056395b89f9cd12f461b7d6a60c85a; plt_PLT_oauth_7_last_key=KUU9cgM84o0FxSnbT1%2BDfgZl8po%2F4i9W7XfwepjWohaMAdKGNcZONJZVLIUK9EDO9u%2F9bzwq6MT%2FXP%2BchHolPE7Auow%2Fn5yGBU350nfBbMozSa1PlTYfk%2FuOQOBXy%2Fi72t0H%2F6DUn0UlznfuZ%2BzF0PhpNib7KIHtXfabkwG%2FeObbaDzoNmH2XTe6KlWzTadjOs0Qnfz%2BWDdVuruFe3%2F5MZOsR%2BxgiOL0J0BjK74BBuRtdV2pTbpCJoZO2v6jBWcbroU5xi2jNePTNs2I7bKPWhS5DFL0y20tZ62C9PuY8fI%3D; addFavor=1; Hm_lvt_7705e8554135f4d7b42e62562322b3ad=1479544357,1479545127; __utma=188916852.669699889.1461046276.1469275819.1479544357.6; __utmz=188916852.1479544357.6.3.utmcsr=item.jd.com|utmccn=(referral)|utmcmd=referral|utmcct=/173134.html; from_device=chrome; plt_subsite_id=3'
     }
     web_data = requests.get(book_url, headers=headers)
     if web_data.status_code == 200:
