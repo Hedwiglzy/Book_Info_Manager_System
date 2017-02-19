@@ -4,7 +4,7 @@
 测试用
 """
 from datetime import datetime
-
+import time
 # from django import forms
 # from django.db import connection
 # from django.test import TestCase
@@ -19,6 +19,21 @@ from datetime import datetime
 # test git
 # birthday = '1995-10-02'
 
-with open('./spider/all_book.csv', 'r', encoding='utf-8') as data_source:
-    for line in data_source:
-        print(line)
+from threading import Thread
+
+
+def haha(n):
+    for i in range(n):
+        print(datetime.now(), '第' + str(i) + '次循环')
+        time.sleep(1)
+
+threads = []
+t1 = Thread(target=haha, args=(2,))
+t2 = Thread(target=haha, args=(5,))
+threads.append(t1)
+threads.append(t2)
+
+for t in threads:
+    t.start()
+
+

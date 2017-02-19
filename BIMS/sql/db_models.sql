@@ -22,19 +22,19 @@ CREATE TABLE `BIMS_user` (
 --
 -- 图书信息表
 --
-CREATE TABLE `bims_book`
+CREATE TABLE bims_book
 (
-  book_id          INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  book_name        VARCHAR(100)            NOT NULL,
-  author_name      VARCHAR(100)            NOT NULL,
+  book_id          INT(11) PRIMARY KEY NOT NULL,
+  book_name        VARCHAR(100)        NOT NULL,
+  author_name      VARCHAR(100)        NOT NULL,
   press_house      VARCHAR(100),
   translator       VARCHAR(100),
   publication_date VARCHAR(100),
   pages            VARCHAR(100),
   price            VARCHAR(100),
-  package          VARCHAR(10),
+  package          VARCHAR(100),
   isbn             BIGINT(20),
-  score            INT(11),
+  score            DECIMAL(10, 1),
   evaluate_num     INT(11),
   collect_num      INT(11),
   content_summary  LONGTEXT,
@@ -46,9 +46,9 @@ CREATE TABLE `bims_book`
 --
 CREATE TABLE `BIMS_author` (
   `author_id`      INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  `author_name`    VARCHAR(100)            NOT NULL,
-  `nationality`    VARCHAR(100)            NULL,
-  `author_summary` LONGTEXT                NULL
+  `author_name`    VARCHAR(100)           NOT NULL,
+  `nationality`    VARCHAR(100)           NULL,
+  `author_summary` LONGTEXT               NULL
 )
   AUTO_INCREMENT = 10001;
 --
@@ -56,10 +56,10 @@ CREATE TABLE `BIMS_author` (
 --
 CREATE TABLE `BIMS_collection` (
   `op_id`       INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  `user_name`   VARCHAR(30)             NOT NULL,
-  `book_id`     INTEGER                 NOT NULL,
-  `book_name`   VARCHAR(100)            NOT NULL,
-  `create_date` DATE                    NOT NULL
+  `user_name`   VARCHAR(30)            NOT NULL,
+  `book_id`     INTEGER                NOT NULL,
+  `book_name`   VARCHAR(100)           NOT NULL,
+  `create_date` DATE                   NOT NULL
 )
   AUTO_INCREMENT = 10001;
 --
