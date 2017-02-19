@@ -3,37 +3,51 @@
 """
 测试用
 """
-from datetime import datetime
-import time
-# from django import forms
-# from django.db import connection
-# from django.test import TestCase
-# from BIMS.models import User
-# alist = User.objects.all()
-# print(alist)
+import re
+import urllib.request
 
-# Create your tests here.
-# Book_Info_Manager_System
-# os.environ['DJANGO_SETTINGS_MODULE'] = 'Book_Info_Manager_System.settings'
-# cursor = connection.cursor()
-# test git
-# birthday = '1995-10-02'
+import requests
+from bs4 import BeautifulSoup
 
-from threading import Thread
+loginUrl = 'http://accounts.douban.com/login'
+formData = {
+    "redir": "http://movie.douban.com/mine?status=collect",
+    "form_email": '1432659378@qq.com',
+    "form_password": '6073651428kk',
+    "login": u'登录'
+}
+headers = {
+    "User-Agent": 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'}
+r = requests.post(loginUrl, data=formData, headers=headers)
+page = r.text
+# print r.url
 
+'''''获取验证码图片'''
+# 利用bs4获取captcha地址
+soup = BeautifulSoup(page, "html.parser")
+captchaAddr = soup.find('img', id='captcha_image')['src']
+# 利用正则表达式获取captcha的ID
+reCaptchaID = r'<input type="hidden" name="captcha-id" value="(.*?)"/'
+captchaID = re.findall(reCaptchaID, page)
+# print captchaID
+# 保存到本地
+urllib.request.urlretrieve(captchaAddr, "captcha.jpg")
+captcha = input('please input the captcha:')
 
-def haha(n):
-    for i in range(n):
-        print(datetime.now(), '第' + str(i) + '次循环')
-        time.sleep(1)
+formData['captcha-solution'] = captcha
+formData['captcha-id'] = captchaID
 
-threads = []
-t1 = Thread(target=haha, args=(2,))
-t2 = Thread(target=haha, args=(5,))
-threads.append(t1)
-threads.append(t2)
-
-for t in threads:
-    t.start()
-
-
+r = requests.post(loginUrl, data=formData, headers=headers)
+page = r.text
+if r.url != 'http://movie.douban.com/mine?status=collect':
+    if r.url == 'http://movie.douban.com/mine?status=collect':
+        print('Login successfully!!!')
+        print('我看过的电影', '-' * 60)
+        # 获取看过的电影
+        soup = BeautifulSoup(page, "html.parser")
+        result = soup.findAll('li', attrs={"class": "title"})
+        # print result
+        for item in result:
+            print(item.find('a').get_text())
+    else:
+        print("failed!")
