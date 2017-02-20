@@ -48,7 +48,7 @@ def insert_table(table_name, column1, column2, column3, column4, column5, column
         cursor.execute(sql)
         conn.commit()
         conn.close()
-    except pymysql:
+    except BaseException:
         pass
 
 
@@ -71,7 +71,7 @@ def select_table(table_name, column1, column2, low, high):
         conn.commit()
         conn.close()
         return result
-    except pymysql:
+    except BaseException:
         pass
 
 
@@ -97,7 +97,7 @@ def get_title_urls():
     douban_url = 'https://book.douban.com/tag/?view=type&icn=index-sorttags-all'
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
-        'Cookie': 'bid=JDkJwopchqY; gr_user_id=2a50a37c-f1e0-4d56-b15c-3b49dd29e51f; ll="118123"; viewed="2158192_1059419"; _ga=GA1.2.1895736562.1482849878; ue="1432659378@qq.com"; dbcl2="83764412:dFc8oOuogsw"; _pk_ref.100001.8cb4=%5B%22%22%2C%22%22%2C1486902016%2C%22https%3A%2F%2Fwww.baidu.com%2Flink%3Furl%3DSjdO3k-NOKHE_oRvb8kkXA27TjX3Q7itKW4FMK9pF_ZUgu35vi253z--E7jf7vJs%26wd%3D%26eqid%3Da832a71b00411b090000000358a052fa%22%5D; _pk_id.100001.8cb4=00429bbc98989df1.1482849877.19.1486902016.1486730024.; ct=y; ck=-y1h; _vwo_uuid_v2=2444B6545FEA6C4CBA6360C8DCC21CAF|4d0717074c01a40d50a1ea48f9482e2d; ap=1; __utmt_douban=1; push_doumail_num=0; __utma=30149280.1895736562.1482849878.1486985237.1486987766.47; __utmb=30149280.2.10.1486987766; __utmc=30149280; __utmz=30149280.1486730025.41.18.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; __utmv=30149280.8376; push_noty_num=0'
+        'Cookie': 'bid=JDkJwopchqY; gr_user_id=2a50a37c-f1e0-4d56-b15c-3b49dd29e51f; ll="118123"; viewed="2158192_1059419"; _ga=GA1.2.1895736562.1482849878; ue="1432659378@qq.com"; dbcl2="83764412:dFc8oOuogsw"_pk_ref.100001.8cb4=%5B%22%22%2C%22%22%2C1486902016%2C%22https%3A%2F%2Fwww.baidu.com%2Flink%3Furl%3DSjdO3k-NOKHE_oRvb8kkXA27TjX3Q7itKW4FMK9pF_ZUgu35vi253z--E7jf7vJs%26wd%3D%26eqid%3Da832a71b00411b090000000358a052fa%22%5D; _pk_id.100001.8cb4=00429bbc98989df1.1482849877.19.1486902016.1486730024.; ct=y; ck=-y1h; _vwo_uuid_v2=2444B6545FEA6C4CBA6360C8DCC21CAF|4d0717074c01a40d50a1ea48f9482e2d; ap=1; __utmt_douban=1; push_doumail_num=0; __utma=30149280.1895736562.1482849878.1486985237.1486987766.47; __utmb=30149280.2.10.1486987766; __utmc=30149280; __utmz=30149280.1486730025.41.18.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; __utmv=30149280.8376; push_noty_num=0'
     }
     web_data = requests.get(douban_url, headers=headers)
     if web_data.status_code == 200:
@@ -222,22 +222,22 @@ def start_spider(low, high):
     """
     book_classes_and_urls = select_table('all_book', 'book_class', 'book_url', low, high)
     for book_class_and_url in book_classes_and_urls:
-            book_info = get_book_info(book_class_and_url['book_url'])
-            if book_info['book_name'] == 'get_info_fail':
-                continue
+        book_info = get_book_info(book_class_and_url['book_url'])
+        if book_info['book_name'] == 'get_info_fail':
+            continue
+        else:
+            if book_info['evaluate_num'] == '评价人数不足':
+                evaluate_num = 10
             else:
-                if book_info['evaluate_num'] == '评价人数不足':
-                    evaluate_num = 10
-                else:
-                    evaluate_num = int(book_info['evaluate_num'][:-3])
-                if len(book_info['score']) == 0:
-                    score = 0
-                else:
-                    score = book_info['score']
-                content_summary = re.sub("'", '"', book_info['content_summary'])
-                insert_table('bims_book', 'book_name', 'author_name', 'press_house', 'publication_date', 'pages', 'price', 'package', 'isbn', 'score', 'evaluate_num', 'content_summary', 'title', book_info['book_name'], book_info['author_name'], book_info['press_house'], book_info['publication_date'], book_info['pages'], book_info['price'], book_info['package'], book_info['isbn'], score, evaluate_num, content_summary, book_class_and_url['book_class'])
-                log.write(str(datetime.now()) + '--' + book_info['book_name'] + '入库成功!' + '\n')
-                print(book_info['book_name'] + '入库成功!')
+                evaluate_num = int(book_info['evaluate_num'][:-3])
+            if len(book_info['score']) == 0:
+                score = 0
+            else:
+                score = book_info['score']
+            content_summary = re.sub("'", '"', book_info['content_summary'])
+            insert_table('bims_book', 'book_name', 'author_name', 'press_house', 'publication_date', 'pages', 'price', 'package', 'isbn', 'score', 'evaluate_num', 'content_summary', 'title', book_info['book_name'], book_info['author_name'], book_info['press_house'], book_info['publication_date'], book_info['pages'], book_info['price'], book_info['package'], book_info['isbn'], score, evaluate_num, content_summary, book_class_and_url['book_class'])
+            log.write(str(datetime.now()) + '--' + book_info['book_name'] + '入库成功!' + '\n')
+            print(book_info['book_name'] + '入库成功!')
 
 
 def main_csv_to_table():
@@ -284,62 +284,60 @@ def main_get_book_info_test(book_url):
     print('运行完成!')
 
 
-def main_multithreading_get_book_info():
+def main_multithreading_spider():
     """
     多线程获取图书信息,并入库 main函数 直接运行
     """
     threads = []
-    t1 = Thread(target=start_spider, args=(0, 1000))
-    threads.append(t1)
-    t2 = Thread(target=start_spider, args=(1001, 2000))
-    threads.append(t2)
-    t3 = Thread(target=start_spider, args=(2100, 3000))
-    threads.append(t3)
-    t4 = Thread(target=start_spider, args=(3001, 4000))
-    threads.append(t4)
-    t5 = Thread(target=start_spider, args=(4001, 500))
-    threads.append(t5)
-    t6 = Thread(target=start_spider, args=(5001, 6000))
-    threads.append(t6)
-    t7 = Thread(target=start_spider, args=(6001, 7000))
-    threads.append(t7)
-    t8 = Thread(target=start_spider, args=(7001, 8000))
-    threads.append(t8)
-    t9 = Thread(target=start_spider, args=(8001, 9000))
-    threads.append(t9)
-    t10 = Thread(target=start_spider, args=(9001, 10000))
-    threads.append(t10)
-    t11 = Thread(target=start_spider, args=(10001, 11000))
-    threads.append(t11)
-    t12 = Thread(target=start_spider, args=(11001, 12000))
-    threads.append(t12)
-    t13 = Thread(target=start_spider, args=(12001, 13000))
-    threads.append(t13)
-    t14 = Thread(target=start_spider, args=(13001, 14000))
-    threads.append(t14)
-    t15 = Thread(target=start_spider, args=(14001, 15000))
-    threads.append(t15)
-    t16 = Thread(target=start_spider, args=(15001, 16000))
-    threads.append(t16)
-    t17 = Thread(target=start_spider, args=(16001, 17000))
-    threads.append(t17)
-    t18 = Thread(target=start_spider, args=(17001, 18000))
-    threads.append(t18)
-    t19 = Thread(target=start_spider, args=(18001, 19000))
-    threads.append(t19)
-    t20 = Thread(target=start_spider, args=(19001, 20235))
-    threads.append(t20)
+    thread1 = Thread(target=start_spider, args=(0, 1000))
+    threads.append(thread1)
+    thread2 = Thread(target=start_spider, args=(1001, 2000))
+    threads.append(thread2)
+    thread3 = Thread(target=start_spider, args=(2100, 3000))
+    threads.append(thread3)
+    thread4 = Thread(target=start_spider, args=(3001, 4000))
+    threads.append(thread4)
+    thread5 = Thread(target=start_spider, args=(4001, 500))
+    threads.append(thread5)
+    thread6 = Thread(target=start_spider, args=(5001, 6000))
+    threads.append(thread6)
+    thread7 = Thread(target=start_spider, args=(6001, 7000))
+    threads.append(thread7)
+    thread8 = Thread(target=start_spider, args=(7001, 8000))
+    threads.append(thread8)
+    thread9 = Thread(target=start_spider, args=(8001, 9000))
+    threads.append(thread9)
+    thread10 = Thread(target=start_spider, args=(9001, 10000))
+    threads.append(thread10)
+    thread11 = Thread(target=start_spider, args=(10001, 11000))
+    threads.append(thread11)
+    thread12 = Thread(target=start_spider, args=(11001, 12000))
+    threads.append(thread12)
+    thread13 = Thread(target=start_spider, args=(12001, 13000))
+    threads.append(thread13)
+    thread14 = Thread(target=start_spider, args=(13001, 14000))
+    threads.append(thread14)
+    thread15 = Thread(target=start_spider, args=(14001, 15000))
+    threads.append(thread15)
+    thread16 = Thread(target=start_spider, args=(15001, 16000))
+    threads.append(thread16)
+    thread17 = Thread(target=start_spider, args=(16001, 17000))
+    threads.append(thread17)
+    thread18 = Thread(target=start_spider, args=(17001, 18000))
+    threads.append(thread18)
+    thread19 = Thread(target=start_spider, args=(18001, 19000))
+    threads.append(thread19)
+    thread20 = Thread(target=start_spider, args=(19001, 20235))
+    threads.append(thread20)
     for thread in threads:
         thread.start()
     for thread in threads:
         thread.join()
     print('运行完成!')
-    
 
 # 运行程序
 if __name__ == '__main__':
     print('go!')
     with open('./log_bookinfo.txt', 'a', encoding='utf-8') as log:
         log.write(str(datetime.now()) + '-- 程序开始' + '\n')
-        main_multithreading_get_book_info()
-
+        main_multithreading_spider()
