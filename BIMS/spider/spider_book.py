@@ -41,7 +41,8 @@ def insert_table(table_name, column1, column2, column3, column4, column5, column
     """
     conn = connect_db()
     cursor = conn.cursor()
-    sql = 'INSERT INTO `%s` (`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`)VALUES (\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (table_name, column1, column2, column3, column4, column5, column6, column7, column8, column9, column10, column11, column12, data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12)
+    sql = 'INSERT INTO `%s` (`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`)VALUES (\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (
+        table_name, column1, column2, column3, column4, column5, column6, column7, column8, column9, column10, column11, column12, data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12)
     print(sql)
     log.write(str(datetime.now()) + '--' + data1 + '正在入表!' + '\n')
     try:
@@ -63,7 +64,8 @@ def select_table(table_name, column1, column2, low, high):
     """
     conn = connect_db()
     cursor = conn.cursor()
-    sql = 'SELECT `%s`,`%s`from `%s` where book_id >=%d AND  book_id<=%d' % (column1, column2, table_name, int(low), int(high))
+    sql = 'SELECT `%s`,`%s`from `%s` where book_id >=%d AND  book_id<=%d' % (
+        column1, column2, table_name, int(low), int(high))
     print(str(datetime.now()) + '--' + sql)
     try:
         cursor.execute(sql)
@@ -127,6 +129,28 @@ def get_book_info(book_url):
         'Cookie': 'guid=74056395b89f9cd12f461b7d6a60c85a; plt_PLT_oauth_7_last_key=KUU9cgM84o0FxSnbT1%2BDfgZl8po%2F4i9W7XfwepjWohaMAdKGNcZONJZVLIUK9EDO9u%2F9bzwq6MT%2FXP%2BchHolPE7Auow%2Fn5yGBU350nfBbMozSa1PlTYfk%2FuOQOBXy%2Fi72t0H%2F6DUn0UlznfuZ%2BzF0PhpNib7KIHtXfabkwG%2FeObbaDzoNmH2XTe6KlWzTadjOs0Qnfz%2BWDdVuruFe3%2F5MZOsR%2BxgiOL0J0BjK74BBuRtdV2pTbpCJoZO2v6jBWcbroU5xi2jNePTNs2I7bKPWhS5DFL0y20tZ62C9PuY8fI%3D; addFavor=1; Hm_lvt_7705e8554135f4d7b42e62562322b3ad=1479544357,1479545127; __utma=188916852.669699889.1461046276.1469275819.1479544357.6; __utmz=188916852.1479544357.6.3.utmcsr=item.jd.com|utmccn=(referral)|utmcmd=referral|utmcct=/173134.html; from_device=chrome; plt_subsite_id=3'
     }
     web_data = requests.get(book_url, headers=headers)
+    status = {
+        100: '继续',
+        101: '转换协议',
+        102: '继续处理',
+        200: '请求成功',
+        201: '请求完成',
+        202: '请求被接受',
+        204: '服务器端已经实现了请求',
+        300: '该状态码不被HTTP/1.0的应用程序直接使用',
+        301: '请求到的资源都会分配一个永久的URL',
+        302: '请求到的资源在一个不同的URL处临时保存',
+        304: '请求的资源未更新',
+        400: '非法请求',
+        401: '未授权',
+        403: '禁止',
+        404: '没有找到页面',
+        500: '服务器内部错误',
+        501: '服务器无法识别',
+        502: '错误网关',
+        503: '服务出错',
+    }
+    print(str(web_data.status_code) + '--' + status[web_data.status_code])
     if web_data.status_code == 200:
         web_data.encoding = 'utf-8'
         soup = BeautifulSoup(web_data.text, 'lxml')
@@ -145,7 +169,8 @@ def get_book_info(book_url):
         except IndexError:
             press_house = '不详'
         try:
-            publication_date = re.findall(r'出版年:([^\n$]+)', info_text)[0].strip()
+            publication_date = re.findall(
+                r'出版年:([^\n$]+)', info_text)[0].strip()
         except IndexError:
             publication_date = '不详'
         try:
@@ -165,7 +190,8 @@ def get_book_info(book_url):
         except IndexError:
             isbn = 9999999999999
         try:
-            content_summary = soup.find_all(class_='intro')[0].get_text().strip()
+            content_summary = soup.find_all(class_='intro')[
+                0].get_text().strip()
         except IndexError:
             content_summary = '暂无简介'
         book_info = {
@@ -195,7 +221,8 @@ def get_book_urls(title_url):
     :return:图书名称和链接(list)
     """
     book_urls = []
-    full_title_urls = [title_url + '?start={}&type=T'.format(str(title_page * 20)) for title_page in range(50)]
+    full_title_urls = [
+        title_url + '?start={}&type=T'.format(str(title_page * 20)) for title_page in range(50)]
     for full_title_url in full_title_urls:
         request_code = requests.get(full_title_url).status_code
         if request_code == 200:
@@ -220,7 +247,8 @@ def start_spider(low, high):
     :param low:book_id最小(包含)
     :param high:book_id最大(包含)
     """
-    book_classes_and_urls = select_table('all_book', 'book_class', 'book_url', low, high)
+    book_classes_and_urls = select_table(
+        'all_book', 'book_class', 'book_url', low, high)
     for book_class_and_url in book_classes_and_urls:
         book_info = get_book_info(book_class_and_url['book_url'])
         if book_info['book_name'] == 'get_info_fail':
@@ -236,7 +264,8 @@ def start_spider(low, high):
                 score = book_info['score']
             content_summary = re.sub("'", '"', book_info['content_summary'])
             insert_table('bims_book', 'book_name', 'author_name', 'press_house', 'publication_date', 'pages', 'price', 'package', 'isbn', 'score', 'evaluate_num', 'content_summary', 'title', book_info['book_name'], book_info['author_name'], book_info['press_house'], book_info['publication_date'], book_info['pages'], book_info['price'], book_info['package'], book_info['isbn'], score, evaluate_num, content_summary, book_class_and_url['book_class'])
-            log.write(str(datetime.now()) + '--' + book_info['book_name'] + '入库成功!' + '\n')
+            log.write(str(datetime.now()) + '--' +
+                      book_info['book_name'] + '入库成功!' + '\n')
             print(book_info['book_name'] + '入库成功!')
 
 
@@ -249,7 +278,8 @@ def main_csv_to_table():
             data = line.split(',')
             conn = connect_db()
             cursor = conn.cursor()
-            sql = 'INSERT INTO `%s`VALUES (%d,\'%s\',\'%s\',\'%s\')' % ('all_book', int(data[0]), data[1], data[2], data[3])
+            sql = 'INSERT INTO `%s`VALUES (%d,\'%s\',\'%s\',\'%s\')' % (
+                'all_book', int(data[0]), data[1], data[2], data[3])
             print(sql)
             cursor.execute(sql)
             conn.commit()
