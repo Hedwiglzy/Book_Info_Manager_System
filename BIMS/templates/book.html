@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/custom/navbar.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/custom/book.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/bootstrap/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/custom/navbar.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/custom/book.css">
     <title>{{ book.book_name }}</title>
 </head>
 
@@ -41,7 +41,7 @@
                 <ul class=" nav navbar-nav navbar-left">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img alt="username" src="../static/image/avatar/thumb/hedwig.jpg" class="img-circle">
+                            <img alt="username" src="../static/image/avatar/hd/{{ user.user_id }}" class="img-circle">
                             <span class="name">Hedwig</span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
@@ -66,7 +66,7 @@
         <div class="col-lg-10">
             <div class="col-lg-2 book_cover">
                 <a href="#">
-                    <img class=" img-thumbnail" src="../static/image/book/cover/{{ book.book_name }}.jpg" alt="{{ book.book_name }}" title="{{ book.book_name }}">
+                    <img class=" img-thumbnail" src="../../static/image/book/cover/{{ book.book_id }}.jpg" alt="{{ book.book_name }}" title="{{ book.book_name }}">
                 </a>
             </div>
             <div class="col-lg-3 book_info">
@@ -84,7 +84,7 @@
                 </div>
                 <div class="row info">
                     <div class="col-lg-3 info_left">出版年:</div>
-                    <div class="col-lg-9 info_right">{{ book.translator }}</div>
+                    <div class="col-lg-9 info_right">{{ book.publication_date }}</div>
                 </div>
                 <div class="row info">
                     <div class="col-lg-3 info_left">页数:</div>
@@ -108,7 +108,11 @@
                     综合评分
                 </div>
                 <div class="score">
-                    {{ book.score }}
+                    {% if score %}
+											{{ score }}
+										{% else %}
+											<h4>评价人数不足</h4>
+										{% endif %}
                 </div>
                 <div class="star"></div>
                 <h4>{{ book.evaluate_num }}人评价</h4>
@@ -118,31 +122,19 @@
                         我的评分
                     </div>
                     <div class="col-lg-6 star_list">
-                        <a href="#" class="single_star">
-                            <img src="../static/image/system/single_star.png" alt="">
-                        </a>
-                        <a href="#" class="single_star">
-                            <img src="../static/image/system/single_star.png" alt="">
-                        </a>
-                        <a href="#" class="single_star">
-                            <img src="../static/image/system/single_star.png" alt="">
-                        </a>
-                        <a href="#" class="single_star">
-                            <img src="../static/image/system/single_star.png" alt="">
-                        </a>
-                        <a href="#" class="single_star">
-                            <img src="../static/image/system/single_star.png" alt="">
-                        </a>
-                    </div>
+                        <a href="#" class="single_star"></a>
+											  <a href="#" class="single_star"></a>
+											  <a href="#" class="single_star"></a>
+											  <a href="#" class="single_star"></a>
+											  <a href="#" class="single_star"></a>
+										</div>
                 </div>
                 <div class="row is_colleciton">
                     <div class="col-lg-4 my_colleciton_title">
                         收藏此书
                     </div>
                     <div class="col-lg-2 star_list">
-                        <a href="#" class="single_star">
-                            <img src="../static/image/system/single_star.png" alt="">
-                        </a>
+                        <a href="#" class="single_star"></a>
                     </div>
                 </div>
             </div>
@@ -157,11 +149,11 @@
             </div>
             <div>
                 <p>
-                    百年一遇的数学天才石神，每天唯一的乐趣，便是去固定的便当店买午餐，只为看一眼在便当店做事的邻居靖子。 靖子与女儿相依为命，失手杀了前来纠缠的前夫。石神提出由他料理善后。石神设了一个匪夷所思的局，令警方始终只能在外围敲敲打打，根本无法与案子沾边。石神究竟使用了什么手法？
+									{{ book.content_summary }}
                 </p>
             </div>
         </div>
-
+				<div class="col-lg-3"></div>
     </div>
     <div class="row author_introduction">
         <div class="col-lg-2"></div>
@@ -266,8 +258,8 @@
         <div class="col-lg-4">
         </div>
     </div>
-    <script type="text/javascript " src="../static/js/jquery.js "></script>
-    <script type="text/javascript " src="../static/js/bootstrap.js "></script>
+    <script type="text/javascript " src="../../static/js/jquery.js "></script>
+    <script type="text/javascript " src="../../static/js/bootstrap.js "></script>
 </body>
 
 </html>

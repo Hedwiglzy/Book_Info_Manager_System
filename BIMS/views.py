@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 
-from BIMS.models import User,Book
+from BIMS.models import User, Book
 from BIMS.tools.forms import LoginForm, RegisterForm
 
 
@@ -39,7 +39,11 @@ def get_book_info(request, book_id):
     """
     book_id = int(book_id)
     book = Book.objects.get(book_id=book_id)
-    return render_to_response('book.html', {'book': book}, )
+    if int(book.score) == 0:
+        score = ''
+    else:
+        score = book.score
+    return render_to_response('book.html', {'book': book, 'score': score}, )
 
 
 def register(request):
