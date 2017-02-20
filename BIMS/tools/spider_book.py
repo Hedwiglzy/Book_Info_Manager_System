@@ -368,6 +368,6 @@ def main_multithreading_spider():
 # 运行程序
 if __name__ == '__main__':
     print('go!')
-    with open('./log_bookinfo.txt', 'a', encoding='utf-8') as log:
+    with open('../log/spider_bookinfo.txt', 'a', encoding='utf-8') as log:
         log.write(str(datetime.now()) + '-- 程序开始' + '\n')
         main_multithreading_spider()
