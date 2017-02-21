@@ -66,9 +66,9 @@ def register(request):
             remark = register_form.cleaned_data['remark']
             age = int(str(datetime.date.today())[0:4]) - int(str(birthday)[0:4])
             create_date = datetime.date.today()
-            user = User(user_name=username, password=password, tel=tel, email=email,
+            user = User(user_name=username, password=password, tel=int(tel), email=email,
                         birthday=birthday, age=age, sex=sex, locate=province + city, remark=remark,
-                        create_date=create_date)
+                        create_date=create_date, image=0)
             user.save()
 
             return render_to_response('register_successed.html', )

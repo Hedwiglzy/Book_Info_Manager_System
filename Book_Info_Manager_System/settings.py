@@ -124,7 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'zh-Hans'
 
-TIME_ZONE = 'Asia/Shenyang'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -137,7 +137,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'BIMS/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'BIMS/static')
 # STATICFILES_DIRS = (
 #     ('css', os.path.join(STATIC_ROOT, 'css')),
 #     ('js', os.path.join(STATIC_ROOT, 'js')),
