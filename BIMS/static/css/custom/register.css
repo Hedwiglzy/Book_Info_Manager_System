@@ -1,25 +1,33 @@
-  .top {
+.top {
     height: 30px;
-  }
+}
 
-  .welcome {
+.welcome {
     height: 100px;
     text-align: center;
     font-family: HYMiaoHunTiW, Helvetica, Arial, sans-serif, serif;
     font-size: 50px;
     color: black;
-  }
+}
 
-  .middle {
-    height: 500px;
+.middle {
+    height: 550px;
     text-align: center;
-  }
+}
 
-  .sex {
+.sex {
     margin-bottom: 10px;
-  }
+}
 
-  .a {
+.a {
     padding-left: 100px;
     padding-right: 100px;
-  }
+}
+
+footer {
+    color: #999;
+    margin-top: 30px;
+    text-align: center;
+    font-family: Helvetica, sans-serif;
+    border-top: 1px dashed;
+}

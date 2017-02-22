@@ -26,6 +26,6 @@ class RegisterForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control' ,'id':'username', 'placeholder': '输入用户名'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control' ,'id':'password', 'placeholder': '输入密码'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'username', 'placeholder': '输入用户名'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'password', 'placeholder': '输入密码'}))
     required_css_class = 'sr-only'

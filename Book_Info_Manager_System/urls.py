@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/image/favicon.ico')),
     url(r'^login/$', views.login, name='login'),
-    url(r'^register/$', views.register),
-    url(r'^user/(\d+)/$', views.get_user_info),
-    url(r'^book/(\d+)/$', views.get_book_info),
+    url(r'^register/$', views.register, name='register'),
+    url(r'^user/(\d+)/$', views.get_user_info, name='user_info'),
+    url(r'^book/(\d+)/$', views.get_book_info, name='book_info'),
 ]
