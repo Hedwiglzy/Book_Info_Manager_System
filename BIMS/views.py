@@ -9,6 +9,8 @@ import datetime
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import cache_page
 
 from BIMS.models import User, Book
 from BIMS.tools.forms import LoginForm, RegisterForm
@@ -16,14 +18,13 @@ from BIMS.tools.forms import LoginForm, RegisterForm
 
 # Create your views here.
 
-def get_user_info(request, user_id):
+def get_user_info(request):
     """
     用户信息
     :param request:请求
-    :param user_id:用户id
     :return:用户个人信息
     """
-    user_id = int(user_id)
+    user_id = request.COOKIES['user_id']
     user = User.objects.get(user_id=user_id)
     sex = {1: '男', 2: '女', 0: '其他'}
     avatar = {0: 'original', 1: user_id}
@@ -95,9 +96,26 @@ def login(request):
             real_pswd = User.objects.get(user_name=username).password
             user_id = User.objects.get(user_name=username).user_id
             if password == real_pswd:
-                return HttpResponseRedirect(reverse(get_user_info, args=[user_id]))
+                # return HttpResponseRedirect(reverse(get_user_info, args=[user_id]))
+                response = HttpResponseRedirect('/user/')
+                response.set_cookie('user_id', value=user_id)
+                return response
             else:
                 return render_to_response('wrong_password.html', )
     else:
         login_form = LoginForm()
         return render_to_response('login.html', {'LoginForm': login_form})
+
+
+@login_required(login_url="/login/")
+@cache_page(60 * 30)
+def index(request):
+    """
+    主页
+    登录后跳转
+    :param request:请求
+    :param user_id:用户ID
+    """
+    # user_id = int(user_id)
+    user_id = 10001
+    return render_to_response('index.html', {'user_id': user_id})

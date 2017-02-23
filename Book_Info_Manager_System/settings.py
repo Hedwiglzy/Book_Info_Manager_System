@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -25,8 +24,7 @@ SECRET_KEY = 'q&8q8p4x^g44%#0s)rdp)(dal_1l-wgz*x@4g2n20_qlc_3u+h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.167.211','192.168.1.101',]
-
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.167.211', '192.168.1.101', ]
 
 # Application definition
 
@@ -46,7 +44,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -56,7 +54,8 @@ ROOT_URLCONF = 'Book_Info_Manager_System.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),os.path.join(os.path.dirname(__file__),'templates').replace('\\','/')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                 os.path.join(os.path.dirname(__file__), 'templates').replace('\\', '/')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -72,7 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Book_Info_Manager_System.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
@@ -82,12 +80,12 @@ DATABASES = {
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
     'default': {
-        'ENGINE'  : 'django.db.backends.mysql',
-        'NAME'    : 'BIMS',
-        'USER'    : 'root',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'BIMS',
+        'USER': 'root',
         'PASSWORD': 'qwer1234',
-        'HOST'    : '127.0.0.1',
-        'PORT'    : '3306',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
@@ -117,7 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -132,7 +129,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
@@ -144,4 +140,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'BIMS/static')
 #     ('image', os.path.join(STATIC_ROOT, 'image')),
 # )
 
-# favicon.ico
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
