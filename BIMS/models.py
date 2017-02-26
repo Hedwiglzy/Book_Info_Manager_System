@@ -48,6 +48,7 @@ class Book(models.Model):
     collect_num = models.IntegerField(null=True)  # 收藏人数
     content_summary = models.TextField(null=True)  # 内容简介
     title = models.CharField(max_length=100, null=True)  # 分类
+    create_date = models.DateField(null=True)  # 创建日期
 
     def __str__(self):
         return self.book_name
@@ -71,9 +72,8 @@ class Collection(models.Model):
     图书收藏表
     """
     op_id = models.AutoField(primary_key=True)  # 流水号
-    user_name = models.CharField(max_length=30)  # 用户名
+    user_id = models.IntegerField()  # 用户名
     book_id = models.IntegerField()  # 图书ID
-    book_name = models.CharField(max_length=100)  # 图书名
     create_date = models.DateField()  # 收藏日期
 
     def __str__(self):

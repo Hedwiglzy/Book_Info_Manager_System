@@ -56,9 +56,8 @@ CREATE TABLE `BIMS_author` (
 --
 CREATE TABLE `BIMS_collection` (
   `op_id`       INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  `user_name`   VARCHAR(30)            NOT NULL,
+  `user_id`     INTEGER                NOT NULL,
   `book_id`     INTEGER                NOT NULL,
-  `book_name`   VARCHAR(100)           NOT NULL,
   `create_date` DATE                   NOT NULL
 )
   AUTO_INCREMENT = 10001;

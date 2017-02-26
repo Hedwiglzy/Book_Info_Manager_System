@@ -1,7 +1,7 @@
 .hot_books,
 .new_books,
 .labels{
-  height: 300px;
+  height: 310px;
   margin-bottom: 5px;
 }
 .hot_books_title,
@@ -11,8 +11,8 @@
   font-size: 25px;
   font-weight: bold;
   border-bottom: 1px solid #ddd;
-  margin-left: 0px;
-  margin-right:0px;
+  margin-left: 0;
+  margin-right:0;
 }
 .more_books{
   font-size: 14px;
