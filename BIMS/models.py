@@ -22,7 +22,7 @@ class User(models.Model):
     age = models.IntegerField(null=True)  # 年龄
     locate = models.CharField(max_length=50, null=True)  # 所在地
     remark = models.CharField(max_length=500, null=True)  # 个人简介
-    image = models.ImageField(null=True)  # 头像
+    image = models.IntegerField(null=True)  # 头像
     create_date = models.DateField(null=True)  # 创建日期
 
     def __str__(self):

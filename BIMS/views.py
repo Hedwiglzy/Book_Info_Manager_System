@@ -27,7 +27,7 @@ def get_user_info(request):
     user_id = request.COOKIES['user_id']
     user = User.objects.get(user_id=user_id)
     sex = {1: '男', 2: '女', 0: '其他'}
-    avatar = {0: 'original', 1: user_id}
+    avatar = {0: 10000, 1: user_id}
     return render_to_response('user.html', {'user': user, 'sex': sex[user.sex], 'avatar': avatar[user.image]}, )
 
 
@@ -97,8 +97,8 @@ def login(request):
             user_id = User.objects.get(user_name=username).user_id
             if password == real_pswd:
                 # return HttpResponseRedirect(reverse(get_user_info, args=[user_id]))
-                response = HttpResponseRedirect('/user/')
-                response.set_cookie('user_id', value=user_id)
+                response = HttpResponseRedirect('/index/')
+                response.set_cookie('user_id', value=user_id, max_age=3600)
                 return response
             else:
                 return render_to_response('wrong_password.html', )
@@ -107,15 +107,16 @@ def login(request):
         return render_to_response('login.html', {'LoginForm': login_form})
 
 
-@login_required(login_url="/login/")
+# @login_required(login_url="/login/")
 @cache_page(60 * 30)
 def index(request):
     """
     主页
     登录后跳转
     :param request:请求
-    :param user_id:用户ID
     """
-    # user_id = int(user_id)
-    user_id = 10001
-    return render_to_response('index.html', {'user_id': user_id})
+    user_id = request.COOKIES['user_id']
+    user = User.objects.get(user_id=user_id)
+    avatar = {0: 10000, 1: user_id}
+    print(avatar[user.image])
+    return render_to_response('index.html', {'user_id': user_id, 'avatar':avatar[user.image], })
