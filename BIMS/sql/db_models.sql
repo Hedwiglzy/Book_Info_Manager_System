@@ -2,8 +2,7 @@
 -- 2017.02.09
 -- by hedwig
 
--- 用户信息表
---
+-- 用户信息表 --
 CREATE TABLE `BIMS_user` (
   `user_id`     INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
   `user_name`   VARCHAR(30)            NOT NULL,
@@ -19,9 +18,8 @@ CREATE TABLE `BIMS_user` (
   `create_date` DATE                   NULL
 )
   AUTO_INCREMENT = 10001;
---
--- 图书信息表
---
+
+-- 图书信息表 --
 CREATE TABLE bims_book
 (
   book_id          INT(11) PRIMARY KEY NOT NULL,
@@ -38,12 +36,12 @@ CREATE TABLE bims_book
   evaluate_num     INT(11),
   collect_num      INT(11),
   content_summary  LONGTEXT,
-  title            VARCHAR(100)
+  title            VARCHAR(100),
+  create_date      DATE
 )
   AUTO_INCREMENT = 10001;
---
--- 作者信息表
---
+
+-- 作者信息表 --
 CREATE TABLE `BIMS_author` (
   `author_id`      INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
   `author_name`    VARCHAR(100)           NOT NULL,
@@ -51,19 +49,36 @@ CREATE TABLE `BIMS_author` (
   `author_summary` LONGTEXT               NULL
 )
   AUTO_INCREMENT = 10001;
---
--- 收藏信息表
---
-CREATE TABLE `BIMS_collection` (
+
+-- 图书收藏信息表 --
+CREATE TABLE `BIMS_collectionbook` (
   `op_id`       INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
   `user_id`     INTEGER                NOT NULL,
   `book_id`     INTEGER                NOT NULL,
   `create_date` DATE                   NOT NULL
 )
   AUTO_INCREMENT = 10001;
---
+
+-- 作者收藏信息表 --
+CREATE TABLE `BIMS_collectionauthor` (
+  `op_id`       INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `user_id`     INTEGER                NOT NULL,
+  `author_id`   INTEGER                NOT NULL,
+  `create_date` DATE                   NOT NULL
+)
+  AUTO_INCREMENT = 10001;
+
+-- 读书笔记信息表 --
+CREATE TABLE `BIMS_collectionnote` (
+  `op_id`       INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `user_id`     INTEGER                NOT NULL,
+  `title`       VARCHAR(100)           NULL,
+  `content`     LONGTEXT               NULL,
+  `create_date` DATE                   NOT NULL
+)
+  AUTO_INCREMENT = 10001;
+
 -- 图书链接表
---
 CREATE TABLE all_book
 (
   book_id    INT(11) PRIMARY KEY NOT NULL,

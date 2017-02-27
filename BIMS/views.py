@@ -12,11 +12,35 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.views.decorators.cache import cache_page
 
-from BIMS.models import User, Book, Collection
+from BIMS.models import User, Book, CollectionBook
 from BIMS.tools.forms import LoginForm, RegisterForm
 
 
 # Create your views here.
+
+def get_book_collection(user_id):
+    """
+    获取用户收藏的图书
+    :param user_id:用户ID
+    """
+    book_collections = []
+    collections = CollectionBook.objects.filter(user_id=user_id)
+    for collection in collections:
+        book_collections.append(Book.objects.get(book_id=collection.book_id))
+    return book_collections
+
+
+def get_author_collection(user_id):
+    """
+    获取用户收藏的作者
+    """
+
+
+def get_note_collection(user_id):
+    """
+    获取用户收藏的图书
+    """
+
 
 def get_user_info(request):
     """
@@ -31,16 +55,10 @@ def get_user_info(request):
         user = User.objects.get(user_id=user_id)
         sex = {1: '男', 2: '女', 0: '其他'}
         avatar = {0: 10000, 1: user_id}
-        book_collections = []
-        collections = Collection.objects.filter(user_id=user_id)
-        quotient = divmod(len(collections), 6)
-        rows = quotient[0] + ceil(quotient[1] / 6)
-        for row in range(rows):
-            exec('row%s = %s' % (row, collections[0:6]))
-        # for row in range(rows):
-        #     for collection in collections:
-        #         book_collections.append(Book.objects.get(book_id=collection.book_id))
-        return render_to_response('user.html', {'user': user, 'sex': sex[user.sex], 'avatar': avatar[user.image], },)
+        book_collections = get_book_collection(user_id)
+        quotient = divmod(len(book_collections), 6)
+        height = (quotient[0] + ceil(quotient[1] / 6))*260+50
+        return render_to_response('user.html', {'user': user, 'sex': sex[user.sex], 'avatar': avatar[user.image], 'book_collections': book_collections, 'height': height},)
 
 
 def get_book_info(request, book_id):

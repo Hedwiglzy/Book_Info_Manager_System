@@ -39,26 +39,26 @@
 
   .my_collection {
     margin-top: 20px;
-    height: 570px;
-    padding-left: 0px;
-    padding-right: 0px;
+    height: 800px;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .book_list {
     margin-bottom: 5px;
-    margin-left: 0px;
+    margin-left: 0;
     height: 260px;
   }
 
   .book_info {
-    padding-left: 0px;
+    padding-left: 0;
     text-align: center;
   }
 
   .book_cover {
     height: 215px;
     padding-top: 10px;
-    padding-left: 0px;
+    padding-left: 0;
   }
 
   .author_list {
@@ -78,7 +78,7 @@
 
   .note_list {
     margin-bottom: 5px;
-    margin-left: 0px;
+    margin-left: 0;
     height: 260px;
   }
 
