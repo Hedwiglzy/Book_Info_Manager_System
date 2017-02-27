@@ -1,0 +1,60 @@
+.blank{
+    height: 50px;
+}
+.nationality{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 18px;
+}
+.author_info{
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.author_name{
+    margin-bottom: 10px;
+}
+.author_introduction{
+    height: 120px;
+}
+
+.author_introduction_title{
+    font-size: 16px;
+    font-family: Helvetica, sans-serif;
+    margin-bottom: 5px;
+    color: #095fb3;
+}
+h2,.h2{
+    margin-bottom: 5px;
+}
+.author_books{
+  height: 310px;
+  margin-bottom: 5px;
+}
+.author_books_title{
+  height: 40px;
+  font-size: 25px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  margin-left: 0;
+  margin-right:0;
+}
+.more_books{
+    font-size: 14px;
+}
+.book_list {
+    margin-bottom: 5px;
+    margin-left: 0;
+    height: 260px;
+  }
+ .book_info {
+    padding-left: 0;
+    text-align: center;
+  }
+ .book_cover {
+    height: 215px;
+    padding-top: 10px;
+    padding-left: 0;
+  }
+ .img-thumbnail {
+    height: 200px;
+    width: 200px;
+  }

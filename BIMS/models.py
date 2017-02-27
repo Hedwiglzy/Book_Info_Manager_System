@@ -49,6 +49,7 @@ class Book(models.Model):
     content_summary = models.TextField(null=True)  # 内容简介
     title = models.CharField(max_length=100, null=True)  # 分类
     create_date = models.DateField(null=True)  # 创建日期
+    author_id = models.IntegerField(null=True)  # 作者ID
 
     def __str__(self):
         return self.book_name

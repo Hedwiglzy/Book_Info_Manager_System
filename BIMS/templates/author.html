@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	{% load static %}
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/navbar.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/author.css' %}">
+	<title>{{ book.book_name }}</title>
+</head>
+
+<body>
+{% include 'include/navbar.html' %}
+<div class="row blank"></div>
+<div class="row author_info">
+	<div class="col-lg-2"></div>
+	<div class="col-lg-8">
+		<div class="row author_name">
+			<h2>
+				{{ author.author_name }}
+			</h2>
+			<span class="nationality">
+				[{{ author.nationality }}]
+			</span>
+		</div>
+		<div class="row author_introduction">
+			<div class="author_introduction_title">
+				作者简介 &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+			</div>
+			<div>
+				<p>
+					{{ author.author_summary|truncatechars:"200" }}
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-2"></div>
+</div>
+<div class="row author_books">
+<div class="col-lg-2"></div>
+	<div class="col-lg-8">
+		<div class="row author_books_title">
+		所有作品
+		<a href="#" class="more_books">更多>></a>
+	</div>
+	<div class="row book_list">
+		{% for author_book in author_books %}
+			<div class="col-lg-2 book_info">
+				<div class="book_cover">
+					<a href={% url 'book' author_book.book_id %}>
+						<img class=" img-thumbnail" src="../../static/image/book/cover/{{ author_book.book_id }}.jpg"
+								 alt="{{ author_book.book_name }}" title="{{ author_book.book_name }}">
+					</a>
+				</div>
+				<div style="text-align: center"><a href={% url 'book' author_book.book_id %}><strong>{{ author_book.book_name }}</strong></a></div>
+			</div>
+		{% endfor %}
+	</div>
+	</div>
+	<div class="col-lg-2"></div>
+
+</div>
+{% include 'include/footer.html' %}
+</body>
+
+</html>

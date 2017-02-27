@@ -37,7 +37,8 @@ CREATE TABLE bims_book
   collect_num      INT(11),
   content_summary  LONGTEXT,
   title            VARCHAR(100),
-  create_date      DATE
+  create_date      DATE,
+  `author_id`      INT(11)
 )
   AUTO_INCREMENT = 10001;
 

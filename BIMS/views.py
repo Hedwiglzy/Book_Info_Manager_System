@@ -12,7 +12,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.views.decorators.cache import cache_page
 
-from BIMS.models import User, Book, CollectionBook
+from BIMS.models import User, Book, Author, CollectionBook
 from BIMS.tools.forms import LoginForm, RegisterForm
 
 
@@ -81,6 +81,26 @@ def get_book_info(request, book_id):
         else:
             score = book.score
         return render_to_response('book.html', {'user': user, 'avatar': avatar[user.image], 'book': book, 'score': score}, )
+
+
+def get_author_info(request, author_id):
+    """
+    图书信息
+    :param request:请求
+    :param author_id:作者id
+    :return:作者信息
+    """
+    user_id = request.session.get('user_id', 'user_not_exist')
+    if user_id == 'user_not_exist':
+        return render_to_response('user_not_exist.html', )
+    else:
+        user = User.objects.get(user_id=user_id)
+        avatar = {0: 10000, 1: user_id}
+        author_id = int(author_id)
+        author = Author.objects.get(author_id=author_id)
+        author_books = Book.objects.filter(author_id=author_id)
+        print(author_books)
+        return render_to_response('author.html', {'user': user, 'avatar': avatar[user.image], 'author': author, 'author_books': author_books}, )
 
 
 def register(request):

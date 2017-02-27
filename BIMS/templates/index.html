@@ -53,8 +53,8 @@
 						<img class=" img-thumbnail" src="../static/image/book/cover/{{ hot_book.book_id }}.jpg" alt="{{ hot_book.book_name }}" title="{{ hot_book.book_name }}">
 					</a>
 				</div>
-				<div><a href="#"><strong>{{ hot_book.book_name }}</strong></a></div>
-				<div><a href="#">{{ hot_book.author_name }}</a></div>
+				<div><a href={% url 'book' hot_book.book_id %}><strong>{{ hot_book.book_name }}</strong></a></div>
+				<div><a href={% url 'author' hot_book.author_id %}>{{ hot_book.author_name }}</a></div>
 			</div>
 			{% endfor %}
 		</div>
@@ -76,8 +76,8 @@
 						<img class=" img-thumbnail" src="../static/image/book/cover/{{ new_book.book_id }}.jpg" alt="{{ new_book.book_name }}" title="{{ new_book.book_name }}">
 					</a>
 				</div>
-				<div><a href="#"><strong>{{ new_book.book_name }}</strong></a></div>
-				<div><a href="#">{{ new_book.author_name }}</a></div>
+				<div><a href={% url 'book' new_book.book_id %}><strong>{{ new_book.book_name }}</strong></a></div>
+				<div><a href={% url 'author' new_book.author_id %}>{{ new_book.author_name }}</a></div>
 			</div>
 			{% endfor %}
 		</div>
