@@ -12,7 +12,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.views.decorators.cache import cache_page
 
-from BIMS.models import User, Book, Author, CollectionBook
+from BIMS.models import User, Book, Author, CollectionBook, CollectionAuthor
 from BIMS.tools.forms import LoginForm, RegisterForm
 
 
@@ -33,13 +33,27 @@ def get_book_collection(user_id):
 def get_author_collection(user_id):
     """
     获取用户收藏的作者
+    :param user_id:用户ID
     """
+    autuor_collections = []
+    collections = CollectionAuthor.objects.filter(user_id=user_id)
+    for collection in collections:
+        autuor_collections.append(Author.objects.get(author_id=collection.author_id))
+    return autuor_collections
 
 
 def get_note_collection(user_id):
     """
     获取用户收藏的图书
     """
+
+
+def get_author_book(author_id):
+    """
+    获取作者所有作品
+    :param author_id:作者ID
+    """
+    return Book.objects.filter(author_id=author_id)
 
 
 def get_user_info(request):
@@ -56,9 +70,18 @@ def get_user_info(request):
         sex = {1: '男', 2: '女', 0: '其他'}
         avatar = {0: 10000, 1: user_id}
         book_collections = get_book_collection(user_id)
-        quotient = divmod(len(book_collections), 6)
-        height = (quotient[0] + ceil(quotient[1] / 6))*260+50
-        return render_to_response('user.html', {'user': user, 'sex': sex[user.sex], 'avatar': avatar[user.image], 'book_collections': book_collections, 'height': height},)
+        author_collections = get_author_collection(user_id)
+        authors_and_books = []
+        for author in author_collections:
+            author_books = get_author_book(author.author_id)
+            author_and_book = {
+                'author': author,
+                'book': author_books
+            }
+            authors_and_books.append(author_and_book)
+        # quotient = divmod(len(book_collections), 6)
+        # height = (quotient[0] + ceil(quotient[1] / 6)) * 260 + 50
+        return render_to_response('user.html', {'user': user, 'sex': sex[user.sex], 'avatar': avatar[user.image], 'book_collections': book_collections, 'authors_and_books': authors_and_books},)
 
 
 def get_book_info(request, book_id):
