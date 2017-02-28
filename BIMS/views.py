@@ -13,10 +13,31 @@ from django.shortcuts import render_to_response
 from django.views.decorators.cache import cache_page
 
 from BIMS.models import User, Book, Author, CollectionBook, CollectionAuthor
-from BIMS.tools.forms import LoginForm, RegisterForm
+from BIMS.tools.forms import LoginForm, RegisterForm, SreachForm
 
 
 # Create your views here.
+
+def search(keyword):
+    """
+    搜索信息
+    :param keyword:关键字
+    """
+    search_result = []
+    for book in Book.objects.filter(book_name__contains=keyword):
+        search_result.append(book)
+    for book in Book.objects.filter(author_name__contains=keyword):
+        search_result.append(book)
+    for book in Book.objects.filter(press_house__contains=keyword):
+        search_result.append(book)
+    for book in Book.objects.filter(isbn__contains=keyword):
+        search_result.append(book)
+    for book in Book.objects.filter(isbn__contains=keyword):
+        search_result.append(book)
+    for book in Book.objects.filter(title__contains=keyword):
+        search_result.append(book)
+    return search_result
+
 
 def get_book_collection(user_id):
     """
@@ -66,22 +87,34 @@ def get_user_info(request):
     if user_id == 'user_not_exist':
         return render_to_response('user_not_exist.html', )
     else:
-        user = User.objects.get(user_id=user_id)
-        sex = {1: '男', 2: '女', 0: '其他'}
-        avatar = {0: 10000, 1: user_id}
-        book_collections = get_book_collection(user_id)
-        author_collections = get_author_collection(user_id)
-        authors_and_books = []
-        for author in author_collections:
-            author_books = get_author_book(author.author_id)
-            author_and_book = {
-                'author': author,
-                'book': author_books
-            }
-            authors_and_books.append(author_and_book)
-        # quotient = divmod(len(book_collections), 6)
-        # height = (quotient[0] + ceil(quotient[1] / 6)) * 260 + 50
-        return render_to_response('user.html', {'user': user, 'sex': sex[user.sex], 'avatar': avatar[user.image], 'book_collections': book_collections, 'authors_and_books': authors_and_books},)
+        if request.method == 'POST':
+            sreach_form = SreachForm(request.POST)
+            if sreach_form.is_valid():
+                keyword = sreach_form.cleaned_data['sreach']
+                results = search(keyword)
+                return render_to_response('result.html', {'results': results})
+        else:
+            sreach_form = SreachForm()
+            user = User.objects.get(user_id=user_id)
+            sex = {1: '男', 2: '女', 0: '其他'}
+            avatar = {0: 10000, 1: user_id}
+            book_collections = get_book_collection(user_id)
+            author_collections = get_author_collection(user_id)
+            authors_and_books = []
+            for author in author_collections:
+                author_books = get_author_book(author.author_id)
+                if len(author_books) > 4:
+                    author_books = author_books[0:4]
+                else:
+                    pass
+                author_and_book = {
+                    'author': author,
+                    'book': author_books
+                }
+                authors_and_books.append(author_and_book)
+            # quotient = divmod(len(book_collections), 6)
+            # height = (quotient[0] + ceil(quotient[1] / 6)) * 260 + 50
+            return render_to_response('user.html', {'sreach_form': sreach_form, 'user': user, 'sex': sex[user.sex], 'avatar': avatar[user.image], 'book_collections': book_collections, 'authors_and_books': authors_and_books},)
 
 
 def get_book_info(request, book_id):
@@ -95,15 +128,23 @@ def get_book_info(request, book_id):
     if user_id == 'user_not_exist':
         return render_to_response('user_not_exist.html', )
     else:
-        user = User.objects.get(user_id=user_id)
-        avatar = {0: 10000, 1: user_id}
-        book_id = int(book_id)
-        book = Book.objects.get(book_id=book_id)
-        if int(book.score) == 0:
-            score = ''
+        if request.method == 'POST':
+            sreach_form = SreachForm(request.POST)
+            if sreach_form.is_valid():
+                keyword = sreach_form.cleaned_data['sreach']
+                results = search(keyword)
+                return render_to_response('result.html', {'results': results})
         else:
-            score = book.score
-        return render_to_response('book.html', {'user': user, 'avatar': avatar[user.image], 'book': book, 'score': score}, )
+            sreach_form = SreachForm()
+            user = User.objects.get(user_id=user_id)
+            avatar = {0: 10000, 1: user_id}
+            book_id = int(book_id)
+            book = Book.objects.get(book_id=book_id)
+            if int(book.score) == 0:
+                score = ''
+            else:
+                score = book.score
+            return render_to_response('book.html', {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image], 'book': book, 'score': score}, )
 
 
 def get_author_info(request, author_id):
@@ -117,13 +158,20 @@ def get_author_info(request, author_id):
     if user_id == 'user_not_exist':
         return render_to_response('user_not_exist.html', )
     else:
-        user = User.objects.get(user_id=user_id)
-        avatar = {0: 10000, 1: user_id}
-        author_id = int(author_id)
-        author = Author.objects.get(author_id=author_id)
-        author_books = Book.objects.filter(author_id=author_id)
-        print(author_books)
-        return render_to_response('author.html', {'user': user, 'avatar': avatar[user.image], 'author': author, 'author_books': author_books}, )
+        if request.method == 'POST':
+            sreach_form = SreachForm(request.POST)
+            if sreach_form.is_valid():
+                keyword = sreach_form.cleaned_data['sreach']
+                results = search(keyword)
+                return render_to_response('result.html', {'results': results})
+        else:
+            sreach_form = SreachForm()
+            user = User.objects.get(user_id=user_id)
+            avatar = {0: 10000, 1: user_id}
+            author_id = int(author_id)
+            author = Author.objects.get(author_id=author_id)
+            author_books = Book.objects.filter(author_id=author_id)
+            return render_to_response('author.html', {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image], 'author': author, 'author_books': author_books}, )
 
 
 def register(request):
@@ -206,8 +254,45 @@ def index(request):
     if user_id == 'user_not_exist':
         return render_to_response('user_not_exist.html', )
     else:
-        user = User.objects.get(user_id=user_id)
-        avatar = {0: 10000, 1: user_id}
-        hot_books = Book.objects.order_by('-evaluate_num')[0:6]
-        new_books = Book.objects.order_by('-create_date')[0:6]
-        return render_to_response('index.html', {'user': user, 'avatar': avatar[user.image], 'hot_books': hot_books, 'new_books': new_books})
+        if request.method == 'POST':
+            sreach_form = SreachForm(request.POST)
+            if sreach_form.is_valid():
+                keyword = sreach_form.cleaned_data['sreach']
+                request.session['user_id'] = user_id
+                request.session['keyword'] = keyword
+                return HttpResponseRedirect('/result/')
+        else:
+            sreach_form = SreachForm()
+            user = User.objects.get(user_id=user_id)
+            avatar = {0: 10000, 1: user_id}
+            hot_books = Book.objects.order_by('-evaluate_num')[0:6]
+            new_books = Book.objects.order_by('-create_date')[0:6]
+            return render_to_response('index.html', {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image], 'hot_books': hot_books, 'new_books': new_books})
+
+
+def result(request):
+    """
+    搜索结果界面
+    :param request:请求
+    """
+    user_id = request.session.get('user_id', 'user_not_exist')
+    if user_id == 'user_not_exist':
+        return render_to_response('user_not_exist.html', )
+    else:
+        if request.method == 'POST':
+            sreach_form = SreachForm(request.POST)
+            if sreach_form.is_valid():
+                keyword = sreach_form.cleaned_data['sreach']
+                request.session['keyword'] = keyword
+                return HttpResponseRedirect('/result/')
+        else:
+            sreach_form = SreachForm()
+            user = User.objects.get(user_id=user_id)
+            avatar = {0: 10000, 1: user_id}
+            keyword = request.session.get('keyword', ' ')
+            print(keyword)
+            search_results = search(keyword)
+            return render_to_response('result.html', {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image], 'results': search_results})
+
+
+

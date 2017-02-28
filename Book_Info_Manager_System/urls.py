@@ -29,4 +29,5 @@ urlpatterns = [
     url(r'^book/(\d+)/$', views.get_book_info, name='book'),
     url(r'^author/(\d+)/$', views.get_author_info, name='author'),
     url(r'^index/$', views.index, name='index'),
+    url(r'^result/$', views.result, name='result'),
 ]

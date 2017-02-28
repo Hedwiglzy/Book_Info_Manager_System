@@ -2,293 +2,206 @@
 <html lang="zh-CN">
 
 <head>
-    <meta charset="UTF-8">
-    {% load static %}
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/font-awesome.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/custom/navbar.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/custom/user.css' %}">
-    <title>{{ user.user_name }}的主页</title>
+	<meta charset="UTF-8">
+	{% load static %}
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/navbar.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/user.css' %}">
+	<title>{{ user.user_name }}的主页</title>
 </head>
 
 <body>
 {% include 'include/navbar.html' %}
 <div class="row blank"></div>
 <div class="row info">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-2 img">
-        <img src="../../static/image/avatar/hd/{{ avatar }}.jpg" alt="{{ user.user_name }}" class="img-thumbnail">
-    </div>
-    <div class="col-lg-3 userinfo">
-        <div class="row userinfo_top">
-            <div class="col-lg-4 username">
-                {{ user.user_name }}
-            </div>
-            <div class="col-lg-8 remark">
-                {{ user.remark }}
-            </div>
-        </div>
-        <div class="row other_info">
-            <div class="col-lg-4">
-                邮箱
-            </div>
-            <div class="col-lg-8">
-                {{ user.email }}
-            </div>
-        </div>
-        <div class="row other_info">
-            <div class="col-lg-4">
-                所在地
-            </div>
-            <div class="col-lg-8">
-                {{ user.locate }}
-            </div>
-        </div>
-        <div class="row other_info">
-            <div class="col-lg-4">
-                生日
-            </div>
-            <div class="col-lg-8">
-                {{ user.birthday }}
-            </div>
-        </div>
-        <div class="row other_info">
-            <div class="col-lg-4">
-                性别
-            </div>
-            <div class="col-lg-8">
-                {{ sex }}
-            </div>
-        </div>
-        <div class="row other_info">
-            <div class="col-lg-4">
-                注册日期
-            </div>
-            <div class="col-lg-8">
-                {{ user.create_date }}
-            </div>
-        </div>
-    </div>
+	<div class="col-lg-2"></div>
+	<div class="col-lg-2 img">
+		<img src="../../static/image/avatar/hd/{{ avatar }}.jpg" alt="{{ user.user_name }}" class="img-thumbnail">
+	</div>
+	<div class="col-lg-3 userinfo">
+		<div class="row userinfo_top">
+			<div class="col-lg-4 username">
+				{{ user.user_name }}
+			</div>
+			<div class="col-lg-8 remark">
+				{{ user.remark }}
+			</div>
+		</div>
+		<div class="row other_info">
+			<div class="col-lg-4">
+				邮箱
+			</div>
+			<div class="col-lg-8">
+				{{ user.email }}
+			</div>
+		</div>
+		<div class="row other_info">
+			<div class="col-lg-4">
+				所在地
+			</div>
+			<div class="col-lg-8">
+				{{ user.locate }}
+			</div>
+		</div>
+		<div class="row other_info">
+			<div class="col-lg-4">
+				生日
+			</div>
+			<div class="col-lg-8">
+				{{ user.birthday }}
+			</div>
+		</div>
+		<div class="row other_info">
+			<div class="col-lg-4">
+				性别
+			</div>
+			<div class="col-lg-8">
+				{{ sex }}
+			</div>
+		</div>
+		<div class="row other_info">
+			<div class="col-lg-4">
+				注册日期
+			</div>
+			<div class="col-lg-8">
+				{{ user.create_date }}
+			</div>
+		</div>
+	</div>
 </div>
 <div class="row ">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-8 my_collection" style="height:{{ height }}">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#book_collections" data-toggle='tab'>收藏的图书</a></li>
-            <li><a href="#author_collections" data-toggle='tab'>收藏的作者</a></li>
-            <li><a href="#notes" data-toggle='tab'>读书笔记</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane fade  in active" id="book_collections">
-                <div class="row book_list" style="height: {{ height }}px">
-                    {% for book in book_collections %}
-                        <div class="col-lg-2 book_info">
-                            <div class="book_cover">
-                                <a href={% url 'book' book.book_id %}>
-                                    <img class=" img-thumbnail"
-                                         src="../static/image/book/cover/{{ book.book_id }}.jpg"
-                                         alt="{{ book.book_name }}" title="{{ book.book_name }}">
-                                </a>
-                            </div>
-                            <div><a href={% url 'book' book.book_id %}><strong>{{ book.book_name }}</strong></a></div>
-                            <div><a href="#">{{ book.author_name }}</a></div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="tab-pane fade" id="author_collections">
-                <div class="row author_list">
-                    <div class="col-lg-4  author_info">
-                        <a href="#">
-                            <div class="author_name">
-                                <h3><strong>J. K. 罗琳</strong></h3>
-                            </div>
-                        </a>
-                        <div class="author_instruction">
-                            <small>
-                                J. K. 罗琳（J. K. Rowling, 1965-
-                                ），英国女作家，自小喜欢写作，当过短时间的教师和秘书。二十四岁那年，她在前往伦敦的火车旅途中萌生了创作“哈利·波特”系列小说的念头。七年后，《哈利·波特与魔法石》问世，之后她陆续创作了《哈利·波特与密室》《哈
-                                利·波特与阿兹卡班囚徒》《哈利·波特与火焰杯》《哈利-波特与凤凰社》《哈利·波特与“混血王子”》和《哈利·波特与死亡圣器》，完成了该系列的创作，在全球刮起一股股“哈利·波特”飓风，在世界范围内掀起规模宏大的“哈利·波特”阅读狂潮。
-                            </small>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 book_info ">
-                        <div class="book_cover ">
-                            <a href="#">
-                                <img class=" img-thumbnail " src="../static/image/book/cover/哈利波特与死亡圣器.jpg"
-                                     alt="哈利波特与死亡圣器 "
-                                     title="哈利波特与死亡圣器 ">
-                            </a>
-                        </div>
-                        <div><a href="#"><strong>哈利波特与死亡圣器</strong></a></div>
-                        <div><a href="#">J. K. 罗琳</a></div>
-                    </div>
-                    <div class="col-lg-2 book_info ">
-                        <div class="book_cover ">
-                            <a href="#">
-                                <img class=" img-thumbnail " src="../static/image/book/cover/哈利波特与火焰杯.jpg"
-                                     alt="哈利波特与火焰杯 "
-                                     title="哈利波特与火焰杯 ">
-                            </a>
-                        </div>
-                        <div><a href="#"><strong>哈利波特与火焰杯</strong></a></div>
-                        <div><a href="#">J. K. 罗琳</a></div>
-                    </div>
-                    <div class="col-lg-2 book_info ">
-                        <div class="book_cover ">
-                            <a href="#">
-                                <img class=" img-thumbnail " src="../static/image/book/cover/哈利波特与魔法石.jpg"
-                                     alt="哈利波特与魔法石 "
-                                     title="哈利波特与魔法石 ">
-                            </a>
-                        </div>
-                        <div><a href="#"><strong>哈利波特与魔法石</strong></a></div>
-                        <div><a href="#">J. K. 罗琳</a></div>
-                    </div>
-                    <div class="col-lg-2 book_info ">
-                        <div class="book_cover ">
-                            <a href="#">
-                                <img class=" img-thumbnail " src="../static/image/book/cover/哈利波特与阿兹卡班的囚徒.jpg"
-                                     alt="哈利波特与阿兹卡班的囚徒 "
-                                     title="哈利波特与阿兹卡班的囚徒">
-                            </a>
-                        </div>
-                        <div><a href="#"><strong>哈利波特与阿兹卡班的囚徒</strong></a></div>
-                        <div><a href="#">J. K. 罗琳</a></div>
-                    </div>
-                </div>
-                <div class="row author_list">
-                    <div class="col-lg-4  author_info">
-                        <a href="#">
-                            <div class="author_name">
-                                <h3><strong>村上春树</strong></h3>
-                            </div>
-                        </a>
-                        <div class="author_instruction">
-                            <small>
-                                村上春树（1949-
-                                ），日本小说家。曾在早稻田大学文学部戏剧科就读。1979年，他的第一部小说《听风之歌》问世后，即被搬上了银幕。随后，他的优秀作品《1973年的弹子球》、《寻羊冒险记》、《挪威的森林》等相继发表。他的创作不受传统拘束，构思新奇，行文潇洒自在，而又不流于庸俗浅薄。尤其是在刻画人的孤独无奈方面更有特色，他没有把这种情绪写成负的东西，而是通过内心的心智性操作使之升华为一种优雅的格调，一种乐在其中的境界，以此来为读者，尤其是生活在城市里的人们提供了一种生活模式或生命的体验。
-                            </small>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 book_info ">
-                        <div class="book_cover ">
-                            <a href="#">
-                                <img class=" img-thumbnail " src="../static/image/book/cover/且听风吟.jpg " alt="且听风吟 "
-                                     title="且听风吟">
-                            </a>
-                        </div>
-                        <div><a href="#"><strong>且听风吟</strong></a></div>
-                        <div><a href="#">村上春树 </a></div>
-                    </div>
-                    <div class="col-lg-2 book_info ">
-                        <div class="book_cover ">
-                            <a href="#">
-                                <img class=" img-thumbnail " src="../static/image/book/cover/挪威的森林.jpg " alt="挪威的森林 "
-                                     title="挪威的森林">
-                            </a>
-                        </div>
-                        <div><a href="#"><strong>挪威的森林</strong></a></div>
-                        <div><a href="#">村上春树</a></div>
-                    </div>
-                    <div class="col-lg-2 book_info ">
-                        <div class="book_cover ">
-                            <a href="#">
-                                <img class=" img-thumbnail " src="../static/image/book/cover/海边的卡夫卡.jpg" alt="海边的卡夫卡 "
-                                     title="海边的卡夫卡">
-                            </a>
-                        </div>
-                        <div><a href="#"><strong>海边的卡夫卡</strong></a></div>
-                        <div><a href="#">村上春树</a></div>
-                    </div>
-                    <div class="col-lg-2 book_info ">
-                        <div class="book_cover ">
-                            <a href="#">
-                                <img class=" img-thumbnail " src="../static/image/book/cover/寻羊历险记.jpg" alt="寻羊历险记"
-                                     title="寻羊历险记">
-                            </a>
-                        </div>
-                        <div><a href="#"><strong>寻羊历险记</strong></a></div>
-                        <div><a href="#">村上春树</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="notes">
-                <div class="row note_list">
-                    <div class="col-lg-10 note_info">
-                        <div class="row note_top">
-                            <div class="col-lg-10 note_title">
-                                <a href="#">
-                                    <h3>
-                                        <strong>
-                                            孤独是一种清闲。
-                                        </strong>
-                                    </h3>
-                                </a>
-                            </div>
-                            <div class="col-lg-2 note_time">2017-01-31</div>
-                        </div>
-                        <div class="note_content">
-                            <p>
-                                梁实秋先生在《闲暇处才是生活》里写到：寂寞是一种清福。他说人在一生中，不管是谁，或多或少都有个寂寞的体验，它不等同于孤独。而我觉得孤独也是百味人生中重要的一味，它不等同于苦涩、迷失、怅然，在更多的时候它是独自一人听歌的清闲，是独自一人旅行的悠然。
-                                刘同在《你的孤独，虽败犹荣》里描写了33种孤独，有亲情的孤独，爱情的孤独，少年的孤独，成年的孤独，梦想的孤独。。。用一支笔来直抵内心深处，用简单的叙述，用一个又一个的故事来告诉你，不要害怕，未来就在来的路上，只要你勇敢，那就没有什么不可以。
-                                他说：谁也不知道你的牙咬得有多紧，谁也不知道你膝盖上仍有曾摔伤的淤青，谁也不知道你哭起来只能无声落泪，要让人觉得毫不费力，只能背后极其努力，我们没有改变不了的未来，只有不想改变的过去。
-                                这一些我们都感同身受，在困难面前，只有自己拥抱自己，在所有的光鲜亮丽面前，我们隐藏了那个努力奔跑的自己，其实一直都在努力，其实一直都有加油，只有这样才能一直展现出好的一面在所有人面前，这是一种大家都有的深切的孤独，形单影只的自己做着不为人知的努力只为看上去的轻松自如，光鲜亮丽。
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 book_info">
-                        <div class="book_cover">
-                            <a href="#">
-                                <img class=" img-thumbnail" src="../static/image/book/cover/你的孤独,虽败犹荣.jpg"
-                                     alt="你的孤独,虽败犹荣"
-                                     title="你的孤独,虽败犹荣">
-                            </a>
-                        </div>
-                        <div><a href="#"><strong>你的孤独,虽败犹荣</strong></a></div>
-                        <div><a href="#">刘同</a></div>
-                    </div>
-                </div>
-                <div class="row note_list">
-                    <div class="col-lg-10 note_info">
-                        <div class="row note_top">
-                            <div class="col-lg-10 note_title">
-                                <a href="#">
-                                    <h3>
-                                        <strong>
-                                            每一条你所走过的路，其实都是你人生的必经之路
-                                        </strong>
-                                    </h3>
-                                </a>
-                            </div>
-                            <div class="col-lg-2 note_time">2017-01-31</div>
-                        </div>
-                        <div class="note_content">
-                            <p>
-                                一家废弃的杂货店，一扇破旧的铁卷门，一个盖的紧紧的牛奶箱……九月十三日的深夜却因为三个小偷的闯入而变得意义非凡。
-                                牛奶箱连结着过去和现在，一封咨询烦恼的信经由它投递至翔太、敦也、幸平这三个年轻人的眼前，怀着一丝好奇与第一次有人向他们倾诉的惊喜感受，他们用自己不算成熟想法给对方提供了建议。这是故事的开端……随后，一夜之间信件来来回回，寂静的夜晚只有开箱关箱以及信件掉入箱内的啪嗒声清晰可闻。小偷们在逃亡和驻留之间挣扎过后，选择了暂时忘记自己的危险处境，享受着与过去的人通信的奇妙经历。当那扇改变房屋内外时间流速的后门缓缓关上，三个年轻人等来了形形色色的咨询者——从最初的月亮兔小姐，到鲜鱼店的音乐人，再到想辞去正式工作而在酒店工作的年轻姑娘……他们的命运因为一封封投向未来的信件发生了改变，而他们之间竟也有着千丝万缕的联系。整个故事的人物一部分是浪矢爷爷本人提供建议的对象，另一部分则是把信寄到未来与三个闯入杂货店的年轻人发生信件往来的人，而不管是哪一类，在多年以后他们都对杂货店产生了深深的感激之情，哪怕没有参加上对自己十分重要的奥运会，哪怕至死也不曾完成自己的音乐梦想……
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 book_info">
-                        <div class="book_cover">
-                            <a href="#">
-                                <img class=" img-thumbnail" src="../static/image/book/cover/解忧杂货铺.jpg" alt="解忧杂货铺"
-                                     title="解忧杂货铺">
-                            </a>
-                        </div>
-                        <div><a href="#"><strong>解忧杂货铺</strong></a></div>
-                        <div><a href="#">村上春树</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 "></div>
+	<div class="col-lg-2"></div>
+	<div class="col-lg-8 my_collection" style="height:{{ height }}">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#book_collections" data-toggle='tab'>收藏的图书</a></li>
+			<li><a href="#author_collections" data-toggle='tab'>收藏的作者</a></li>
+			<li><a href="#notes" data-toggle='tab'>读书笔记</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade in active" id="book_collections">
+				<div class="row book_list" style="height: {{ height }}px">
+					{% for book in book_collections %}
+						<div class="col-lg-2 book_info">
+							<div class="book_cover">
+								<a href={% url 'book' book.book_id %}>
+									<img class=" img-thumbnail"
+											 src="../static/image/book/cover/{{ book.book_id }}.jpg"
+											 alt="{{ book.book_name }}" title="{{ book.book_name }}">
+								</a>
+							</div>
+							<div><a href={% url 'book' book.book_id %}><strong>{{ book.book_name }}</strong></a></div>
+							<div><a href="#">{{ book.author_name }}</a></div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="tab-pane fade" id="author_collections">
+				{% for author_and_book in authors_and_books %}
+					<div class="row author_list">
+						<div class="col-lg-4  author_info">
+							<a href="#">
+								<div class="author_name">
+									<h3><strong>{{ author_and_book.author.author_name }}</strong></h3>
+								</div>
+							</a>
+							<div class="author_instruction">
+								<small>
+									{{ author_and_book.author.author_summary }}
+									</small>
+							</div>
+						</div>
+						{% for book in author_and_book.book  %}
+						<div class="col-lg-2 book_info ">
+							<div class="book_cover ">
+								<a href="#">
+									<img class=" img-thumbnail " src="../static/image/book/cover/{{ book.book_id }}.jpg"
+											 alt="{{ book.book_name }} "
+											 title="{{ book.book_name }} ">
+								</a>
+							</div>
+							<div><a href={% url 'book' book.book_id  %}><strong>{{ book.book_name }}</strong></a></div>
+							<div><a href={% url 'author' author_and_book.author.author_id  %}>{{ book.author_name }}</a></div>
+						</div>
+						{% endfor %}
+					</div>
+				{% endfor %}
+			</div>
+			<div class="tab-pane fade" id="notes">
+				<div class="row note_list">
+					<div class="col-lg-10 note_info">
+						<div class="row note_top">
+							<div class="col-lg-10 note_title">
+								<a href="#">
+									<h3>
+										<strong>
+											孤独是一种清闲。
+										</strong>
+									</h3>
+								</a>
+							</div>
+							<div class="col-lg-2 note_time">2017-01-31</div>
+						</div>
+						<div class="note_content">
+							<p>
+								梁实秋先生在《闲暇处才是生活》里写到：寂寞是一种清福。他说人在一生中，不管是谁，或多或少都有个寂寞的体验，它不等同于孤独。而我觉得孤独也是百味人生中重要的一味，它不等同于苦涩、迷失、怅然，在更多的时候它是独自一人听歌的清闲，是独自一人旅行的悠然。
+								刘同在《你的孤独，虽败犹荣》里描写了33种孤独，有亲情的孤独，爱情的孤独，少年的孤独，成年的孤独，梦想的孤独。。。用一支笔来直抵内心深处，用简单的叙述，用一个又一个的故事来告诉你，不要害怕，未来就在来的路上，只要你勇敢，那就没有什么不可以。
+								他说：谁也不知道你的牙咬得有多紧，谁也不知道你膝盖上仍有曾摔伤的淤青，谁也不知道你哭起来只能无声落泪，要让人觉得毫不费力，只能背后极其努力，我们没有改变不了的未来，只有不想改变的过去。
+								这一些我们都感同身受，在困难面前，只有自己拥抱自己，在所有的光鲜亮丽面前，我们隐藏了那个努力奔跑的自己，其实一直都在努力，其实一直都有加油，只有这样才能一直展现出好的一面在所有人面前，这是一种大家都有的深切的孤独，形单影只的自己做着不为人知的努力只为看上去的轻松自如，光鲜亮丽。
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-2 book_info">
+						<div class="book_cover">
+							<a href="#">
+								<img class=" img-thumbnail" src="../static/image/book/cover/你的孤独,虽败犹荣.jpg"
+										 alt="你的孤独,虽败犹荣"
+										 title="你的孤独,虽败犹荣">
+							</a>
+						</div>
+						<div><a href="#"><strong>你的孤独,虽败犹荣</strong></a></div>
+						<div><a href="#">刘同</a></div>
+					</div>
+				</div>
+				<div class="row note_list">
+					<div class="col-lg-10 note_info">
+						<div class="row note_top">
+							<div class="col-lg-10 note_title">
+								<a href="#">
+									<h3>
+										<strong>
+											每一条你所走过的路，其实都是你人生的必经之路
+										</strong>
+									</h3>
+								</a>
+							</div>
+							<div class="col-lg-2 note_time">2017-01-31</div>
+						</div>
+						<div class="note_content">
+							<p>
+								一家废弃的杂货店，一扇破旧的铁卷门，一个盖的紧紧的牛奶箱……九月十三日的深夜却因为三个小偷的闯入而变得意义非凡。
+								牛奶箱连结着过去和现在，一封咨询烦恼的信经由它投递至翔太、敦也、幸平这三个年轻人的眼前，怀着一丝好奇与第一次有人向他们倾诉的惊喜感受，他们用自己不算成熟想法给对方提供了建议。这是故事的开端……随后，一夜之间信件来来回回，寂静的夜晚只有开箱关箱以及信件掉入箱内的啪嗒声清晰可闻。小偷们在逃亡和驻留之间挣扎过后，选择了暂时忘记自己的危险处境，享受着与过去的人通信的奇妙经历。当那扇改变房屋内外时间流速的后门缓缓关上，三个年轻人等来了形形色色的咨询者——从最初的月亮兔小姐，到鲜鱼店的音乐人，再到想辞去正式工作而在酒店工作的年轻姑娘……他们的命运因为一封封投向未来的信件发生了改变，而他们之间竟也有着千丝万缕的联系。整个故事的人物一部分是浪矢爷爷本人提供建议的对象，另一部分则是把信寄到未来与三个闯入杂货店的年轻人发生信件往来的人，而不管是哪一类，在多年以后他们都对杂货店产生了深深的感激之情，哪怕没有参加上对自己十分重要的奥运会，哪怕至死也不曾完成自己的音乐梦想……
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-2 book_info">
+						<div class="book_cover">
+							<a href="#">
+								<img class=" img-thumbnail" src="../static/image/book/cover/解忧杂货铺.jpg" alt="解忧杂货铺"
+										 title="解忧杂货铺">
+							</a>
+						</div>
+						<div><a href="#"><strong>解忧杂货铺</strong></a></div>
+						<div><a href="#">村上春树</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-2 "></div>
 </div>
-</div>
-{% include 'include/footer.html' %}
+{#{% include 'include/footer.html' %}#}
 </body>
 
 </html>
