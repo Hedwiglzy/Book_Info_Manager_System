@@ -22,22 +22,22 @@ CREATE TABLE `BIMS_user` (
 -- 图书信息表 --
 CREATE TABLE bims_book
 (
-  book_id          INT(11) AUTO_INCREMENT  NOT NULL PRIMARY KEY,
-  book_name        VARCHAR(100)        NOT NULL,
-  author_name      VARCHAR(100)        NOT NULL,
-  press_house      VARCHAR(100),
-  translator       VARCHAR(100),
-  publication_date VARCHAR(100),
-  pages            VARCHAR(100),
-  price            VARCHAR(100),
-  package          VARCHAR(100),
-  isbn             BIGINT(20),
-  score            DECIMAL(10, 1),
-  evaluate_num     INT(11),
-  collect_num      INT(11),
-  content_summary  LONGTEXT,
-  title            VARCHAR(100),
-  create_date      DATE,
+  `book_id `         INT(11) AUTO_INCREMENT  NOT NULL PRIMARY KEY,
+  `book_name`        VARCHAR(100)        NOT NULL,
+  `author_name`      VARCHAR(100)        NOT NULL,
+  `press_house`      VARCHAR(100),
+  `translator`       VARCHAR(100),
+  `publication_date` VARCHAR(100),
+  `pages`            VARCHAR(100),
+  `price`            VARCHAR(100),
+  `package`          VARCHAR(100),
+  `isbn`             BIGINT(20),
+  `score`            DECIMAL(10, 1),
+  `evaluate_num`     INT(11),
+  `collect_num`      INT(11),
+  `content_summary`  LONGTEXT,
+  `title`            VARCHAR(100),
+  `create_date`      DATE,
   `author_id`      INT(11)
 )
   AUTO_INCREMENT = 10001;

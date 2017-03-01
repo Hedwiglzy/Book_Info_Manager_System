@@ -1,20 +1,20 @@
 body {
     background-size: cover;
-  }
+}
 
-  .top {
+.top {
     height: 200px;
-  }
+}
 
-  .welcome {
+.welcome {
     height: 100px;
     text-align: center;
     font-family: HYMiaoHunTiW, Helvetica, Arial, sans-serif, serif;
     font-size: 50px;
     color: black;
-  }
+}
 
-  .middle {
+.middle {
     height: 200px;
     text-align: center;
-  }
+}

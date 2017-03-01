@@ -20,8 +20,7 @@
     margin-left: 20px;
 }
 
-.info_left,
-.info_right {
+.info_left, .info_right {
     height: 32px;
     padding-left: 0;
     font-size: 16px;
@@ -63,16 +62,18 @@
     overflow: hidden;
 }
 
-.single_star{
+.single_star {
     display: block;
-    background:url(../../image/system/single_star.png);
+    background: url(../../image/system/single_star.png);
     height: 16px;
     width: 16px;
     float: left;
 }
-.single_star:hover{
-    background:url(../../image/system/single_star_click.png);
+
+.single_star:hover {
+    background: url(../../image/system/single_star_click.png);
 }
+
 .star {
     background-position-x: 0px;
     background-position-y: -15px;
@@ -82,26 +83,22 @@
     margin-top: 30px;
 }
 
-.star_list,
-.my_score_title,
-.my_colleciton_title {
+.star_list, .my_score_title, .my_colleciton_title {
     padding-left: 0;
     padding-right: 0;
     font-size: 14px;
 }
-.star_list{
+
+.star_list {
     margin-top: 3px;
 }
 
-
-.my_score_title,
-.my_colleciton_title {
+.my_score_title, .my_colleciton_title {
     margin-left: 15px;
     padding-top: 1px;
 }
 
-a:hover,
-a:focus {
+a:hover, a:focus {
     text-decoration: none;
     background-color: white;
 }
@@ -114,9 +111,7 @@ a:focus {
     height: 140px;
 }
 
-.book_introduction_title,
-.author_introduction_title,
-.short_reviews_title {
+.book_introduction_title, .author_introduction_title, .short_reviews_title {
     font-size: 16px;
     font-family: Helvetica, sans-serif;
     margin-bottom: 5px;

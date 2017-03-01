@@ -1,114 +1,109 @@
 .img-thumbnail {
     height: 200px;
     width: 200px;
-  }
+}
 
-  .img {
+.img {
     height: 200px;
     width: 200px;
     padding: 0;
     margin-right: 10px;
-  }
+}
 
-  .userinfo {
+.userinfo {
     height: 200px;
     font-family: 微软雅黑, sans-serif;
     color: #404040;
-  }
+}
 
-  .userinfo_top {
+.userinfo_top {
     font-family: 微软雅黑, sans-serif;
     margin-bottom: 10px;
-  }
+}
 
-  .username {
+.username {
     font-size: 26px;
     color: black;
-  }
+}
 
-  .remark {
+.remark {
     height: 40px;
     font-size: 18px;
     padding-top: 12px;
-  }
+}
 
-  .other_info {
+.other_info {
     height: 32px;
     font-size: 16px;
-  }
+}
 
-  .my_collection {
+.my_collection {
     margin-top: 20px;
     height: 800px;
     padding-left: 0;
     padding-right: 0;
-  }
+}
 
-  .book_list {
+.book_list {
     margin-bottom: 5px;
     margin-left: 0;
     height: 260px;
-  }
+}
 
-  .book_info {
+.book_info {
     padding-left: 0;
     text-align: center;
-  }
+}
 
-  .book_cover {
+.book_cover {
     height: 215px;
     padding-top: 10px;
     padding-left: 0;
-  }
+}
 
-  .author_list {
+.author_list {
     height: 260px;
     margin-bottom: 5px;
-  }
+}
 
-  h1,
-  .h1,
-  h2,
-  .h2,
-  h3,
-  .h3 {
+h1, .h1, h2, .h2, h3, .h3 {
     margin-top: 10px;
     margin-bottom: 5px;
-  }
+}
 
-  .note_list {
+.note_list {
     margin-bottom: 5px;
     margin-left: 0;
     height: 260px;
-  }
+}
 
-  .note_top {
+.note_top {
     height: 30px;
     margin-bottom: 10px;
-  }
+}
 
-  .note_title {
+.note_title {
     height: 30px;
     padding-left: 0;
-  }
+}
 
-  .note_time {
+.note_time {
     height: 30px;
     padding-top: 10px;
     text-align: right;
-  }
+}
 
-  .note_content {
+.note_content {
     height: 220px;
     margin-left: -15px;
     margin-top: 5px;
     font-family: Helvetica, Arial, sans-serif;
-  }
+}
 
-  footer {
+footer {
     color: #999;
     margin-top: 30px;
     text-align: center;
     font-family: Helvetica, sans-serif;
     border-top: 1px dashed;
-  }
+}

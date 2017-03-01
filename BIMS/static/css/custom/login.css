@@ -1,4 +1,3 @@
-
 body {
     background-size: cover;
     text-align: center;
@@ -20,16 +19,18 @@ body {
     height: 300px;
     text-align: center;
 }
+
 .register {
     height: 180px;
 }
-.joinus
-{
+
+.joinus {
     font-size: 28px;
-    font-family: 汉仪喵魂体W,sans-serif;
+    font-family: 汉仪喵魂体W, sans-serif;
     color: #095fb3;
     margin-bottom: 10px;
 }
+
 .a {
     padding-left: 100px;
     padding-right: 100px;
