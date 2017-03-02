@@ -140,11 +140,12 @@ def get_book_info(request, book_id):
             avatar = {0: 10000, 1: user_id}
             book_id = int(book_id)
             book = Book.objects.get(book_id=book_id)
+            author = Author.objects.get(author_id=book.author_id)
             if int(book.score) == 0:
                 score = ''
             else:
                 score = book.score
-            return render_to_response('book.html', {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image], 'book': book, 'score': score}, )
+            return render_to_response('book.html', {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image], 'book': book, 'score': score, 'author': author}, )
 
 
 def get_author_info(request, author_id):

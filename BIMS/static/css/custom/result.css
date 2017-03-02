@@ -1,24 +1,29 @@
+a:hover {
+    color:#3377aa;
+    text-decoration: none;
+}
 .result_info {
-    border-bottom: dashed 1px black;
-    height: 250px;
-    margin-bottom: 5px;
+    border-bottom: dashed 1px #ddd;
+    height: 240px;
+    margin-bottom: 10px;
 }
 
 .book_cover {
+    margin-top: 5px;
     height: 200px;
     padding-top: 0;
     padding-left: 0;
 }
 
 .book_info {
-    margin-top: 0;
-    margin-left: 20px;
+    margin-top: 5px;
+    margin-left: -30px;
 }
 
 .info_left, .info_right {
-    height: 30px;
+    height: 25px;
     padding-left: 0;
-    font-size: 16px;
+    font-size: 14px;
     font-family: Helvetica, sans-serif;
 }
 
@@ -45,4 +50,8 @@
 .score {
     font-size: 30px;
     font-family: Helvetica, sans-serif;
+}
+.img-thumbnail {
+    height: 220px;
+    width: 155px;
 }
