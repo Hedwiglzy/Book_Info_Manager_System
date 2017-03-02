@@ -1,0 +1,48 @@
+.result_info {
+    border-bottom: dashed 1px black;
+    height: 250px;
+    margin-bottom: 5px;
+}
+
+.book_cover {
+    height: 200px;
+    padding-top: 0;
+    padding-left: 0;
+}
+
+.book_info {
+    margin-top: 0;
+    margin-left: 20px;
+}
+
+.info_left, .info_right {
+    height: 30px;
+    padding-left: 0;
+    font-size: 16px;
+    font-family: Helvetica, sans-serif;
+}
+
+.info_left {
+    padding-right: 0;
+    color: #666666;
+}
+
+.info_right {
+    margin-left: -15px;
+}
+
+.book_score {
+    height: 260px;
+    border-left: 1px solid #eaeaea;
+    text-align: center;
+}
+
+.score_title {
+    font-size: 20px;
+    font-family: Helvetica, sans-serif;
+}
+
+.score {
+    font-size: 30px;
+    font-family: Helvetica, sans-serif;
+}

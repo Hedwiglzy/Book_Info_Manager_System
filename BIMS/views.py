@@ -293,6 +293,3 @@ def result(request):
             print(keyword)
             search_results = search(keyword)
             return render_to_response('result.html', {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image], 'results': search_results})
-
-
-

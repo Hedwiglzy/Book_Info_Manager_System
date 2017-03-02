@@ -2,39 +2,70 @@
 <html lang="zh-CN">
 
 <head>
-	{% load static %}
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/font-awesome.min.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/navbar.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/index.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/user.css' %}">
-	<title>图书管理系统</title>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom/navbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom/result.css' %}">
+    <title>图书管理系统</title>
 </head>
 
 <body>
-	{% include 'include/navbar.html' %}
-	<div class="row blank"></div>
-	<div class="col-lg-2"></div>
-	<div class="col-lg-8">
-
-		{% if results %} {% for result in results %}
-		<div class="row book_info">
-			<div class="book_cover ">
-				<a href={% url 'book' result.book_id %}>
-					<img class=" img-thumbnail " src="../static/image/book/cover/{{ result.book_id }}.jpg" alt="{{ result.book_name }} " title="{{ result.book_name }} ">
-				</a>
-			</div>
-			<div><a href={% url 'book' result.book_id %}><strong>{{ result.book_name }}</strong></a></div>
-			<div><a href={% url 'author' result.author_id %}>{{ result.author_name }}</a></div>
-
-		</div>
-
-		{% endfor %} {% else %}
-		<h1>无结果</h1> {% endif %}
-	</div>
-	<div class="col-lg-2"></div>
+{% include 'include/navbar.html' %}
+<div class="row blank"></div>
+<div class="col-lg-2"></div>
+<div class="col-lg-10">
+    {% if results %}
+        {% for result in results %}
+            <div class="row result_info">
+                <div class="col-lg-2 book_cover">
+                    <a href={% url 'book' result.book_id %}>
+                    <img class=" img-thumbnail" src="../../static/image/book/cover/{{ result.book_id }}.jpg"
+                         alt="{{ result.book_name }}" title="{{ result.book_name }}">
+                    </a>
+                </div>
+                <div class="col-lg-3 book_info">
+                    <div class="row info">
+                        <div class="col-lg-3 info_left">作者:</div>
+                        <div class="col-lg-9 info_right">{{ result.author_name }}</div>
+                    </div>
+                    <div class="row info">
+                        <div class="col-lg-3 info_left">出版社:</div>
+                        <div class="col-lg-9 info_right">{{ result.press_house }}</div>
+                    </div>
+                    <div class="row info">
+                        <div class="col-lg-3 info_left">译者:</div>
+                        <div class="col-lg-9 info_right">{{ result.translator }}</div>
+                    </div>
+                    <div class="row info">
+                        <div class="col-lg-3 info_left">出版年:</div>
+                        <div class="col-lg-9 info_right">{{ result.publication_date }}</div>
+                    </div>
+                    <div class="row info">
+                        <div class="col-lg-3 info_left">页数:</div>
+                        <div class="col-lg-9 info_right">{{ result.pages }}</div>
+                    </div>
+                    <div class="row info">
+                        <div class="col-lg-3 info_left">定价:</div>
+                        <div class="col-lg-9 info_right">{{ result.price }}</div>
+                    </div>
+                    <div class="row info">
+                        <div class="col-lg-3 info_left">装帧:</div>
+                        <div class="col-lg-9 info_right">{{ result.package }}</div>
+                    </div>
+                    <div class="row info">
+                        <div class="col-lg-3 info_left">ISBN:</div>
+                        <div class="col-lg-9 info_right">{{ result.isbn }}</div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h1>无结果</h1>
+    {% endif %}
+</div>
 </body>
 
 </html>

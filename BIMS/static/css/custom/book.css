@@ -11,12 +11,12 @@
 }
 
 .book_cover {
-    padding-top: 0px;
-    padding-left: 0px;
+    padding-top: 0;
+    padding-left: 0;
 }
 
 .book_info {
-    margin-top: 0px;
+    margin-top: 0;
     margin-left: 20px;
 }
 
