@@ -34,3 +34,16 @@ class LoginForm(forms.Form):
 class SreachForm(forms.Form):
     sreach = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'sreach', 'placeholder': '输入你感兴趣的东西'}))
     required_css_class = 'sr-only'
+
+
+class EvaluateForm(forms.Form):
+    book_id = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'book_id', 'type': 'hidden'}))
+    evaluate = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'evaluate', 'placeholder': '输入你的评论'}))
+    required_css_class = 'sr-only'
+
+
+class NoteForm(forms.Form):
+    book_id = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'book_id', 'type': 'hidden'}))
+    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'note_title', 'placeholder': '输入标题'}))
+    content = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'remark', 'placeholder': '输入内容'}))
+    required_css_class = 'sr-only'

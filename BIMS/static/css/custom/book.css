@@ -10,6 +10,10 @@
     height: 280px;
 }
 
+.img-thumbnail{
+    height: 250px;
+    width: 190px;
+}
 .book_cover {
     padding-top: 0;
     padding-left: 0;
@@ -123,11 +127,11 @@ a:hover, a:focus {
 }
 
 .short_reviews {
-    height: 360px;
+    margin-bottom: 20px;
 }
 
 .short_review {
-    height: 65px;
+    height: 45px;
     border-bottom-color: #DDDDDD;
     border-bottom-style: dashed;
     border-bottom-width: 1px;
@@ -141,22 +145,25 @@ a:hover, a:focus {
     margin-right: 0;
 }
 
+.short_review_user{
+    color: #095fb3;
+}
+
 .short_review_time {
     margin-left: 10px;
     color: #666666;
+    font-size: 8px;
 }
 
 .short_review_content {
-    height: 45px;
+    height: 30px;
     margin-left: 0;
     margin-right: 0;
     margin-top: 1px;
     font-family: Helvetica, sans-serif;
+    font-size: 16px;
 }
 
-.notes {
-    height: 300px;
-}
 
 .note_top {
     height: 30px;
@@ -175,7 +182,6 @@ a:hover, a:focus {
 }
 
 .note_content {
-    height: 220px;
     margin-top: 5px;
     font-family: Helvetica, Arial, sans-serif;
 }

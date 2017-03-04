@@ -22,9 +22,9 @@ CREATE TABLE `BIMS_user` (
 -- 图书信息表 --
 CREATE TABLE bims_book
 (
-  `book_id `         INT(11) AUTO_INCREMENT  NOT NULL PRIMARY KEY,
-  `book_name`        VARCHAR(100)        NOT NULL,
-  `author_name`      VARCHAR(100)        NOT NULL,
+  `book_id `         INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `book_name`        VARCHAR(100)           NOT NULL,
+  `author_name`      VARCHAR(100)           NOT NULL,
   `press_house`      VARCHAR(100),
   `translator`       VARCHAR(100),
   `publication_date` VARCHAR(100),
@@ -38,7 +38,7 @@ CREATE TABLE bims_book
   `content_summary`  LONGTEXT,
   `title`            VARCHAR(100),
   `create_date`      DATE,
-  `author_id`      INT(11)
+  `author_id`        INT(11)
 )
   AUTO_INCREMENT = 10001;
 
@@ -70,16 +70,38 @@ CREATE TABLE `BIMS_collectionauthor` (
   AUTO_INCREMENT = 10001;
 
 -- 读书笔记信息表 --
-CREATE TABLE `BIMS_collectionnote` (
+CREATE TABLE `BIMS_booknote` (
   `op_id`       INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `book_id`     INTEGER                NOT NULL,
   `user_id`     INTEGER                NOT NULL,
+  `user_name`   VARCHAR(100)           NOT NULL,
   `title`       VARCHAR(100)           NULL,
   `content`     LONGTEXT               NULL,
   `create_date` DATE                   NOT NULL
 )
   AUTO_INCREMENT = 10001;
 
--- 图书链接表
+-- 图书评论表 --
+CREATE TABLE `BIMS_bookevaluate` (
+  `op_id`       INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `book_id`     INTEGER                NOT NULL,
+  `user_name`   VARCHAR(100)           NOT NULL,
+  `content`     LONGTEXT               NULL,
+  `create_date` DATE                   NOT NULL
+)
+  AUTO_INCREMENT = 10001;
+
+-- 图书评分表 --
+CREATE TABLE `BIMS_bookscore` (
+  `op_id`       INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `book_id`     INTEGER                NOT NULL,
+  `user_id`     INTEGER                NOT NULL,
+  `score`       INTEGER                NULL,
+  `create_date` DATE                   NOT NULL
+)
+  AUTO_INCREMENT = 10001;
+
+-- 图书链接表 --
 CREATE TABLE all_book
 (
   book_id    INT(11) PRIMARY KEY NOT NULL,

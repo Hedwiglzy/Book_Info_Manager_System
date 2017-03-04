@@ -30,4 +30,9 @@ urlpatterns = [
     url(r'^author/(\d+)/$', views.get_author_info, name='author'),
     url(r'^index/$', views.index, name='index'),
     url(r'^result/$', views.result, name='result'),
-]
+    url(r'^hotbook/$', views.get_hot_book, name='hotbook'),
+    url(r'^newbook/$', views.get_new_book, name='newbook'),
+    url(r'^tag/(.+)/$', views.get_tag_book, name='tag'),
+    url(r'^evaluate/$', views.add_evaluate, name='evaluate'),
+    url(r'^addnote/$', views.add_note, name='addnote'),
+    ]

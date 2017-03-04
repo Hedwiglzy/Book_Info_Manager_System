@@ -73,7 +73,7 @@ class CollectionBook(models.Model):
     图书收藏表
     """
     op_id = models.AutoField(primary_key=True)  # 流水号
-    user_id = models.IntegerField()  # 用户名
+    user_id = models.IntegerField()  # 用户ID
     book_id = models.IntegerField()  # 图书ID
     create_date = models.DateField()  # 收藏日期
 
@@ -83,10 +83,10 @@ class CollectionBook(models.Model):
 
 class CollectionAuthor(models.Model):
     """
-    图书收藏表
+    作者收藏表
     """
     op_id = models.AutoField(primary_key=True)  # 流水号
-    user_id = models.IntegerField()  # 用户名
+    user_id = models.IntegerField()  # 用户ID
     author_id = models.IntegerField()  # 作者ID
     create_date = models.DateField()  # 收藏日期
 
@@ -94,15 +94,45 @@ class CollectionAuthor(models.Model):
         return self.op_id
 
 
-class CollectionNote(models.Model):
+class BookNote(models.Model):
     """
-    图书收藏表
+    读书笔记
     """
     op_id = models.AutoField(primary_key=True)  # 流水号
-    user_id = models.IntegerField()  # 用户名
+    book_id = models.IntegerField()  # 图书ID
+    user_id = models.IntegerField()  # 用户ID
+    user_name = models.CharField(max_length=100)  # 用户名
     title = models.CharField(max_length=100, null=True)  # 标题
     content = models.TextField(null=True)  # 内容
     create_date = models.DateField()  # 收藏日期
+
+    def __str__(self):
+        return self.op_id
+
+
+class BookEvaluate(models.Model):
+    """
+    图书评论表
+    """
+    op_id = models.AutoField(primary_key=True)  # 流水号
+    book_id = models.IntegerField()  # 图书ID
+    user_name = models.CharField(max_length=100)  # 用户名
+    content = models.TextField(null=True)  # 内容
+    create_date = models.DateField()  # 评价日期
+
+    def __str__(self):
+        return self.op_id
+
+
+class BookScore(models.Model):
+    """
+    图书评分表
+    """
+    op_id = models.AutoField(primary_key=True)  # 流水号
+    book_id = models.IntegerField()  # 图书ID
+    user_id = models.IntegerField()  # 用户ID
+    score = models.IntegerField(null=True)  # 内容
+    create_date = models.DateField()  # 评价日期
 
     def __str__(self):
         return self.op_id

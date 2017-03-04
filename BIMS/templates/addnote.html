@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	{% load static %}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/navbar.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/result.css' %}">
+	<title>读书笔记</title>
+</head>
+
+<body>
+{% include 'include/navbar.html' %}
+<div class="row blank"></div>
+<form method="post" role="form" style="margin-top: 10px" action={% url 'addnote' %}>
+
+			<button type="submit" class="btn btn-default btn-group-lg btn-info">提交</button>
+		</form>
+</body>
+
+</html>

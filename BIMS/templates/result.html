@@ -9,12 +9,18 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/font-awesome.min.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/navbar.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/result.css' %}">
-	<title>搜索结果</title>
+	<title>{{ title }}</title>
 </head>
 
 <body>
 {% include 'include/navbar.html' %}
 <div class="row blank"></div>
+<div class="row">
+	<div class="col-lg-2"></div>
+	<div class="col-lg-8 result_title">
+		<h2>{{ title }}</h2>
+	</div>
+</div>
 <div class="col-lg-2"></div>
 <div class="col-lg-8">
 	{% if results %}
