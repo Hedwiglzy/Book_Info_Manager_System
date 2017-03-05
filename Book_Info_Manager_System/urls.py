@@ -35,4 +35,8 @@ urlpatterns = [
     url(r'^tag/(.+)/$', views.get_tag_book, name='tag'),
     url(r'^evaluate/$', views.add_evaluate, name='evaluate'),
     url(r'^addnote/$', views.add_note, name='addnote'),
+    url(r'^savenote/$', views.save_note, name='savenote'),
+    url(r'^note/(\d+)/$', views.get_note, name='note'),
+    url(r'^explore/$', views.explore, name='explore'),
+    url(r'^alltags/$', views.all_tags, name='alltags'),
     ]

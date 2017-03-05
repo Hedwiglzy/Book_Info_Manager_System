@@ -1,9 +1,9 @@
-.hot_books, .new_books, .labels {
+.hot_books, .new_books, .hot_tags{
     height: 310px;
     margin-bottom: 5px;
 }
 
-.hot_books_title, .new_books_title, .labels_title {
+.hot_books_title, .new_books_title, .hot_tags_title {
     height: 40px;
     font-size: 25px;
     font-weight: bold;

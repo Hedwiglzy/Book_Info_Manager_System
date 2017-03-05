@@ -5,9 +5,8 @@
 """
 
 import datetime
-from math import ceil
 
-from django.http import HttpResponseRedirect,HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.views.decorators.cache import cache_page
 
@@ -62,10 +61,12 @@ def get_author_collection(user_id):
     return autuor_collections
 
 
-def get_note_collection(user_id):
+def get_user_note(user_id):
     """
-    获取用户收藏的图书
+    获取用户的读书笔记
     """
+    notes = BookNote.objects.filter(user_id=user_id)
+    return notes
 
 
 def get_author_book(author_id):
@@ -109,9 +110,18 @@ def get_user_info(request):
                     'book': author_books
                 }
                 authors_and_books.append(author_and_book)
-            # quotient = divmod(len(book_collections), 6)
-            # height = (quotient[0] + ceil(quotient[1] / 6)) * 260 + 50
-            return render_to_response('user.html', {'sreach_form': sreach_form, 'user': user, 'sex': sex[user.sex], 'avatar': avatar[user.image], 'book_collections': book_collections, 'authors_and_books': authors_and_books},)
+            notes = get_user_note(user_id)
+            notes_and_books = []
+            for note in notes:
+                book = Book.objects.get(book_id=note.book_id)
+                note_and_book = {
+                    'note': note,
+                    'book': book
+                }
+                notes_and_books.append(note_and_book)
+            return render_to_response('user.html', {'sreach_form': sreach_form, 'user': user, 'sex': sex[user.sex],
+                                                    'avatar': avatar[user.image], 'book_collections': book_collections,
+                                                    'authors_and_books': authors_and_books, 'notes_and_books': notes_and_books},)
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
@@ -271,9 +281,70 @@ def index(request):
             avatar = {0: 10000, 1: user_id}
             hot_books = Book.objects.order_by('-evaluate_num')[0:6]
             new_books = Book.objects.order_by('-create_date')[0:6]
+            hot_tags = Book.objects.raw('SELECT book_id,title FROM bims_book GROUP BY title ORDER BY count(title) DESC LIMIT 3')
+            tags_and_books = []
+            for hot_tag in hot_tags:
+                books = Book.objects.filter(title=hot_tag)[0:5]
+                # books = Book.objects.get(book_id=10001)
+                tag_and_books = {
+                    'tag': hot_tag.title,
+                    'books': books
+                }
+                tags_and_books.append(tag_and_books)
             return render_to_response('index.html',
                                       {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
-                                       'hot_books': hot_books, 'new_books': new_books})
+                                       'hot_books': hot_books, 'new_books': new_books, 'tags_and_books': tags_and_books})
+    else:
+        return render_to_response('skip.html', {'instruction': '请先登录'})
+
+
+def explore(request):
+    """
+    发型页面
+    :param request: 请求
+    :return:
+    """
+    user_id = request.session.get('user_id', )
+    if user_id:
+        if request.method == 'POST':
+            sreach_form = SreachForm(request.POST)
+            if sreach_form.is_valid():
+                keyword = sreach_form.cleaned_data['sreach']
+                request.session['user_id'] = user_id
+                request.session['keyword'] = keyword
+                return HttpResponseRedirect('/result/')
+        else:
+            sreach_form = SreachForm()
+            user = User.objects.get(user_id=user_id)
+            avatar = {0: 10000, 1: user_id}
+            return render_to_response('explore.html',
+                                      {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
+                                       })
+    else:
+        return render_to_response('skip.html', {'instruction': '请先登录'})
+
+
+def all_tags(request):
+    """
+    所有分类
+    :param request: 请求
+    :return:
+    """
+    user_id = request.session.get('user_id', )
+    if user_id:
+        if request.method == 'POST':
+            sreach_form = SreachForm(request.POST)
+            if sreach_form.is_valid():
+                keyword = sreach_form.cleaned_data['sreach']
+                request.session['user_id'] = user_id
+                request.session['keyword'] = keyword
+                return HttpResponseRedirect('/result/')
+        else:
+            sreach_form = SreachForm()
+            user = User.objects.get(user_id=user_id)
+            avatar = {0: 10000, 1: user_id}
+            return render_to_response('alltags.html',
+                                      {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image]})
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
@@ -423,10 +494,59 @@ def add_note(request):
                 avatar = {0: 10000, 1: user_id}
                 sreach_form = SreachForm()
                 note_form = NoteForm()
-                return render_to_response('result.html',
+                return render_to_response('addnote.html',
                                           {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
                                            'book': book, 'note_form': note_form})
         else:
             return render_to_response('index.html', )
+    else:
+        return render_to_response('skip.html', {'instruction': '请先登录'})
+
+
+def save_note(request):
+    """
+    保存读书笔记
+    :param request: 请求
+    :return:
+    """
+    user_id = request.session.get('user_id', )
+    if user_id:
+        if request.method == 'POST':
+            note_form = NoteForm(request.POST)
+            if note_form.is_valid():
+                book_id = note_form.cleaned_data['book_id']
+                user_name = User.objects.get(user_id=user_id)
+                title = note_form.cleaned_data['title']
+                content = note_form.cleaned_data['content']
+                book_note = BookNote(book_id=book_id, user_id=user_id, user_name=user_name, title=title, content=content, create_date=datetime.date.today())
+                book_note.save()
+                return HttpResponseRedirect('/book/' + book_id)
+        else:
+            return render_to_response('index.html', )
+    else:
+        return render_to_response('skip.html', {'instruction': '请先登录'})
+
+
+def get_note(request, note_id):
+    """
+    读书笔记主页
+    :param request: 请求
+    :param note_id:读书笔记ID
+    :return:
+    """
+    user_id = request.session.get('user_id', )
+    if user_id:
+        if request.method == 'POST':
+            sreach_form = SreachForm(request.POST)
+            if sreach_form.is_valid():
+                keyword = sreach_form.cleaned_data['sreach']
+                results = search(keyword)
+                return render_to_response('result.html', {'results': results})
+        else:
+            sreach_form = SreachForm()
+            user = User.objects.get(user_id=user_id)
+            avatar = {0: 10000, 1: user_id}
+            note = BookNote.objects.get(note_id=int(note_id))
+            return render_to_response('note.html', {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image], 'note': note}, )
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})

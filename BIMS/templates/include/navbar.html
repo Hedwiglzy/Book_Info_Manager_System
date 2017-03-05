@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top top" role="navigation">
 	<div class="row">
 		<div class="col-lg-2"></div>
-		<div class="col-lg-7">
+		<div class="col-lg-6">
 			<div class="container-fluid">
 				<a class="navbar-brand" href={% url 'index' %}>图书管理系统</a>
 				<form method="post" class="navbar-form navbar-left" role="search">
@@ -17,13 +17,12 @@
 				</form>
 				<ul class="nav navbar-nav">
 					<li><a href={% url 'index' %}>首页</a></li>
-					<li><a href="#">发现</a></li>
-					<li><a href="#">预留</a></li>
-					<li><a href="#">预留</a></li>
+					<li><a href={% url 'explore' %}>发现</a></li>
+					<li><a href={% url 'alltags' %}>分类</a></li>
 				</ul>
 			</div>
 		</div>
-		<div class="col-lg-3">
+		<div class="col-lg-4">
 			<ul class=" nav navbar-nav navbar-left">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" style="padding-top: 8px;padding-bottom: 3px;" data-toggle="dropdown">

@@ -79,8 +79,9 @@
 	{% else %}
 		<h1>无结果</h1>
 	{% endif %}
-	<a href={% url 'index' %} ><h4>返回</h4></a>
-
+	<a href="#" onclick="history.go(-1);">
+		<button class="btn btn-default btn-group-lg">返回</button>
+	</a>
 </div>
 </body>
 

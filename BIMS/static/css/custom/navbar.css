@@ -27,12 +27,12 @@
 }
 
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
-    color: #ffffff;
+    color: #54b1ff;
     font-family: Helvetica, sans-serif;
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
-    color: #ffffff;
+    color: #54b1ff;
     background-image: linear-gradient(rgb(8, 110, 213), rgb(5, 93, 181));
 }
 

@@ -98,7 +98,7 @@ class BookNote(models.Model):
     """
     读书笔记
     """
-    op_id = models.AutoField(primary_key=True)  # 流水号
+    note_id = models.AutoField(primary_key=True)  # 流水号
     book_id = models.IntegerField()  # 图书ID
     user_id = models.IntegerField()  # 用户ID
     user_name = models.CharField(max_length=100)  # 用户名

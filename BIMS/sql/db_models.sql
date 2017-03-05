@@ -71,7 +71,7 @@ CREATE TABLE `BIMS_collectionauthor` (
 
 -- 读书笔记信息表 --
 CREATE TABLE `BIMS_booknote` (
-  `op_id`       INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `note_id`     INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
   `book_id`     INTEGER                NOT NULL,
   `user_id`     INTEGER                NOT NULL,
   `user_name`   VARCHAR(100)           NOT NULL,

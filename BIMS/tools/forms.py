@@ -44,6 +44,6 @@ class EvaluateForm(forms.Form):
 
 class NoteForm(forms.Form):
     book_id = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'book_id', 'type': 'hidden'}))
-    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'note_title', 'placeholder': '输入标题'}))
-    content = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'remark', 'placeholder': '输入内容'}))
+    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'note_title', 'placeholder': '输入标题'}), required=False)
+    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'id': 'remark', 'rows': 25, 'placeholder': '输入内容'}), required=False)
     required_css_class = 'sr-only'
