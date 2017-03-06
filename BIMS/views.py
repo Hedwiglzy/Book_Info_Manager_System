@@ -326,11 +326,11 @@ def explore(request):
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
             avatar = {0: 10000, 1: user_id}
-            max_note_id = BookNote.objects.all().aggregate(Max('note_id'))['note_id__max']
-            print(max_note_id)
+            book = Book.objects.get(book_id=10001)
+            note = list(BookNote.objects.order_by('?')[:1])[0]
             return render_to_response('explore.html',
                                       {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
-                                       })
+                                       'note': note})
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
