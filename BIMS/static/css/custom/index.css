@@ -3,7 +3,7 @@
     margin-bottom: 5px;
 }
 
-.hot_books_title, .new_books_title, .hot_tags_title {
+.hot_books_title, .new_books_title, .hot_tags_title, .labels_title{
     height: 40px;
     font-size: 25px;
     font-weight: bold;
@@ -40,4 +40,7 @@ td {
 
 .badge {
     margin-left: 5px;
+}
+.tag_title{
+    margin-top: 50px;
 }

@@ -107,7 +107,7 @@ class BookNote(models.Model):
     create_date = models.DateField()  # 收藏日期
 
     def __str__(self):
-        return self.op_id
+        return self.title
 
 
 class BookEvaluate(models.Model):

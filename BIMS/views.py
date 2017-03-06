@@ -6,9 +6,10 @@
 
 import datetime
 
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
-from django.views.decorators.cache import cache_page
+from django.db.models import Max
+# from django.views.decorators.cache import cache_page
 
 from BIMS.models import User, Book, Author, CollectionBook, CollectionAuthor, BookEvaluate, BookNote, BookScore
 from BIMS.tools.forms import LoginForm, RegisterForm, SreachForm, EvaluateForm, NoteForm
@@ -259,7 +260,6 @@ def logout(request):
     return HttpResponseRedirect('/login/')
 
 
-# @cache_page(60 * 30)
 def index(request):
     """
     主页
@@ -281,11 +281,19 @@ def index(request):
             avatar = {0: 10000, 1: user_id}
             hot_books = Book.objects.order_by('-evaluate_num')[0:6]
             new_books = Book.objects.order_by('-create_date')[0:6]
+            hot_authors = Book.objects.raw('SELECT book_id,author_id FROM bims_book GROUP BY author_id ORDER BY count(author_id) DESC LIMIT 3')
+            authors_and_books = []
+            for author in hot_authors:
+                author_books = get_author_book(author.author_id)[0:5]
+                author_and_book = {
+                    'author': author,
+                    'books': author_books
+                }
+                authors_and_books.append(author_and_book)
             hot_tags = Book.objects.raw('SELECT book_id,title FROM bims_book GROUP BY title ORDER BY count(title) DESC LIMIT 3')
             tags_and_books = []
             for hot_tag in hot_tags:
-                books = Book.objects.filter(title=hot_tag)[0:5]
-                # books = Book.objects.get(book_id=10001)
+                books = Book.objects.filter(title=hot_tag.title)[0:5]
                 tag_and_books = {
                     'tag': hot_tag.title,
                     'books': books
@@ -293,7 +301,8 @@ def index(request):
                 tags_and_books.append(tag_and_books)
             return render_to_response('index.html',
                                       {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
-                                       'hot_books': hot_books, 'new_books': new_books, 'tags_and_books': tags_and_books})
+                                       'hot_books': hot_books, 'new_books': new_books, 'authors_and_books': authors_and_books,
+                                       'tags_and_books': tags_and_books})
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
@@ -317,6 +326,8 @@ def explore(request):
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
             avatar = {0: 10000, 1: user_id}
+            max_note_id = BookNote.objects.all().aggregate(Max('note_id'))['note_id__max']
+            print(max_note_id)
             return render_to_response('explore.html',
                                       {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
                                        })

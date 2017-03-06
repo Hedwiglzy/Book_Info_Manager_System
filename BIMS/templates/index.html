@@ -1,126 +1,163 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	{% load static %}
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/font-awesome.min.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/navbar.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/index.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/user.css' %}">
-	<title>欢迎使用图书管理系统</title>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom/navbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom/index.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom/user.css' %}">
+    <title>欢迎使用图书管理系统</title>
 </head>
 
 <body>
 {% include 'include/navbar.html' %}
 <div class="row blank"></div>
 <div class="row top_line">
-	<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
-		<ol class="carousel-indicators">
-			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-			<li data-target="#myCarousel" data-slide-to="1"></li>
-			<li data-target="#myCarousel" data-slide-to="2"></li>
-		</ol>
-		<div class="carousel-inner">
-			<div class="item active">
-				<img src="../static/image/top_line/1.jpg" alt="第一张">
-			</div>
-			<div class="item">
-				<img src="../static/image/top_line/2.jpg" alt="第二张">
-			</div>
-			<div class="item">
-				<img src="../static/image/top_line/3.jpg" alt="第三张">
-			</div>
-		</div>
-		<a href="#myCarousel" data-slide="prev" class="carousel-control left">&lsaquo;</a>
-		<a href="#myCarousel" data-slide="next" class="carousel-control right">&rsaquo;</a>
-	</div>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="../static/image/top_line/1.jpg" alt="第一张">
+            </div>
+            <div class="item">
+                <img src="../static/image/top_line/2.jpg" alt="第二张">
+            </div>
+            <div class="item">
+                <img src="../static/image/top_line/3.jpg" alt="第三张">
+            </div>
+        </div>
+        <a href="#myCarousel" data-slide="prev" class="carousel-control left">&lsaquo;</a>
+        <a href="#myCarousel" data-slide="next" class="carousel-control right">&rsaquo;</a>
+    </div>
 </div>
 <div class="row hot_books">
-	<div class="col-lg-2"></div>
-	<div class="col-lg-8">
-		<div class="row hot_books_title">
-			热门书籍
-			<a class="more_books" href={% url 'hotbook' %}>更多>></a>
-		</div>
-		<div class="row book_list">
-			{% for hot_book in hot_books %}
-				<div class="col-lg-2 book_info">
-					<div class="book_cover">
-						<a href={% url 'book' hot_book.book_id %}>
-							<img class=" img-thumbnail" src="../static/image/book/cover/{{ hot_book.book_id }}.jpg"
-									 alt="{{ hot_book.book_name }}" title="{{ hot_book.book_name }}">
-						</a>
-					</div>
-					<div><a href={% url 'book' hot_book.book_id %}><strong>{{ hot_book.book_name }}</strong></a></div>
-					<div><a href={% url 'author' hot_book.author_id %}>{{ hot_book.author_name }}</a></div>
-				</div>
-			{% endfor %}
-		</div>
-	</div>
-	<div class="col-lg-2"></div>
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+        <div class="row hot_books_title">
+            热门书籍
+            <a class="more_books" href={% url 'hotbook' %}>更多>></a>
+        </div>
+        <div class="row book_list">
+            {% for hot_book in hot_books %}
+                <div class="col-lg-2 book_info">
+                    <div class="book_cover">
+                        <a href={% url 'book' hot_book.book_id %}>
+                            <img class=" img-thumbnail" src="../static/image/book/cover/{{ hot_book.book_id }}.jpg"
+                                 alt="{{ hot_book.book_name }}" title="{{ hot_book.book_name }}">
+                        </a>
+                    </div>
+                    <div><a href={% url 'book' hot_book.book_id %}><strong>{{ hot_book.book_name }}</strong></a></div>
+                    <div><a href={% url 'author' hot_book.author_id %}>{{ hot_book.author_name }}</a></div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-lg-2"></div>
 </div>
 <div class="row new_books">
-	<div class="col-lg-2"></div>
-	<div class="col-lg-8">
-		<div class="row new_books_title">
-			最新上架
-			<a class="more_books" href={% url 'newbook' %}>更多>></a>
-		</div>
-		<div class="row book_list">
-			{% for new_book in new_books %}
-				<div class="col-lg-2 book_info">
-					<div class="book_cover">
-						<a href={% url 'book' new_book.book_id %}>
-							<img class=" img-thumbnail" src="../static/image/book/cover/{{ new_book.book_id }}.jpg"
-									 alt="{{ new_book.book_name }}" title="{{ new_book.book_name }}">
-						</a>
-					</div>
-					<div><a href={% url 'book' new_book.book_id %}><strong>{{ new_book.book_name }}</strong></a></div>
-					<div><a href={% url 'author' new_book.author_id %}>{{ new_book.author_name }}</a></div>
-				</div>
-			{% endfor %}
-		</div>
-	</div>
-	<div class="col-lg-2"></div>
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+        <div class="row new_books_title">
+            最新上架
+            <a class="more_books" href={% url 'newbook' %}>更多>></a>
+        </div>
+        <div class="row book_list">
+            {% for new_book in new_books %}
+                <div class="col-lg-2 book_info">
+                    <div class="book_cover">
+                        <a href={% url 'book' new_book.book_id %}>
+                            <img class=" img-thumbnail" src="../static/image/book/cover/{{ new_book.book_id }}.jpg"
+                                 alt="{{ new_book.book_name }}" title="{{ new_book.book_name }}">
+                        </a>
+                    </div>
+                    <div><a href={% url 'book' new_book.book_id %}><strong>{{ new_book.book_name }}</strong></a></div>
+                    <div><a href={% url 'author' new_book.author_id %}>{{ new_book.author_name }}</a></div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<div class="row hot_authors">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+        <div class="row hot_tags_title">
+            热门作者
+        </div>
+        {% for author_and_books in authors_and_books %}
+            <div class="row book_list">
+                <div class="col-lg-2 tag_title">
+                    <div class="book_cover">
+                        <a href={% url 'author' author_and_books.author.author_id %}>
+                            <button class="btn btn-default btn-group-lg" style="width: 90%;">
+                                <i class="glyphicon glyphicon-user"></i>
+                                 &nbsp;{{ author_and_books.author.author_name }}
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                {% for authorbook in author_and_books.books %}
+                    <div class="col-lg-2 book_info">
+                        <div class="book_cover">
+                            <a href={% url 'book' authorbook.book_id %}>
+                                <img class=" img-thumbnail" src="../static/image/book/cover/{{ authorbook.book_id }}.jpg"
+                                     alt="{{ authorbook.book_name }}" title="{{ authorbook.book_name }}">
+                            </a>
+                        </div>
+                        <div>
+                            <a href={% url 'book' authorbook.book_id %}><strong>{{ authorbook.book_name|truncatechars:'7' }}</strong></a>
+                        </div>
+                        <div><a href={% url 'author' authorbook.author_id %}>{{ authorbook.author_name|truncatechars:'10' }}</a></div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="col-lg-2"></div>
 </div>
 <div class="row hot_tags">
-	<div class="col-lg-2"></div>
-	<div class="col-lg-8">
-		<div class="row hot_tags_title">
-			热门分类
-		</div>
-		{% for tag_and_books in tags_and_books %}
-			<div class="row book_list">
-				<div class="col-lg-2 book_info">
-					<div class="book_cover">
-						<a href={% url 'tag' tag_and_books.tag %}>
-							<button class="btn btn-default btn-group-lg">{{ tag_and_books.tag }}</button>
-						</a>
-					</div>
-				</div>
-				{% for haha in tag_and_books.books %}
-					haha
-					{% endfor %}
-{#			<p>{{ tag_and_books.books }}</p>#}
-{#				{% for tagbook in tag_and_books.books %}#}
-{#					<div class="col-lg-2 book_info">#}
-{#						<div class="book_cover">#}
-{#							<h1>{{ tagbook.book_id }}</h1>#}
-{#							<a href={% url 'book' tagbook.book_id %}>#}
-{#								<img class=" img-thumbnail" src="../static/image/book/cover/{{ tagbook.book_id }}.jpg"#}
-{#										 alt="{{ tagbook.book_name }}" title="{{ tagbook.book_name }}">#}
-{#							</a>#}
-{#						</div>#}
-{#						<div><a href={% url 'book' tagbook.book_id %}><strong>{{ tagbook.book_name }}</strong></a></div>#}
-{#						<div><a href={% url 'author' tagbook.author_id %}>{{ tagbook.author_name }}</a></div>#}
-{#					</div>#}
-{#				{% endfor %}#}
-			</div>
-		{% endfor %}
-	</div>
-	<div class="col-lg-2"></div>
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+        <div class="row hot_tags_title">
+            热门标签
+        </div>
+        {% for tag_and_books in tags_and_books %}
+            <div class="row book_list">
+                <div class="col-lg-2 tag_title">
+                    <div class="book_cover">
+                        <a href={% url 'tag' tag_and_books.tag %}>
+                            <button class="btn btn-default btn-group-lg" style="width: 90%;">
+                                <i class="glyphicon glyphicon-tags"></i>
+                                 &nbsp;{{ tag_and_books.tag }}
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                {% for tagbook in tag_and_books.books %}
+                    <div class="col-lg-2 book_info">
+                        <div class="book_cover">
+                            <a href={% url 'book' tagbook.book_id %}>
+                                <img class=" img-thumbnail" src="../static/image/book/cover/{{ tagbook.book_id }}.jpg"
+                                     alt="{{ tagbook.book_name }}" title="{{ tagbook.book_name }}">
+                            </a>
+                        </div>
+                        <div>
+                            <a href={% url 'book' tagbook.book_id %}><strong>{{ tagbook.book_name|truncatechars:'7' }}</strong></a>
+                        </div>
+                        <div><a href={% url 'author' tagbook.author_id %}>{{ tagbook.author_name }}</a></div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="col-lg-2"></div>
 </div>
 {% include 'include/footer.html' %}
 </body>

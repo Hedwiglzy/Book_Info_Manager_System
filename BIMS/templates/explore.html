@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom/navbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom/index.css' %}">
+    <title>欢迎使用图书管理系统</title>
+</head>
+
+<body>
+{% include 'include/navbar.html' %}
+<div class="row blank"></div>
+<div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+{% include 'include/footer.html' %}
+</body>
+
+</html>
