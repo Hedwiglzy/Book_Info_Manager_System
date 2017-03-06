@@ -1,25 +1,4 @@
-.r1{
-    height: 250px;
-    background-color: #ddd;
-    border: 1px solid #3c3c3c;
-}
-.r2{
-    height: 250px;
-    background-color: #ddd;
-    border: 1px solid #3c3c3c;
-}
-.r3{
-    height: 250px;
-    background-color: #ddd;
-    border: 1px solid #3c3c3c;
-}
-.r4{
-    height: 250px;
-    background-color: #ddd;
-    border: 1px solid #3c3c3c;
-}
-.r5{
-    height: 250px;
-    background-color: #ddd;
+.r1, .r2, .r3, .r4, .r5 {
+    height: 280px;
     border: 1px solid #3c3c3c;
 }

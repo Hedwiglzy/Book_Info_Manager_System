@@ -53,5 +53,7 @@ from bs4 import BeautifulSoup
 #         print("failed!")
 
 import datetime
-date = datetime.date.today().day
-print(date)
+
+today = datetime.date.today()
+i = today.year+today.month+today.day
+print(i)

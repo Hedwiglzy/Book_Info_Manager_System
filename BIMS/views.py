@@ -8,14 +8,13 @@ import datetime
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
-from django.db.models import Max
 # from django.views.decorators.cache import cache_page
 
 from BIMS.models import User, Book, Author, CollectionBook, CollectionAuthor, BookEvaluate, BookNote, BookScore
 from BIMS.tools.forms import LoginForm, RegisterForm, SreachForm, EvaluateForm, NoteForm
 
-
 # Create your views here.
+
 
 def search(keyword):
     """
@@ -326,11 +325,13 @@ def explore(request):
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
             avatar = {0: 10000, 1: user_id}
-            book = Book.objects.get(book_id=10001)
-            note = list(BookNote.objects.order_by('?')[:1])[0]
+            book = list(Book.objects.order_by('?')[:2])
+            note = list(BookNote.objects.order_by('?')[:2])
+            author = list(Author.objects.order_by('?')[:2])
             return render_to_response('explore.html',
                                       {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
-                                       'note': note})
+                                       'book1': book[0], 'book2': book[1], 'note1': note[0], 'note2': note[1],
+                                       'author1': author[0], 'author2': author[1]})
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
