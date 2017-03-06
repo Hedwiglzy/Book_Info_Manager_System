@@ -3,7 +3,6 @@
 """
 视图层
 """
-
 import datetime
 
 from django.http import HttpResponseRedirect
