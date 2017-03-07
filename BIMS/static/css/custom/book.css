@@ -77,6 +77,13 @@
 .single_star:hover {
     background: url(../../image/system/single_star_click.png);
 }
+.single_star_click{
+    display: block;
+    background: url(../../image/system/single_star_click.png);
+    height: 16px;
+    width: 16px;
+    float: left;
+}
 
 .star {
     background-position-x: 0px;

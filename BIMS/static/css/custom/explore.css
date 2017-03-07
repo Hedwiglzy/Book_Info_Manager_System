@@ -1,4 +1,20 @@
-.r1, .r2, .r3, .r4, .r5 {
+.reload{
+    margin-top: 10px;
+}
+.reload.a:hover {
+    color: white;
+}
+.book{
     height: 280px;
-    border: 1px solid #3c3c3c;
+}
+.author,.note {
+    height: 180px;
+}
+
+.book_introduction{
+ margin-top: 20px;
+    height: 180px;
+ }
+.book_title{
+    margin-left: 0;
 }

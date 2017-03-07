@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	{% load static %}
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/font-awesome.min.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/navbar.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/explore.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/index.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/user.css' %}">
-	<title>发现</title>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom/navbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom/explore.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom/index.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom/user.css' %}">
+    <title>发现</title>
 </head>
 
 <body>
@@ -18,48 +18,52 @@
 <div class="row blank"></div>
 <div class="col-lg-2"></div>
 <div class="col-lg-8">
-	<div class="row r1">
-		<div class="row book_list">
-			<div class="col-lg-2 book_info">
-				<div class="book_cover">
-					<a href={% url 'book' book1.book_id %}>
-						<img class=" img-thumbnail" src="../static/image/book/cover/{{ book1.book_id }}.jpg"
-								 alt="{{ book1.book_name }}" title="{{ book1.book_name }}">
-					</a>
-				</div>
-				<div><a href={% url 'book' book1.book_id %}><strong>{{ book1.book_name }}</strong></a></div>
-				<div><a href={% url 'author' book1.author_id %}>{{ book1.author_name }}</a></div>
-			</div>
-		</div>
-	</div>
-	<div class="row r2">
-		<h3>{{ note1.title }}</h3>
-		<p>{{ note1.content|truncatechars:'500' }}</p>
-	</div>
-	<div class="row r3">
-		<h3>{{ author1.author_name }}</h3>
-	</div>
-		<div class="row r1">
-		<div class="row book_list">
-			<div class="col-lg-2 book_info">
-				<div class="book_cover">
-					<a href={% url 'book' book2.book_id %}>
-						<img class=" img-thumbnail" src="../static/image/book/cover/{{ book2.book_id }}.jpg"
-								 alt="{{ book2.book_name }}" title="{{ book2.book_name }}">
-					</a>
-				</div>
-				<div><a href={% url 'book' book2.book_id %}><strong>{{ book2.book_name }}</strong></a></div>
-				<div><a href={% url 'author' book2.author_id %}>{{ book2.author_name }}</a></div>
-			</div>
-		</div>
-	</div>
-	<div class="row r2">
-		<h3>{{ note2.title }}</h3>
-		<p>{{ note2.content|truncatechars:'500' }}</p>
-	</div>
-	<div class="row r3">
-		<h3>{{ author2.author_name }}</h3>
-	</div>
+    <div class="row reload">
+        <button href="javascript:location.reload();" class="btn btn-info btn-group-lg">
+            不满意?再次发现
+        </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button onclick="history.go(-1)" class="btn btn-default btn-group-lg">返回</button>
+    </div>
+    <div class="row book">
+        <div class="row book_list">
+            <div class="col-lg-2 book_info">
+                <div class="book_cover">
+                    <a href={% url 'book' book1.book_id %}>
+                        <img class=" img-thumbnail" src="../static/image/book/cover/{{ book1.book_id }}.jpg"
+                             alt="{{ book1.book_name }}" title="{{ book1.book_name }}">
+                    </a>
+                </div>
+                <div>
+                    <a href={% url 'book' book1.book_id %}><strong>{{ book1.book_name|truncatechars:'10' }}</strong></a>
+                </div>
+                <div><a href={% url 'author' book1.author_id %}>{{ book1.author_name|truncatechars:'8' }}</a></div>
+            </div>
+            <div class="col-lg-10">
+                <div class="row book_introduction">
+                    <h4>{{ book1.book_name }}</h4>
+                    <p>{{ book1.content_summary|truncatechars:'350' }}</p>
+                </div>
+                <div class="row">
+                    <h4>图书分类:{{ book1.title }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row note">
+        <h3>
+            <a href={% url 'note' note1.note_id %}>
+                {{ note1.title }}
+            </a>
+        </h3>
+        <p>{{ note1.content|truncatechars:'400' }}</p>
+    </div>
+    <div class="row author">
+        <h3>
+            <a href={% url 'author' author1.author_id %}>
+                {{ author1.author_name }}</a></h3>
+        <p>{{ author1.author_summary|truncatechars:'400' }}</p>
+    </div>
 </div>
 <div class="col-lg-2"></div>
 {% include 'include/footer.html' %}

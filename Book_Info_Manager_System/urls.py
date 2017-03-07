@@ -39,4 +39,5 @@ urlpatterns = [
     url(r'^note/(\d+)/$', views.get_note, name='note'),
     url(r'^explore/$', views.explore, name='explore'),
     url(r'^alltags/$', views.all_tags, name='alltags'),
+    url(r'^addbookcollection/(\d+)/$', views.add_book_collection, name='addbookcollection'),
     ]

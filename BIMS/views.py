@@ -153,12 +153,18 @@ def get_book_info(request, book_id):
             book_evaluates = book_evaluates[0:6] if len(book_evaluates) > 6 else book_evaluates
             book_notes = BookNote.objects.filter(book_id=book_id).order_by('-create_date')
             book_notes = book_notes[0:3] if len(book_notes) > 3 else book_notes
+            is_collection = CollectionBook.objects.filter(user_id=user_id, book_id=book_id)
+            if is_collection:
+                collection = 1
+            else:
+                collection = 0
             if int(book.score) == 0:
                 score = ''
             else:
                 score = book.score
             return render_to_response('book.html', {'sreach_form': sreach_form, 'evaluate_form': evaluate_form, 'user': user, 'avatar': avatar[user.image],
-                                                    'book': book, 'score': score, 'author': author, 'book_evaluates': book_evaluates, 'book_notes': book_notes, 'note_form': note_form}, )
+                                                    'book': book, 'score': score, 'author': author, 'book_evaluates': book_evaluates, 'book_notes': book_notes,
+                                                    'note_form': note_form, 'collection': collection}, )
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
@@ -561,3 +567,20 @@ def get_note(request, note_id):
             return render_to_response('note.html', {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image], 'note': note}, )
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
+
+
+def add_book_collection(request, book_id):
+    """
+    添加图书收藏
+    :param request:请求
+    :param book_id:图书ID
+    :return:
+    """
+    user_id = request.session.get('user_id', )
+    if user_id:
+        evaluate = CollectionBook(user_id=user_id, book_id=int(book_id), create_date=datetime.date.today())
+        evaluate.save()
+        return HttpResponseRedirect('/book/'+book_id)
+    else:
+        return render_to_response('skip.html', {'instruction': '请先登录'})
+

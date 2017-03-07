@@ -75,12 +75,12 @@
 	<div class="col-lg-2"></div>
 	<div class="col-lg-8 my_collection" style="height:{{ height }}">
 		<ul class="nav nav-tabs">
-			<li><a href="#book_collections" data-toggle='tab'>收藏的图书</a></li>
+			<li class="active"><a href="#book_collections" data-toggle='tab'>收藏的图书</a></li>
 			<li><a href="#author_collections" data-toggle='tab'>收藏的作者</a></li>
-			<li class="active"><a href="#notes" data-toggle='tab'>读书笔记</a></li>
+			<li><a href="#notes" data-toggle='tab'>读书笔记</a></li>
 		</ul>
 		<div class="tab-content">
-			<div class="tab-pane fade" id="book_collections">
+			<div class="tab-pane fade  in active" id="book_collections">
 				<div class="row book_list" style="height: {{ height }}px">
 					{% if book_collections %}
 						{% for book in book_collections %}
@@ -134,7 +134,7 @@
 					<h3>暂无作者收藏</h3>
 				{% endif %}
 			</div>
-			<div class="tab-pane fade in active" id="notes">
+			<div class="tab-pane fade" id="notes">
 				{% if notes_and_books %}
 					{% for note_and_book in notes_and_books %}
 						<div class="row note_list">
