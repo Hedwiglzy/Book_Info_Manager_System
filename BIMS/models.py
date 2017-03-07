@@ -20,7 +20,8 @@ class User(models.Model):
     sex = models.IntegerField(null=True)  # 性别 1男 2女 0其他
     birthday = models.DateField(null=True)  # 生日
     age = models.IntegerField(null=True)  # 年龄
-    locate = models.CharField(max_length=50, null=True)  # 所在地
+    province = models.CharField(max_length=50, null=True)  # 省
+    city = models.CharField(max_length=50, null=True)  # 省
     remark = models.CharField(max_length=500, null=True)  # 个人简介
     image = models.IntegerField(null=True)  # 头像
     create_date = models.DateField(null=True)  # 创建日期

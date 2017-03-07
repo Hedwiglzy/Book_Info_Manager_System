@@ -217,7 +217,7 @@ def register(request):
             age = int(str(datetime.date.today())[0:4]) - int(str(birthday)[0:4])
             create_date = datetime.date.today()
             user = User(user_name=username, password=password, tel=int(tel), email=email,
-                        birthday=birthday, age=age, sex=sex, locate=province + city, remark=remark,
+                        birthday=birthday, age=age, sex=sex, province=province, city=city, remark=remark,
                         create_date=create_date, image=0)
             user.save()
             return render_to_response('skip.html', {'instruction': '注册成功'})
@@ -585,18 +585,52 @@ def add_book_collection(request, book_id):
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
 
-def add_book_score(request, book_id):
+def set_userinfo(request):
     """
-    添加图书收藏
-    :param request:请求
-    :param book_id:图书ID
+    修改用户信息
+    :param request: 请求
     :return:
     """
     user_id = request.session.get('user_id', )
+    user = User.objects.get(user_id=user_id)
     if user_id:
-        evaluate = CollectionBook(user_id=user_id, book_id=int(book_id), create_date=datetime.date.today())
-        evaluate.save()
-        return HttpResponseRedirect('/book/'+book_id)
+        if request.method == 'POST':
+            register_form = RegisterForm(request.POST)
+            if register_form.is_valid():
+                username = register_form.cleaned_data['username']
+                tel = register_form.cleaned_data['tel']
+                email = register_form.cleaned_data['email']
+                sex = register_form.cleaned_data['sex']
+                birthday = register_form.cleaned_data['birthday']
+                province = register_form.cleaned_data['province']
+                city = register_form.cleaned_data['city']
+                remark = register_form.cleaned_data['remark']
+                user = User(user_id=user_id, user_name=username, password=user.password, tel=int(tel), email=email,
+                            birthday=birthday, sex=sex, province=province, city=city, remark=remark, image=0)
+                user.save()
+                return HttpResponseRedirect('/user/')
+            else:
+                sreach_form = SreachForm(request.POST)
+                if sreach_form.is_valid():
+                    keyword = sreach_form.cleaned_data['sreach']
+                    results = search(keyword)
+                    return render_to_response('result.html', {'results': results})
+        else:
+            sreach_form = SreachForm()
+            userinfo = {
+                'username': user.user_name,
+                'password': user.password,
+                'tel': user.tel,
+                'email': user.email,
+                'birthday': user.birthday,
+                'province': user.province,
+                'city': user.city,
+                'remark': user.remark
+            }
+            register_form = RegisterForm(userinfo)
+            avatar = {0: 10000, 1: user_id}
+            return render_to_response('setuserinfo.html',
+                                      {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
+                                       'register_form': register_form}, )
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
-

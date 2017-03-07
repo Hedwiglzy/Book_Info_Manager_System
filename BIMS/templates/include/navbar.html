@@ -18,7 +18,7 @@
 				<ul class="nav navbar-nav">
 					<li><a href={% url 'index' %}>首页</a></li>
 					<li><a href={% url 'alltags' %}>分类</a></li>
-                    <li><a href={% url 'explore' %}>发现</a></li>
+					<li><a href={% url 'explore' %}>发现</a></li>
 				</ul>
 			</div>
 		</div>
@@ -31,7 +31,7 @@
 					</a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href={% url 'user' %}>我的主页</a></li>
-						<li><a href="#">设置</a></li>
+						<li><a href={% url 'setuserinfo' %}>设置</a></li>
 						<li><a href={% url 'logout' %}>退出</a></li>
 					</ul>
 				</li>

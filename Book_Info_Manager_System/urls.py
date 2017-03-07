@@ -40,4 +40,5 @@ urlpatterns = [
     url(r'^explore/$', views.explore, name='explore'),
     url(r'^alltags/$', views.all_tags, name='alltags'),
     url(r'^addbookcollection/(\d+)/$', views.add_book_collection, name='addbookcollection'),
+    url(r'^setuserinfo/$', views.set_userinfo, name='setuserinfo'),
     ]

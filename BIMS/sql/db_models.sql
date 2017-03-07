@@ -12,7 +12,8 @@ CREATE TABLE `BIMS_user` (
   `sex`         INTEGER                NULL,
   `birthday`    DATE                   NULL,
   `age`         INTEGER                NULL,
-  `locate`      VARCHAR(50)            NULL,
+  `province`    VARCHAR(50)            NULL,
+  `city`        VARCHAR(50)            NULL,
   `remark`      VARCHAR(500)           NULL,
   `image`       VARCHAR(100)           NULL,
   `create_date` DATE                   NULL

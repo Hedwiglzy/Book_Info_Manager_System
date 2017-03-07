@@ -52,8 +52,5 @@ from bs4 import BeautifulSoup
 #     else:
 #         print("failed!")
 
-import datetime
+import re
 
-today = datetime.date.today()
-i = today.year+today.month+today.day
-print(i)
