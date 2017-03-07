@@ -584,3 +584,19 @@ def add_book_collection(request, book_id):
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
+
+def add_book_score(request, book_id):
+    """
+    添加图书收藏
+    :param request:请求
+    :param book_id:图书ID
+    :return:
+    """
+    user_id = request.session.get('user_id', )
+    if user_id:
+        evaluate = CollectionBook(user_id=user_id, book_id=int(book_id), create_date=datetime.date.today())
+        evaluate.save()
+        return HttpResponseRedirect('/book/'+book_id)
+    else:
+        return render_to_response('skip.html', {'instruction': '请先登录'})
+

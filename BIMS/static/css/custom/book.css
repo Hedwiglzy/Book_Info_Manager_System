@@ -10,10 +10,11 @@
     height: 280px;
 }
 
-.img-thumbnail{
+.img-thumbnail {
     height: 250px;
     width: 190px;
 }
+
 .book_cover {
     padding-top: 0;
     padding-left: 0;
@@ -44,6 +45,7 @@
     height: 260px;
     border-left: 1px solid #eaeaea;
     text-align: center;
+    padding-left: 0;
 }
 
 .score_title {
@@ -56,38 +58,33 @@
     font-family: Helvetica, sans-serif;
 }
 
-.star {
-    background: -webkit-image-set(url(../../static/image/system/star.png) 1x, url(../../static/image/system/big_star.png) 2x) no-repeat;
-    display: inline-block;
-    zoom: 1;
-    width: 75px;
-    height: 15px;
-    margin: 1px 0 0 0;
-    overflow: hidden;
-}
-
 .single_star {
     display: block;
-    background: url(../../image/system/single_star.png);
-    height: 16px;
-    width: 16px;
+    background: url(../../image/system/starky.png);
+    height: 21px;
+    width: 22px;
     float: left;
+    margin-left: -10px;
+    margin-top: -1px;
 }
 
 .single_star:hover {
-    background: url(../../image/system/single_star_click.png);
+    background: url(../../image/system/starsy.png);
 }
-.single_star_click{
+
+.single_star_click {
     display: block;
-    background: url(../../image/system/single_star_click.png);
-    height: 16px;
-    width: 16px;
+    background: url(../../image/system/starsy.png);
+    height: 21px;
+    width: 22px;
     float: left;
+    margin-left: -10px;
+    margin-top: -1px;
 }
 
 .star {
-    background-position-x: 0px;
-    background-position-y: -15px;
+    margin-left: -10px;
+    margin-top: 2px;
 }
 
 .my_score {
@@ -97,7 +94,7 @@
 .star_list, .my_score_title, .my_colleciton_title {
     padding-left: 0;
     padding-right: 0;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .star_list {
@@ -110,7 +107,7 @@
 }
 
 a:hover, a:focus {
-    color:#3377aa;
+    color: #3377aa;
     text-decoration: none;
 }
 
@@ -139,9 +136,7 @@ a:hover, a:focus {
 
 .short_review {
     height: 45px;
-    border-bottom-color: #DDDDDD;
-    border-bottom-style: dashed;
-    border-bottom-width: 1px;
+    border-bottom: 1px dashed #DDDDDD;
     margin-left: 0;
     margin-right: 0;
 }
@@ -152,7 +147,7 @@ a:hover, a:focus {
     margin-right: 0;
 }
 
-.short_review_user{
+.short_review_user {
     color: #095fb3;
 }
 
@@ -170,7 +165,6 @@ a:hover, a:focus {
     font-family: Helvetica, sans-serif;
     font-size: 16px;
 }
-
 
 .note_top {
     height: 30px;
@@ -192,4 +186,43 @@ a:hover, a:focus {
 .note_content {
     margin-top: 5px;
     font-family: Helvetica, Arial, sans-serif;
+}
+
+/*星星样式*/
+.star_score {
+    width: 110px;
+    height: 21px;
+    position: relative;
+}
+
+.star_list {
+    height: 21px;
+    line-height: 21px;
+}
+
+.block p,
+.block .attitude {
+    line-height: 21px;
+}
+
+.star_score a {
+    height: 21px;
+    display: block;
+    text-indent: -999em;
+    position: absolute;
+    left: 0;
+}
+
+#starttwo .star_score {
+    background: url(../../image/system/starky.png);
+}
+
+#starttwo .star_score a:hover {
+    background: url(../../image/system/starky.png);
+    left: 0;
+}
+
+#starttwo .star_score a.clibg {
+    background: url(../../image/system/starsy.png);
+    left: 0;
 }
