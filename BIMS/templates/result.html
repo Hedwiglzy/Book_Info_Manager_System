@@ -77,10 +77,11 @@
 			</div>
 		{% endfor %}
 	{% else %}
-		<h1>无结果</h1>
+		<h2>未找到相关书籍</h2>
 	{% endif %}
 	<button onclick="history.go(-1)" class="btn btn-default btn-group-lg">返回</button>
 </div>
+{% include 'include/footer.html' %}
 </body>
 
 </html>

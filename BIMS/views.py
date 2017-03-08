@@ -10,7 +10,7 @@ from django.shortcuts import render_to_response
 # from django.views.decorators.cache import cache_page
 
 from BIMS.models import User, Book, Author, CollectionBook, CollectionAuthor, BookEvaluate, BookNote, BookScore
-from BIMS.tools.forms import LoginForm, RegisterForm, SreachForm, EvaluateForm, NoteForm
+from BIMS.tools.forms import LoginForm, RegisterForm, SreachForm, EvaluateForm, NoteForm, BookForm
 
 # Create your views here.
 
@@ -215,10 +215,9 @@ def register(request):
             city = register_form.cleaned_data['city']
             remark = register_form.cleaned_data['remark']
             age = int(str(datetime.date.today())[0:4]) - int(str(birthday)[0:4])
-            create_date = datetime.date.today()
             user = User(user_name=username, password=password, tel=int(tel), email=email,
                         birthday=birthday, age=age, sex=sex, province=province, city=city, remark=remark,
-                        create_date=create_date, image=0)
+                        create_date=datetime.date.today(), image=0)
             user.save()
             return render_to_response('skip.html', {'instruction': '注册成功'})
     else:
@@ -595,18 +594,28 @@ def set_userinfo(request):
     user = User.objects.get(user_id=user_id)
     if user_id:
         if request.method == 'POST':
-            register_form = RegisterForm(request.POST)
+            register_form = RegisterForm(request.POST, request.FILES)
             if register_form.is_valid():
                 username = register_form.cleaned_data['username']
                 tel = register_form.cleaned_data['tel']
                 email = register_form.cleaned_data['email']
                 sex = register_form.cleaned_data['sex']
                 birthday = register_form.cleaned_data['birthday']
+                age = int(str(datetime.date.today())[0:4]) - int(str(birthday)[0:4])
                 province = register_form.cleaned_data['province']
                 city = register_form.cleaned_data['city']
                 remark = register_form.cleaned_data['remark']
+                upload = register_form.cleaned_data['image']
+                if upload:
+                    image = open('BIMS/static/image/avatar/hd/% s.jpg' % str(user_id), 'wb')
+                    image.write(upload.read())
+                    image.close()
+                    image_state = 1
+                else:
+                    image_state = 0
                 user = User(user_id=user_id, user_name=username, password=user.password, tel=int(tel), email=email,
-                            birthday=birthday, sex=sex, province=province, city=city, remark=remark, image=0)
+                            birthday=birthday, age=age, sex=sex, province=province, city=city, remark=remark,
+                            image=image_state, create_date=user.create_date)
                 user.save()
                 return HttpResponseRedirect('/user/')
             else:
@@ -632,5 +641,31 @@ def set_userinfo(request):
             return render_to_response('setuserinfo.html',
                                       {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
                                        'register_form': register_form}, )
+    else:
+        return render_to_response('skip.html', {'instruction': '请先登录'})
+
+
+def add_book(request):
+    """
+    添加书籍(管理员)
+    :param request: 请求
+    :return:
+    """
+    user_id = request.session.get('user_id', )
+    if user_id:
+        if request.method == 'POST':
+            sreach_form = SreachForm(request.POST)
+            if sreach_form.is_valid():
+                keyword = sreach_form.cleaned_data['sreach']
+                results = search(keyword)
+                return render_to_response('result.html', {'results': results})
+        else:
+            book_form = BookForm()
+            sreach_form = SreachForm()
+            user = User.objects.get(user_id=user_id)
+            avatar = {0: 10000, 1: user_id}
+            return render_to_response('note.html',
+                                      {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
+                                       'book_form': book_form}, )
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})

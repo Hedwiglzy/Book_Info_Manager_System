@@ -40,11 +40,11 @@ class Book(models.Model):
     press_house = models.CharField(max_length=100, null=True)  # 出版社
     translator = models.CharField(max_length=100, null=True)  # 翻译者
     publication_date = models.CharField(max_length=100, null=True)  # 出版日期
-    pages = models.IntegerField(null=True)  # 页数
-    price = models.IntegerField(null=True)  # 价格
+    pages = models.CharField(max_length=100, null=True)  # 页数
+    price = models.CharField(max_length=100, null=True)  # 价格
     package = models.CharField(max_length=10, null=True)  # 装帧
     isbn = models.BigIntegerField(null=True)  # ISBN
-    score = models.IntegerField(null=True)  # 评分
+    score = models.DecimalField(max_digits=10, decimal_places=1, null=True)  # 评分
     evaluate_num = models.IntegerField(null=True)  # 评价人数
     collect_num = models.IntegerField(null=True)  # 收藏人数
     content_summary = models.TextField(null=True)  # 内容简介

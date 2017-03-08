@@ -22,6 +22,23 @@ class RegisterForm(forms.Form):
     province = forms.CharField(widget=forms.Select(attrs={'class': 'form-control', 'id': 'province'}))
     city = forms.CharField(widget=forms.Select(attrs={'class': 'form-control', 'id': 'city'}))
     remark = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'remark', 'placeholder': '一句话介绍自己'}), required=False)
+    image = forms.FileField(required=False)
+    required_css_class = 'sr-only'
+
+
+class BookForm(forms.Form):
+    book_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'book_name', 'placeholder': '输入书名'}))
+    author_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'author_name', 'placeholder': '输入作者名'}))
+    press_house = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'press_house', 'placeholder': '输入出版社'}))
+    translator = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'translator', 'placeholder': '输入译者'}), required=False)
+    publication_date = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'publication_date', 'placeholder': '输入出版日期'}), required=False)
+    pages = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'pages', 'placeholder': '输入页数'}), required=False)
+    price = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'price', 'placeholder': '输入价格'}), required=False)
+    package = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'package', 'placeholder': '输入装帧'}), required=False)
+    isbn = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'isbn', 'placeholder': '输入ISBN'}))
+    content_summary = forms.TextInput(attrs={'class': 'form-control', 'id': 'content_summary', 'placeholder': '输入内容简介'})
+    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'title', 'placeholder': '输入分类'}))
+    image = forms.FileField(required=False)
     required_css_class = 'sr-only'
 
 
