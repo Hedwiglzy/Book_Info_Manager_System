@@ -654,17 +654,28 @@ def add_book(request):
     user_id = request.session.get('user_id', )
     if user_id:
         if request.method == 'POST':
-            sreach_form = SreachForm(request.POST)
-            if sreach_form.is_valid():
-                keyword = sreach_form.cleaned_data['sreach']
-                results = search(keyword)
-                return render_to_response('result.html', {'results': results})
+            book_form = BookForm(request.POST, request.FILES)
+            if book_form.is_valid():
+                book_name = book_form.changed_data['book_name']
+                author_name = book_form.changed_data['author_name']
+                press_house = book_form.changed_data['press_house']
+                translator = book_form.changed_data['translator']
+                publication_date = book_form.changed_data['publication_date']
+                pages = book_form.changed_data['pages']
+                price = book_form.changed_data['price']
+                package = book_form.changed_data['package']
+                isbn = book_form.changed_data['isbn']
+                content_summary = book_form.changed_data['content_summary']
+                title = book_form.changed_data['title']
+                book = Book(book_name=book_name, author_name=author_name, press_house=press_house, translator=translator
+                            )
+                return render_to_response('skip.html', {'instruction': '添加成功'})
         else:
             book_form = BookForm()
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
             avatar = {0: 10000, 1: user_id}
-            return render_to_response('note.html',
+            return render_to_response('addbook.html',
                                       {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
                                        'book_form': book_form}, )
     else:
