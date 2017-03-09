@@ -60,7 +60,7 @@ class Author(models.Model):
     """
     作者信息模型
     """
-    author_id = models.AutoField(primary_key=True)  # 作者ID
+    author_id = models.IntegerField(primary_key=True)  # 作者ID
     author_name = models.CharField(max_length=100)  # 作者名
     nationality = models.CharField(max_length=100, null=True)  # 国籍
     author_summary = models.TextField(null=True)  # 作者简介

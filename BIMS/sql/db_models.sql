@@ -43,16 +43,13 @@ CREATE TABLE bims_book
 )
   AUTO_INCREMENT = 10001;
 
-
-
 -- 作者信息表 --
 CREATE TABLE `BIMS_author` (
-  `author_id`      INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  `author_name`    VARCHAR(100)           NOT NULL,
-  `nationality`    VARCHAR(100)           NULL,
-  `author_summary` LONGTEXT               NULL
-)
-  AUTO_INCREMENT = 10001;
+  `author_id`      INTEGER      NOT NULL PRIMARY KEY,
+  `author_name`    VARCHAR(100) NOT NULL,
+  `nationality`    VARCHAR(100) NULL,
+  `author_summary` LONGTEXT     NULL
+);
 
 -- 图书收藏信息表 --
 CREATE TABLE `BIMS_collectionbook` (

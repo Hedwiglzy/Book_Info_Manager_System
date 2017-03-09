@@ -5,8 +5,10 @@
 """
 import datetime
 
+from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
+from django.db.models import Max
 # from django.views.decorators.cache import cache_page
 
 from BIMS.models import User, Book, Author, CollectionBook, CollectionAuthor, BookEvaluate, BookNote, BookScore
@@ -656,20 +658,45 @@ def add_book(request):
         if request.method == 'POST':
             book_form = BookForm(request.POST, request.FILES)
             if book_form.is_valid():
-                book_name = book_form.changed_data['book_name']
-                author_name = book_form.changed_data['author_name']
-                press_house = book_form.changed_data['press_house']
-                translator = book_form.changed_data['translator']
-                publication_date = book_form.changed_data['publication_date']
-                pages = book_form.changed_data['pages']
-                price = book_form.changed_data['price']
-                package = book_form.changed_data['package']
-                isbn = book_form.changed_data['isbn']
-                content_summary = book_form.changed_data['content_summary']
-                title = book_form.changed_data['title']
-                book = Book(book_name=book_name, author_name=author_name, press_house=press_house, translator=translator
-                            )
-                return render_to_response('skip.html', {'instruction': '添加成功'})
+                book_name = book_form.cleaned_data['book_name']
+                author_name = book_form.cleaned_data['author_name']
+                press_house = book_form.cleaned_data['press_house']
+                translator = book_form.cleaned_data['translator']
+                publication_date = book_form.cleaned_data['publication_date']
+                pages = book_form.cleaned_data['pages']
+                price = book_form.cleaned_data['price']
+                package = book_form.cleaned_data['package']
+                isbn = book_form.cleaned_data['isbn']
+                content_summary = book_form.cleaned_data['content_summary']
+                title = book_form.cleaned_data['title']
+                try:
+                    Author.objects.get(author_name__contains=author_name)
+                except Author.DoesNotExist:
+                    # print('作者不存在')
+                    # author_max_id = Author.objects.all()
+                    # author_id = int(author_max_id.aggregate(Max('author_id'))) + 1
+                    HttpResponse('作者不存在')
+                author_id = author.author_id
+                print(author_id)
+                book = Book(book_name=book_name, author_name=author_name, press_house=press_house,
+                            translator=translator, publication_date=publication_date, pages=pages, price=price,
+                            package=package, isbn=isbn, content_summary=content_summary, title=title,
+                            author_id=author_id, create_date=datetime.date.today())
+                book.save()
+                author = Author(author_name=author_name)
+                author.save()
+                upload = book_form.cleaned_data['image']
+                if upload:
+                    image = open('BIMS/static/image/book/cover/% s.jpg' % str(book.book_id), 'wb')
+                    image.write(upload.read())
+                    image.close()
+                return HttpResponseRedirect('/index/')
+            else:
+                sreach_form = SreachForm(request.POST)
+                if sreach_form.is_valid():
+                    keyword = sreach_form.cleaned_data['sreach']
+                    results = search(keyword)
+                    return render_to_response('result.html', {'results': results})
         else:
             book_form = BookForm()
             sreach_form = SreachForm()

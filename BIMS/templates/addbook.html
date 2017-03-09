@@ -24,12 +24,12 @@
     </div>
     <div class="row">
         <div class="col-lg-4 middle"></div>
-        <div class="col-lg-4 middle m">
+        <div class="col-lg-4 middle" style="height: 700px">
             <form method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
                 <div class="form-group a">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">
-              	            <i class="glyphicon glyphicon-user"></i>
+              	            书名
                         </span>
                         <label for="book_name" class="sr-only"></label>
                         {{ book_form.book_name }}
@@ -38,7 +38,7 @@
                 <div class="form-group a">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">
-              	            <i class="glyphicon glyphicon-user"></i>
+              	          作者
                         </span>
                         <label for="author_name" class="sr-only"></label>
                         {{ book_form.author_name }}
@@ -47,7 +47,7 @@
                 <div class="form-group a">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">
-              	            <i class="glyphicon glyphicon-user"></i>
+              	          出版社
                         </span>
                         <label for="press_house" class="sr-only"></label>
                         {{ book_form.press_house }}
@@ -56,7 +56,7 @@
                 <div class="form-group a">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">
-              	            <i class="glyphicon glyphicon-user"></i>
+              	          翻译者
                         </span>
                         <label for="translator" class="sr-only"></label>
                         {{ book_form.translator }}
@@ -65,7 +65,7 @@
                 <div class="form-group a">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">
-              	            <i class="glyphicon glyphicon-user"></i>
+              	            出版日期
                         </span>
                         <label for="publication_date" class="sr-only"></label>
                         {{ book_form.publication_date }}
@@ -74,7 +74,7 @@
                 <div class="form-group a">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">
-              	            <i class="glyphicon glyphicon-user"></i>
+              	           页数
                         </span>
                         <label for="pages" class="sr-only"></label>
                         {{ book_form.pages }}
@@ -83,7 +83,7 @@
                 <div class="form-group a">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">
-              	            <i class="glyphicon glyphicon-user"></i>
+              	          价格
                         </span>
                         <label for="price" class="sr-only"></label>
                         {{ book_form.price }}
@@ -92,7 +92,7 @@
                 <div class="form-group a">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">
-              	            <i class="glyphicon glyphicon-user"></i>
+              	        装帧
                         </span>
                         <label for="package" class="sr-only"></label>
                         {{ book_form.package }}
@@ -101,7 +101,7 @@
                 <div class="form-group a">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">
-              	            <i class="glyphicon glyphicon-user"></i>
+              	          ISBN
                         </span>
                         <label for="isbn" class="sr-only"></label>
                         {{ book_form.isbn }}
@@ -110,7 +110,7 @@
                 <div class="form-group a">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">
-              	            <i class="glyphicon glyphicon-user"></i>
+              	         简介
                         </span>
                         <label for="content_summary" class="sr-only"></label>
                         {{ book_form.content_summary }}
@@ -119,20 +119,25 @@
                 <div class="form-group a">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">
-              	            <i class="glyphicon glyphicon-user"></i>
+              	          分类
                         </span>
                         <label for="title" class="sr-only"></label>
                         {{ book_form.title }}
                     </div>
                 </div>
-                <div class="form-group a">
-                    {{ book_form.image }}
+
+							 <div class="form-group a">
+                    <div class="input-prepend input-group">
+                        <span class="add-on input-group-addon">
+              	          封面
+                        </span>
+                        <label for="title" class="sr-only"></label>
+                        {{ book_form.image }}
+                    </div>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default btn-group-lg">提交</button>
-                    <a href={% url 'login' %}>
-                        <button type="button" class="btn btn-default btn-group-lg">返回</button>
-                    </a>
+                    <button onclick="history.go(-1)" class="btn btn-default btn-group-lg">返回</button>
                 </div>
             </form>
         </div>

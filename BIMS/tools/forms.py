@@ -36,7 +36,7 @@ class BookForm(forms.Form):
     price = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'price', 'placeholder': '输入价格'}), required=False)
     package = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'package', 'placeholder': '输入装帧'}), required=False)
     isbn = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'isbn', 'placeholder': '输入ISBN'}))
-    content_summary = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'id': 'content_summary', 'rows': 15, 'placeholder': '输入内容简介'}), required=False)
+    content_summary = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'id': 'content_summary', 'rows': 5, 'placeholder': '输入内容简介'}), required=False)
     title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'title', 'placeholder': '输入分类'}), required=False)
     image = forms.FileField(required=False)
     required_css_class = 'sr-only'
