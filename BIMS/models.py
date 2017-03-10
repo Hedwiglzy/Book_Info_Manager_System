@@ -46,7 +46,6 @@ class Book(models.Model):
     isbn = models.BigIntegerField(null=True)  # ISBN
     score = models.DecimalField(max_digits=10, decimal_places=1, null=True)  # 评分
     evaluate_num = models.IntegerField(null=True)  # 评价人数
-    collect_num = models.IntegerField(null=True)  # 收藏人数
     content_summary = models.TextField(null=True)  # 内容简介
     title = models.CharField(max_length=100, null=True)  # 分类
     create_date = models.DateField(null=True)  # 创建日期

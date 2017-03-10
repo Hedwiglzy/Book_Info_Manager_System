@@ -14,7 +14,7 @@ __date__ = '2016/11/27'
 class RegisterForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'username', 'placeholder': '输入用户名'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'password', 'placeholder': '输入密码'}))
-    tel = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'tel', 'placeholder': '输入手机号'}))
+    tel = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control', 'id': 'tel', 'max': '99999999999', 'placeholder': '输入手机号'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'id': 'email', 'placeholder': '输入邮箱'}), required=False)
     CHOICES = (('1', '男',), ('2', '女',), ('3', '其他'))
     sex = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
@@ -35,7 +35,7 @@ class BookForm(forms.Form):
     pages = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'pages', 'placeholder': '输入页数'}), required=False)
     price = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'price', 'placeholder': '输入价格'}), required=False)
     package = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'package', 'placeholder': '输入装帧'}), required=False)
-    isbn = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'isbn', 'placeholder': '输入ISBN'}))
+    isbn = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control', 'id': 'isbn', 'max': '9999999999999', 'placeholder': '输入ISBN'}))
     content_summary = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'id': 'content_summary', 'rows': 5, 'placeholder': '输入内容简介'}), required=False)
     title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'title', 'placeholder': '输入分类'}), required=False)
     image = forms.FileField(required=False)

@@ -35,7 +35,6 @@ CREATE TABLE bims_book
   `isbn`             BIGINT(20),
   `score`            DECIMAL(10, 1),
   `evaluate_num`     INT(11),
-  `collect_num`      INT(11),
   `content_summary`  LONGTEXT,
   `title`            VARCHAR(100),
   `create_date`      DATE,
