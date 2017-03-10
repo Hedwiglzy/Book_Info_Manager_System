@@ -15,7 +15,7 @@ CREATE TABLE `BIMS_user` (
   `province`    VARCHAR(50)            NULL,
   `city`        VARCHAR(50)            NULL,
   `remark`      VARCHAR(500)           NULL,
-  `image`       VARCHAR(100)           NULL,
+  `image`       INTEGER                NULL,
   `create_date` DATE                   NULL
 )
   AUTO_INCREMENT = 10001;

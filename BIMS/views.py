@@ -304,6 +304,7 @@ def index(request):
                     'books': books
                 }
                 tags_and_books.append(tag_and_books)
+            print(avatar[user.image])
             return render_to_response('index.html',
                                       {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
                                        'hot_books': hot_books, 'new_books': new_books, 'authors_and_books': authors_and_books,
@@ -672,11 +673,8 @@ def add_book(request):
                 try:
                     Author.objects.get(author_name__contains=author_name)
                 except Author.DoesNotExist:
-                    # print('作者不存在')
-                    # author_max_id = Author.objects.all()
-                    # author_id = int(author_max_id.aggregate(Max('author_id'))) + 1
-                    HttpResponse('作者不存在')
-                author_id = author.author_id
+                    author_max_id = Author.objects.all()
+                    author_id = int(author_max_id.aggregate(Max('author_id'))) + 1
                 print(author_id)
                 book = Book(book_name=book_name, author_name=author_name, press_house=press_house,
                             translator=translator, publication_date=publication_date, pages=pages, price=price,
