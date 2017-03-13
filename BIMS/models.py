@@ -102,7 +102,7 @@ class BookNote(models.Model):
     user_name = models.CharField(max_length=100)  # 用户名
     title = models.CharField(max_length=100, null=True)  # 标题
     content = models.TextField(null=True)  # 内容
-    create_date = models.DateField()  # 收藏日期
+    create_date = models.DateField()  # 创建日期
 
     def __str__(self):
         return self.title
