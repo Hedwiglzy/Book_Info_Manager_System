@@ -21,7 +21,7 @@ class User(models.Model):
     birthday = models.DateField(null=True)  # 生日
     age = models.IntegerField(null=True)  # 年龄
     province = models.CharField(max_length=50, null=True)  # 省
-    city = models.CharField(max_length=50, null=True)  # 省
+    city = models.CharField(max_length=50, null=True)  # 市
     remark = models.CharField(max_length=500, null=True)  # 个人简介
     image = models.IntegerField(null=True)  # 头像
     create_date = models.DateField(null=True)  # 创建日期
