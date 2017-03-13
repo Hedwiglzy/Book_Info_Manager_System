@@ -46,6 +46,8 @@
     border-left: 1px solid #eaeaea;
     text-align: center;
     padding-left: 0;
+    padding-left: 10px;
+
 }
 
 .score_title {

@@ -44,7 +44,6 @@ class Book(models.Model):
     price = models.CharField(max_length=100, null=True)  # 价格
     package = models.CharField(max_length=10, null=True)  # 装帧
     isbn = models.BigIntegerField(null=True)  # ISBN
-    evaluate_num = models.IntegerField(null=True)  # 评价人数
     content_summary = models.TextField(null=True)  # 内容简介
     title = models.CharField(max_length=100, null=True)  # 分类
     create_date = models.DateField(null=True)  # 创建日期

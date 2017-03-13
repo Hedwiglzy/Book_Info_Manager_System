@@ -5,11 +5,11 @@
 """
 import datetime
 
-from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
-from django.db.models import Max
+from django.db.models import Max, Avg
 # from django.views.decorators.cache import cache_page
+# from django.http import HttpResponse
 
 from BIMS.models import User, Book, Author, CollectionBook, CollectionAuthor, BookEvaluate, BookNote, BookScore
 from BIMS.tools.forms import LoginForm, RegisterForm, SreachForm, EvaluateForm, NoteForm, BookForm
@@ -161,8 +161,21 @@ def get_book_info(request, book_id):
             else:
                 collection = 0
             collect_num = CollectionBook.objects.filter(book_id=book_id).count()
+            try:
+                BookScore.objects.filter(book_id=book_id)
+            except BookScore.DoesNotExist:
+                score = 0
+                evaluate_num = 0
+            else:
+                try:
+                    int(BookScore.objects.filter(book_id=book_id).aggregate(Avg('score'))['score__avg'])
+                except TypeError:
+                    score = 0
+                else:
+                    score = int(BookScore.objects.filter(book_id=book_id).aggregate(Avg('score'))['score__avg'])
+                evaluate_num = BookScore.objects.filter(book_id=book_id).count()
             return render_to_response('book.html', {'sreach_form': sreach_form, 'evaluate_form': evaluate_form, 'user': user, 'avatar': avatar[user.image],
-                                                    'book': book, 'score': book.score, 'collect_num': collect_num, 'author': author, 'book_evaluates': book_evaluates, 'book_notes': book_notes,
+                                                    'book': book, 'score': score, 'collect_num': collect_num, 'evaluate_num': evaluate_num, 'author': author, 'book_evaluates': book_evaluates, 'book_notes': book_notes,
                                                     'note_form': note_form, 'collection': collection}, )
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
@@ -281,7 +294,12 @@ def index(request):
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
             avatar = {0: 10000, 1: user_id}
-            hot_books = Book.objects.order_by('-evaluate_num')[0:6]
+            hot_book_ids = Book.objects.raw(
+                'SELECT book_id FROM bims_bookscore GROUP BY book_id ORDER BY count(book_id) DESC LIMIT 20')
+            hot_books = []
+            for hot_book_id in hot_book_ids:
+                hot_book = Book.objects.get(book_id=hot_book_id.book_id)
+                hot_books.append(hot_book)
             new_books = Book.objects.order_by('-create_date')[0:6]
             hot_authors = Book.objects.raw('SELECT book_id,author_id FROM bims_book GROUP BY author_id ORDER BY count(author_id) DESC LIMIT 3')
             authors_and_books = []
@@ -408,7 +426,11 @@ def get_hot_book(request):
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
             avatar = {0: 10000, 1: user_id}
-            hot_books = Book.objects.order_by('-evaluate_num')[0:20]
+            hot_book_ids = Book.objects.raw('SELECT book_id FROM bims_bookscore GROUP BY book_id ORDER BY count(book_id) DESC LIMIT 20')
+            hot_books = []
+            for hot_book_id in hot_book_ids:
+                hot_book = Book.objects.get(book_id=hot_book_id.book_id)
+                hot_books.append(hot_book)
             return render_to_response('result.html',
                                       {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
                                        'results': hot_books, 'title': '热门图书'})

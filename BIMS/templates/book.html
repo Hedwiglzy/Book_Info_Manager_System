@@ -65,8 +65,8 @@
 				<div class="col-lg-9 info_right">{{ book.isbn }}</div>
 			</div>
 		</div>
-		<div class="col-lg-3 book_score">
-			<div style="margin-left: -40px;">
+		<div class="col-lg-4 book_score">
+			<div style="margin-left: -100px;">
 				<div class="score_title">
 					综合评分
 				</div>
@@ -75,10 +75,10 @@
 						<h4>评价人数不足</h4> {% endif %}
 				</div>
 				<h4>
-					{% if  book.evaluate_num %}
-						{{ book.evaluate_num }}人评价
+					{% if evaluate_num %}
+						{{ evaluate_num }}人评分
 					{% else %}
-						0人评价
+						0人评分
 					{% endif %}
 				</h4>
 				<h4>
