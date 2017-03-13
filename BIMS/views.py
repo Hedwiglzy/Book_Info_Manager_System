@@ -160,12 +160,9 @@ def get_book_info(request, book_id):
                 collection = 1
             else:
                 collection = 0
-            if int(book.score) == 0:
-                score = ''
-            else:
-                score = book.score
+            collect_num = CollectionBook.objects.filter(book_id=book_id).count()
             return render_to_response('book.html', {'sreach_form': sreach_form, 'evaluate_form': evaluate_form, 'user': user, 'avatar': avatar[user.image],
-                                                    'book': book, 'score': score, 'author': author, 'book_evaluates': book_evaluates, 'book_notes': book_notes,
+                                                    'book': book, 'score': book.score, 'collect_num': collect_num, 'author': author, 'book_evaluates': book_evaluates, 'book_notes': book_notes,
                                                     'note_form': note_form, 'collection': collection}, )
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
@@ -671,18 +668,24 @@ def add_book(request):
                 content_summary = book_form.cleaned_data['content_summary']
                 title = book_form.cleaned_data['title']
                 try:
-                    Author.objects.get(author_name__contains=author_name)
+                    author = Author.objects.get(author_name__contains=author_name)
                 except Author.DoesNotExist:
                     author_max_id = Author.objects.all()
-                    author_id = int(author_max_id.aggregate(Max('author_id'))) + 1
-                print(author_id)
+                    author_id = int(author_max_id.aggregate(Max('author_id'))['author_id__max']) + 1
+                else:
+                    author_id = author.author_id
                 book = Book(book_name=book_name, author_name=author_name, press_house=press_house,
                             translator=translator, publication_date=publication_date, pages=pages, price=price,
                             package=package, isbn=isbn, content_summary=content_summary, title=title,
                             author_id=author_id, create_date=datetime.date.today())
                 book.save()
-                author = Author(author_name=author_name)
-                author.save()
+                try:
+                    Author.objects.get(author_id=author_id)
+                except Author.DoesNotExist:
+                    author = Author(author_id=author_id, author_name=author_name)
+                    author.save()
+                else:
+                    pass
                 upload = book_form.cleaned_data['image']
                 if upload:
                     image = open('BIMS/static/image/book/cover/% s.jpg' % str(book.book_id), 'wb')
