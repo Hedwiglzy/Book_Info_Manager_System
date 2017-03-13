@@ -44,7 +44,6 @@ class Book(models.Model):
     price = models.CharField(max_length=100, null=True)  # 价格
     package = models.CharField(max_length=10, null=True)  # 装帧
     isbn = models.BigIntegerField(null=True)  # ISBN
-    score = models.DecimalField(max_digits=10, decimal_places=1, null=True)  # 评分
     evaluate_num = models.IntegerField(null=True)  # 评价人数
     collect_num = models.IntegerField(null=True)  # 收藏人数
     content_summary = models.TextField(null=True)  # 内容简介
@@ -79,7 +78,7 @@ class CollectionBook(models.Model):
     create_date = models.DateField()  # 收藏日期
 
     def __str__(self):
-        return self.op_id
+        return self.book_id
 
 
 class CollectionAuthor(models.Model):
@@ -92,7 +91,7 @@ class CollectionAuthor(models.Model):
     create_date = models.DateField()  # 收藏日期
 
     def __str__(self):
-        return self.op_id
+        return self.author_id
 
 
 class BookNote(models.Model):
@@ -122,7 +121,7 @@ class BookEvaluate(models.Model):
     create_date = models.DateField()  # 评价日期
 
     def __str__(self):
-        return self.op_id
+        return self.content
 
 
 class BookScore(models.Model):
@@ -132,8 +131,8 @@ class BookScore(models.Model):
     op_id = models.AutoField(primary_key=True)  # 流水号
     book_id = models.IntegerField()  # 图书ID
     user_id = models.IntegerField()  # 用户ID
-    score = models.IntegerField(null=True)  # 内容
-    create_date = models.DateField()  # 评价日期
+    score = models.DecimalField(max_digits=10, decimal_places=1, null=True)  # 评分
+    create_date = models.DateField()  # 评分日期
 
     def __str__(self):
-        return self.op_id
+        return self.book_id

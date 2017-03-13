@@ -33,7 +33,6 @@ CREATE TABLE bims_book
   `price`            VARCHAR(100),
   `package`          VARCHAR(100),
   `isbn`             BIGINT(20),
-  `score`            DECIMAL(10, 1),
   `evaluate_num`     INT(11),
   `collect_num`      INT(11),
   `content_summary`  LONGTEXT,
@@ -96,7 +95,7 @@ CREATE TABLE `BIMS_bookscore` (
   `op_id`       INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
   `book_id`     INTEGER                NOT NULL,
   `user_id`     INTEGER                NOT NULL,
-  `score`       INTEGER                NULL,
+  `score`       DECIMAL(10, 1)         NOT NULL,
   `create_date` DATE                   NOT NULL
 )
   AUTO_INCREMENT = 10001;
