@@ -55,7 +55,7 @@ def insert_table(table_name, column1, column2, column3, column4, column5, column
 
 def select_table(table_name, column1, column2, low, high):
     """
-    将数据插入表中
+    从表里面选择数据
     :param table_name:表名
     :param column1:查询的字段1
     :param column2:查询的字段2
