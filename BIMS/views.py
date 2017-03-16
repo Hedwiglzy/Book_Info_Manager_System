@@ -33,8 +33,6 @@ def search(keyword):
         search_result.append(book)
     for book in Book.objects.filter(isbn__contains=keyword):
         search_result.append(book)
-    for book in Book.objects.filter(isbn__contains=keyword):
-        search_result.append(book)
     for book in Book.objects.filter(title__contains=keyword):
         search_result.append(book)
     return search_result
@@ -167,7 +165,6 @@ def get_book_info(request, book_id):
                 BookScore.objects.filter(book_id=book_id)
             except BookScore.DoesNotExist:
                 score = 0
-                evaluate_num = 0
             else:
                 try:
                     int(BookScore.objects.filter(book_id=book_id).aggregate(Avg('score'))['score__avg'])
@@ -347,13 +344,13 @@ def explore(request):
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
             avatar = {0: 10000, 1: user_id}
-            book = list(Book.objects.order_by('?')[:2])
-            note = list(BookNote.objects.order_by('?')[:2])
-            author = list(Author.objects.order_by('?')[:2])
+            book = list(Book.objects.order_by('?')[:1])
+            print(len(book))
+            note = list(BookNote.objects.order_by('?')[:1])
+            author = list(Author.objects.order_by('?')[:1])
             return render_to_response('explore.html',
                                       {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
-                                       'book1': book[0], 'book2': book[1], 'note1': note[0], 'note2': note[1],
-                                       'author1': author[0], 'author2': author[1]})
+                                       'book': book[0], 'note': note[0],'author': author[0]})
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
@@ -426,7 +423,7 @@ def get_hot_book(request):
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
             avatar = {0: 10000, 1: user_id}
-            hot_book_ids = Book.objects.raw('SELECT book_id FROM bims_bookscore GROUP BY book_id ORDER BY count(book_id) DESC LIMIT 20')
+            hot_book_ids = Book.objects.raw('SELECT book_id FROM bims_collectionbook GROUP BY book_id ORDER BY count(book_id) DESC LIMIT 20')
             hot_books = []
             for hot_book_id in hot_book_ids:
                 hot_book = Book.objects.get(book_id=hot_book_id.book_id)
