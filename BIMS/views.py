@@ -23,6 +23,8 @@ def search(keyword):
     :param keyword:关键字
     """
     search_result = []
+    for book in Book.objects.filter(book_id__contains=keyword):
+        search_result.append(book)
     for book in Book.objects.filter(book_name__contains=keyword):
         search_result.append(book)
     for book in Book.objects.filter(author_name__contains=keyword):
@@ -294,8 +296,7 @@ def index(request):
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
             avatar = {0: 10000, 1: user_id}
-            hot_book_ids = Book.objects.raw(
-                'SELECT book_id FROM bims_bookscore GROUP BY book_id ORDER BY count(book_id) DESC LIMIT 20')
+            hot_book_ids = Book.objects.raw('SELECT book_id,count(book_id) FROM `bims_collectionbook` GROUP BY book_id ORDER BY count(book_id) DESC LIMIT 20')
             hot_books = []
             for hot_book_id in hot_book_ids:
                 hot_book = Book.objects.get(book_id=hot_book_id.book_id)
@@ -319,7 +320,6 @@ def index(request):
                     'books': books
                 }
                 tags_and_books.append(tag_and_books)
-            print(avatar[user.image])
             return render_to_response('index.html',
                                       {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
                                        'hot_books': hot_books, 'new_books': new_books, 'authors_and_books': authors_and_books,
