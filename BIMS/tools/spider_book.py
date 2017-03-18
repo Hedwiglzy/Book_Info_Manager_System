@@ -122,12 +122,8 @@ def get_book_info(book_url):
     """
     headers = {
         'user-agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36',
-        'cookie': 'Hm_lvt_7705e8554135f4d7b42e62562322b3ad=1484974041; __utma=188916852.147433586.1484974041.1484974041.1484974041.1; __utmz=188916852.1484974041.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); from_device=chrome'
+        'cookie': 'bid=P0tNWfw2GP0; gr_user_id=007d83db-caf6-479b-b32f-aa73804ae093; viewed="1770782_1009257"; ps=y; ue="1432659378@qq.com"; dbcl2="83764412:krVzuDu4/v4"; ap=1; ck=4r7E; __utmt_douban=1; __utma=30149280.1144085401.1489570681.1489817213.1489844400.3; __utmb=30149280.2.10.1489844400; __utmc=30149280; __utmz=30149280.1489570681.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); push_noty_num=0; push_doumail_num=0; gr_session_id_22c937bbd8ebd703f2d8e9445f7dfd03=60b11d7e-16be-4214-84ac-6f6fbd167058; gr_cs1_60b11d7e-16be-4214-84ac-6f6fbd167058=user_id%3A1; _vwo_uuid_v2=BDC1CA5796473A9D248DD18DEEFA7FA2|d2cb955d6deafc4a832877da194bb5dd'
         }
-    # proxies = {
-    #     'http': '207.46.154.97',
-    #     'https': '13.112.104.245'
-    # }
     web_data = requests.get(book_url, headers=headers)
     status = {
         100: '继续',
@@ -358,19 +354,3 @@ if __name__ == '__main__':
     with open('../log/spider_bookinfo.txt', 'a', encoding='utf-8') as log:
         log.write(str(datetime.now()) + '-- 程序开始' + '\n')
         start_spider(5196, 20000)
-# CREATE TABLE bims_user
-# (
-#     user_id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-#     user_name VARCHAR(30) NOT NULL,
-#     password VARCHAR(30) NOT NULL,
-#     tel BIGINT(20),
-#     email VARCHAR(254),
-#     sex INT(11),
-#     birthday DATE,
-#     age INT(11),
-#     province VARCHAR(50),
-#     city VARCHAR(50),
-#     remark VARCHAR(500),
-#     image INT(11),
-#     create_date DATE
-# );
