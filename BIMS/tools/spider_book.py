@@ -32,19 +32,15 @@ def connect_db():
     return connection
 
 
-def insert_table(table_name, column1, column2, column3, column4, column5, column6, column7, column8, column9, column10, column11, column12, data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12):
+def insert_table(data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12, data13, data14):
     """
     将数据插入表中
-    :param table_name:表名
-    :param column1:入表的字段
-    :param data1:入表的数据
     """
     conn = connect_db()
     cursor = conn.cursor()
-    sql = 'INSERT INTO `%s` (`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`,`%s`)VALUES (\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (
-        table_name, column1, column2, column3, column4, column5, column6, column7, column8, column9, column10, column11, column12, data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12)
+    sql = 'INSERT INTO `bims_book` VALUES (\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12, data13, data14)
     print(sql)
-    log.write(str(datetime.now()) + '--' + data1 + '正在入表!' + '\n')
+    log.write(str(datetime.now()) + '--' + data2 + '正在入表!' + '\n')
     try:
         cursor.execute(sql)
         conn.commit()
@@ -53,7 +49,7 @@ def insert_table(table_name, column1, column2, column3, column4, column5, column
         pass
 
 
-def select_table(table_name, column1, column2, low, high):
+def select_table(table_name, column1, column2, column3, low, high):
     """
     从表里面选择数据
     :param table_name:表名
@@ -64,8 +60,8 @@ def select_table(table_name, column1, column2, low, high):
     """
     conn = connect_db()
     cursor = conn.cursor()
-    sql = 'SELECT `%s`,`%s`from `%s` where book_id >=%d AND  book_id<=%d' % (
-        column1, column2, table_name, int(low), int(high))
+    sql = 'SELECT `%s`,`%s`,`%s`from `%s` where book_id >=%d AND  book_id<=%d' % (
+        column1, column2, column3, table_name, int(low), int(high))
     print(str(datetime.now()) + '--' + sql)
     try:
         cursor.execute(sql)
@@ -125,9 +121,9 @@ def get_book_info(book_url):
     :param book_url:图书链接
     """
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
-        'Cookie': 'from_device=chrome; gwdang_brwext_more_force=0; gwdang_brwext_share=0; gwdang_permanent_id=a60954ab29cfd204ac396a30d92e424c; gwdang_brwext_is_open=0; gwdang_brwext_first=1; gwdang_brwext_position=0; gwdang_brwext_close_update=0; gwdang_brwext_close_update_hour=0; gwdang_brwext_close_install=0; gwdang_brwext_style=top; gwdang_brwext_notice=0; gwdang_brwext_fold=0; gwdang_brwext_show_tip=1; gwdang_brwext_show_popup=1; gwdang_brwext_hide_shoptip=0; gwdang_brwext_apptg_close=0; gwdang_brwext_show_lowpri=1; gwdang_brwext_show_guessfavor=1; gwdang_brwext_show_lowpri_right=1; gwdang_brwext_show_guessfavor_right=1; gwdang_brwext_show_vips=1; gwdang_brwext_show_wishlist=1; gwdang_brwext_show_guess=1; gwdang_brwext_show_promo=1; gwdang_search_way=0; history=%2C2327789-3%2C2244290-3%2C4085994-3%2C3860183-3%2C1117288150390879-228'
-    }
+        'user-agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36',
+        'cookie': 'bid=on-D0clVObk'
+        }
     web_data = requests.get(book_url, headers=headers)
     status = {
         100: '继续',
@@ -203,8 +199,6 @@ def get_book_info(book_url):
             'price': price,
             'package': package,
             'isbn': int(isbn),
-            'score': soup.find_all(property='v:average')[0].get_text().strip(),
-            'evaluate_num': soup.find_all(href='collections')[0].get_text().strip(),
             'content_summary': content_summary,
         }
         return book_info
@@ -248,25 +242,14 @@ def start_spider(low, high):
     :param high:book_id最大(包含)
     """
     book_classes_and_urls = select_table(
-        'all_book', 'book_class', 'book_url', low, high)
+        'all_book', 'book_id', 'book_class', 'book_url', low, high)
     for book_class_and_url in book_classes_and_urls:
         book_info = get_book_info(book_class_and_url['book_url'])
-        if book_info['book_name'] == 'get_info_fail':
-            continue
-        else:
-            if book_info['evaluate_num'] == '评价人数不足':
-                evaluate_num = 10
-            else:
-                evaluate_num = int(book_info['evaluate_num'][:-3])
-            if len(book_info['score']) == 0:
-                score = 0
-            else:
-                score = book_info['score']
-            content_summary = re.sub("'", '"', book_info['content_summary'])
-            insert_table('bims_book', 'book_name', 'author_name', 'press_house', 'publication_date', 'pages', 'price', 'package', 'isbn', 'score', 'evaluate_num', 'content_summary', 'title', book_info['book_name'], book_info['author_name'], book_info['press_house'], book_info['publication_date'], book_info['pages'], book_info['price'], book_info['package'], book_info['isbn'], score, evaluate_num, content_summary, book_class_and_url['book_class'])
-            log.write(str(datetime.now()) + '--' +
-                      book_info['book_name'] + '入库成功!' + '\n')
-            print(book_info['book_name'] + '入库成功!')
+        book_id = int(book_class_and_url['book_id']) + 10000
+        content_summary = re.sub("'", '"', book_info['content_summary'])
+        insert_table(book_id, book_info['book_name'], book_info['author_name'], book_info['press_house'], 0, book_info['publication_date'], book_info['pages'], book_info['price'], book_info['package'], book_info['isbn'], content_summary, book_class_and_url['book_class'], 0, 0)
+        log.write(str(datetime.now()) + '--' + book_info['book_name'] + '入库成功!' + '\n')
+        print(book_info['book_name'] + '入库成功!')
 
 
 def main_csv_to_table():
@@ -318,9 +301,9 @@ def main_multithreading_spider():
     """
     多线程获取图书信息,并入库 main函数 直接运行
     """
-    threads = []
-    thread1 = Thread(target=start_spider, args=(0, 20235))
-    threads.append(thread1)
+    # threads = []
+    # thread1 = Thread(target=start_spider, args=(0, 20235))
+    # threads.append(thread1)
     # thread2 = Thread(target=start_spider, args=(1001, 2000))
     # threads.append(thread2)
     # thread3 = Thread(target=start_spider, args=(2100, 3000))
@@ -359,15 +342,15 @@ def main_multithreading_spider():
     # threads.append(thread19)
     # thread20 = Thread(target=start_spider, args=(19001, 20235))
     # threads.append(thread20)
-    for thread in threads:
-        thread.start()
-    for thread in threads:
-        thread.join()
-    print('运行完成!')
+    # for thread in threads:
+    #     thread.start()
+    # for thread in threads:
+    #     thread.join()
+    # print('运行完成!')
 
 # 运行程序
 if __name__ == '__main__':
     print('go!')
     with open('../log/spider_bookinfo.txt', 'a', encoding='utf-8') as log:
         log.write(str(datetime.now()) + '-- 程序开始' + '\n')
-        main_multithreading_spider()
+        start_spider(1, 20000)

@@ -23,7 +23,7 @@ CREATE TABLE `BIMS_user` (
 -- 图书信息表 --
 CREATE TABLE bims_book
 (
-  `book_id `         INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `book_id`         INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
   `book_name`        VARCHAR(100)           NOT NULL,
   `author_name`      VARCHAR(100)           NOT NULL,
   `press_house`      VARCHAR(100),
