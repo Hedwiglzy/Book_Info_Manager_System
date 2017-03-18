@@ -122,8 +122,12 @@ def get_book_info(book_url):
     """
     headers = {
         'user-agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36',
-        'cookie': 'bid=on-D0clVObk'
+        'cookie': 'Hm_lvt_7705e8554135f4d7b42e62562322b3ad=1484974041; __utma=188916852.147433586.1484974041.1484974041.1484974041.1; __utmz=188916852.1484974041.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); from_device=chrome'
         }
+    # proxies = {
+    #     'http': '207.46.154.97',
+    #     'https': '13.112.104.245'
+    # }
     web_data = requests.get(book_url, headers=headers)
     status = {
         100: '继续',
@@ -353,4 +357,20 @@ if __name__ == '__main__':
     print('go!')
     with open('../log/spider_bookinfo.txt', 'a', encoding='utf-8') as log:
         log.write(str(datetime.now()) + '-- 程序开始' + '\n')
-        start_spider(1, 20000)
+        start_spider(5196, 20000)
+# CREATE TABLE bims_user
+# (
+#     user_id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+#     user_name VARCHAR(30) NOT NULL,
+#     password VARCHAR(30) NOT NULL,
+#     tel BIGINT(20),
+#     email VARCHAR(254),
+#     sex INT(11),
+#     birthday DATE,
+#     age INT(11),
+#     province VARCHAR(50),
+#     city VARCHAR(50),
+#     remark VARCHAR(500),
+#     image INT(11),
+#     create_date DATE
+# );
