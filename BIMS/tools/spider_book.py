@@ -4,6 +4,7 @@
 """ 爬取图书信息"""
 
 import re
+import time
 from datetime import datetime
 from threading import Thread
 
@@ -250,6 +251,7 @@ def start_spider(low, high):
         insert_table(book_id, book_info['book_name'], book_info['author_name'], book_info['press_house'], 0, book_info['publication_date'], book_info['pages'], book_info['price'], book_info['package'], book_info['isbn'], content_summary, book_class_and_url['book_class'], 0, 0)
         log.write(str(datetime.now()) + '--' + book_info['book_name'] + '入库成功!' + '\n')
         print(book_info['book_name'] + '入库成功!')
+        time.sleep(0.5)
 
 
 def main_csv_to_table():
@@ -353,4 +355,4 @@ if __name__ == '__main__':
     print('go!')
     with open('../log/spider_bookinfo.txt', 'a', encoding='utf-8') as log:
         log.write(str(datetime.now()) + '-- 程序开始' + '\n')
-        start_spider(5986, 20000)
+        start_spider(6130, 20000)
