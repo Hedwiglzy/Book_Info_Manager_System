@@ -71,15 +71,10 @@
 					综合评分
 				</div>
 				<div class="score">
-					{% if score %} {{ score }} {% else %}
-						<h4>评价人数不足</h4> {% endif %}
+                    {{ book_score }}
 				</div>
 				<h4>
-					{% if evaluate_num %}
 						{{ evaluate_num }}人评分
-					{% else %}
-						0人评分
-					{% endif %}
 				</h4>
 				<h4>
 					{% if collect_num %}

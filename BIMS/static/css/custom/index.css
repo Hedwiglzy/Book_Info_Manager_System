@@ -1,5 +1,9 @@
-.hot_books, .new_books, .hot_tags{
-    margin-bottom: 5px;
+.hot_books {
+    margin-top: -25px;
+}
+
+.new_books, .hot_authors, .hot_tags{
+    margin-top: 25px;
 }
 
 .hot_books_title, .new_books_title, .hot_tags_title, .labels_title{

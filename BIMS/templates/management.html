@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	{% load static %}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/navbar.css' %}">
+	<title>{{ title }}</title>
+</head>
+
+<body>
+{% include 'include/navbar.html' %}
+<div class="row blank"></div>
+<div class="col-lg-2"></div>
+<div class="col-lg-8">
+    <h5>当前注册用户数为：{{ user_count }}</h5>
+    <h5>当前图书总数为：{{ book_count }}</h5>
+    <h5>当前作者总数为：{{ author_count }}</h5>
+    <a href={% url 'addbook' %}>
+		<button class="btn btn-info btn-group-lg" href=>添加图书</button>
+	</a>
+</div>
+<div class="col-lg-2"></div>
+{% include 'include/footer.html' %}
+</body>
+
+</html>

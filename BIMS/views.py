@@ -5,9 +5,10 @@
 """
 import datetime
 
+import numpy
+from django.db.models import Max, Avg
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
-from django.db.models import Max, Avg
 # from django.views.decorators.cache import cache_page
 # from django.http import HttpResponse
 
@@ -122,7 +123,8 @@ def get_user_info(request):
                 notes_and_books.append(note_and_book)
             return render_to_response('user.html', {'sreach_form': sreach_form, 'user': user, 'sex': sex[user.sex],
                                                     'avatar': avatar[user.image], 'book_collections': book_collections,
-                                                    'authors_and_books': authors_and_books, 'notes_and_books': notes_and_books},)
+                                                    'authors_and_books': authors_and_books,
+                                                    'notes_and_books': notes_and_books}, )
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
@@ -151,31 +153,28 @@ def get_book_info(request, book_id):
             book_id = int(book_id)
             book = Book.objects.get(book_id=book_id)
             author = Author.objects.get(author_id=book.author_id)
-            book_evaluates = BookEvaluate.objects.filter(book_id=book_id).order_by('-create_date')
-            book_evaluates = book_evaluates[0:6] if len(book_evaluates) > 6 else book_evaluates
-            book_notes = BookNote.objects.filter(book_id=book_id).order_by('-create_date')
-            book_notes = book_notes[0:3] if len(book_notes) > 3 else book_notes
+            evaluates = BookEvaluate.objects.filter(book_id=book_id).order_by('-create_date')
+            book_evaluates = evaluates[0:6] if len(evaluates) > 6 else evaluates
+            notes = BookNote.objects.filter(book_id=book_id).order_by('-create_date')
+            book_notes = notes[0:3] if len(notes) > 3 else notes
             is_collection = CollectionBook.objects.filter(user_id=user_id, book_id=book_id)
             if is_collection:
                 collection = 1
             else:
                 collection = 0
             collect_num = CollectionBook.objects.filter(book_id=book_id).count()
-            try:
-                BookScore.objects.filter(book_id=book_id)
-            except BookScore.DoesNotExist:
-                score = 0
+            book_socre = BookScore.objects.filter(book_id=book_id)
+            if book_socre:
+                book_socre = book_socre.aggregate(Avg('score'))['score__avg']
             else:
-                try:
-                    int(BookScore.objects.filter(book_id=book_id).aggregate(Avg('score'))['score__avg'])
-                except TypeError:
-                    score = 0
-                else:
-                    score = int(BookScore.objects.filter(book_id=book_id).aggregate(Avg('score'))['score__avg'])
-                evaluate_num = BookScore.objects.filter(book_id=book_id).count()
-            return render_to_response('book.html', {'sreach_form': sreach_form, 'evaluate_form': evaluate_form, 'user': user, 'avatar': avatar[user.image],
-                                                    'book': book, 'score': score, 'collect_num': collect_num, 'evaluate_num': evaluate_num, 'author': author, 'book_evaluates': book_evaluates, 'book_notes': book_notes,
-                                                    'note_form': note_form, 'collection': collection}, )
+                book_socre = '无人评价'
+            evaluate_num = BookScore.objects.filter(book_id=book_id).count()
+            return render_to_response('book.html',
+                                      {'sreach_form': sreach_form, 'evaluate_form': evaluate_form, 'user': user,
+                                       'avatar': avatar[user.image], 'book': book, 'book_score': book_socre,
+                                       'collect_num': collect_num, 'evaluate_num': evaluate_num, 'author': author,
+                                       'book_evaluates': book_evaluates, 'book_notes': book_notes,
+                                       'note_form': note_form, 'collection': collection}, )
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
@@ -202,7 +201,9 @@ def get_author_info(request, author_id):
             author_id = int(author_id)
             author = Author.objects.get(author_id=author_id)
             author_books = Book.objects.filter(author_id=author_id)
-            return render_to_response('author.html', {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image], 'author': author, 'author_books': author_books}, )
+            return render_to_response('author.html',
+                                      {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
+                                       'author': author, 'author_books': author_books}, )
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
@@ -254,9 +255,13 @@ def login(request):
             real_pswd = User.objects.get(user_name=username).password
             user_id = User.objects.get(user_name=username).user_id
             if password == real_pswd:
-                # return HttpResponseRedirect(reverse(get_user_info, args=[user_id]))
-                request.session['user_id'] = user_id
-                return HttpResponseRedirect('/index/')
+                if user_id == 99999:
+                    request.session['user_id'] = user_id
+                    return HttpResponseRedirect('/management/')
+                else:
+                    request.session['user_id'] = user_id
+                    return HttpResponseRedirect('/index/')
+                    # return HttpResponseRedirect(reverse(get_user_info, args=[user_id]))
             else:
                 return render_to_response('skip.html', {'instruction': '密码错误'})
     else:
@@ -293,13 +298,15 @@ def index(request):
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
             avatar = {0: 10000, 1: user_id}
-            hot_book_ids = Book.objects.raw('SELECT book_id,count(book_id) FROM `bims_collectionbook` GROUP BY book_id ORDER BY count(book_id) DESC LIMIT 20')
+            hot_book_ids = Book.objects.raw(
+                'SELECT book_id,count(book_id) FROM `bims_collectionbook` GROUP BY book_id ORDER BY count(book_id) DESC LIMIT 18')
             hot_books = []
             for hot_book_id in hot_book_ids:
                 hot_book = Book.objects.get(book_id=hot_book_id.book_id)
                 hot_books.append(hot_book)
-            new_books = Book.objects.order_by('-create_date')[0:6]
-            hot_authors = Book.objects.raw('SELECT book_id,author_id FROM bims_book GROUP BY author_id ORDER BY count(author_id) DESC LIMIT 3')
+            new_books = Book.objects.order_by('-create_date')[0:12]
+            hot_authors = Book.objects.raw(
+                'SELECT book_id,author_id FROM bims_book GROUP BY author_id ORDER BY count(author_id) DESC LIMIT 3')
             authors_and_books = []
             for author in hot_authors:
                 author_books = get_author_book(author.author_id)[0:5]
@@ -308,7 +315,8 @@ def index(request):
                     'books': author_books
                 }
                 authors_and_books.append(author_and_book)
-            hot_tags = Book.objects.raw('SELECT book_id,title FROM bims_book GROUP BY title ORDER BY count(title) DESC LIMIT 3')
+            hot_tags = Book.objects.raw(
+                'SELECT book_id,title FROM bims_book GROUP BY title ORDER BY count(title) DESC LIMIT 3')
             tags_and_books = []
             for hot_tag in hot_tags:
                 books = Book.objects.filter(title=hot_tag.title)[0:5]
@@ -319,7 +327,8 @@ def index(request):
                 tags_and_books.append(tag_and_books)
             return render_to_response('index.html',
                                       {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
-                                       'hot_books': hot_books, 'new_books': new_books, 'authors_and_books': authors_and_books,
+                                       'hot_books': hot_books, 'new_books': new_books,
+                                       'authors_and_books': authors_and_books,
                                        'tags_and_books': tags_and_books})
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
@@ -350,7 +359,7 @@ def explore(request):
             author = list(Author.objects.order_by('?')[:1])
             return render_to_response('explore.html',
                                       {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
-                                       'book': book[0], 'note': note[0],'author': author[0]})
+                                       'book': book[0], 'note': note[0], 'author': author[0]})
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
@@ -399,8 +408,9 @@ def result(request):
             avatar = {0: 10000, 1: user_id}
             keyword = request.session.get('keyword', ' ')
             search_results = search(keyword)
-            return render_to_response('result.html', {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
-                                                      'results': search_results, 'title': '搜索结果'})
+            return render_to_response('result.html',
+                                      {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
+                                       'results': search_results, 'title': '搜索结果'})
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
@@ -423,7 +433,8 @@ def get_hot_book(request):
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
             avatar = {0: 10000, 1: user_id}
-            hot_book_ids = Book.objects.raw('SELECT book_id FROM bims_collectionbook GROUP BY book_id ORDER BY count(book_id) DESC LIMIT 20')
+            hot_book_ids = Book.objects.raw(
+                'SELECT book_id FROM bims_collectionbook GROUP BY book_id ORDER BY count(book_id) DESC LIMIT 20')
             hot_books = []
             for hot_book_id in hot_book_ids:
                 hot_book = Book.objects.get(book_id=hot_book_id.book_id)
@@ -502,12 +513,13 @@ def add_evaluate(request):
                 content = evaluate_form.cleaned_data['evaluate']
                 book_id = evaluate_form.cleaned_data['book_id']
                 user_name = User.objects.get(user_id=user_id).user_name
-                evaluate = BookEvaluate(book_id=book_id, user_name=user_name, content=content, create_date=datetime.date.today())
+                evaluate = BookEvaluate(book_id=book_id, user_name=user_name, content=content,
+                                        create_date=datetime.date.today())
                 evaluate.save()
-                return HttpResponseRedirect('/book/'+book_id)
+                return HttpResponseRedirect('/book/' + book_id)
 
         else:
-            return render_to_response('index.html',)
+            return render_to_response('index.html', )
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
@@ -553,7 +565,8 @@ def save_note(request):
                 user_name = User.objects.get(user_id=user_id)
                 title = note_form.cleaned_data['title']
                 content = note_form.cleaned_data['content']
-                book_note = BookNote(book_id=book_id, user_id=user_id, user_name=user_name, title=title, content=content, create_date=datetime.date.today())
+                book_note = BookNote(book_id=book_id, user_id=user_id, user_name=user_name, title=title,
+                                     content=content, create_date=datetime.date.today())
                 book_note.save()
                 return HttpResponseRedirect('/book/' + book_id)
         else:
@@ -582,7 +595,9 @@ def get_note(request, note_id):
             user = User.objects.get(user_id=user_id)
             avatar = {0: 10000, 1: user_id}
             note = BookNote.objects.get(note_id=int(note_id))
-            return render_to_response('note.html', {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image], 'note': note}, )
+            return render_to_response('note.html',
+                                      {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
+                                       'note': note}, )
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
@@ -598,7 +613,7 @@ def add_book_collection(request, book_id):
     if user_id:
         evaluate = CollectionBook(user_id=user_id, book_id=int(book_id), create_date=datetime.date.today())
         evaluate.save()
-        return HttpResponseRedirect('/book/'+book_id)
+        return HttpResponseRedirect('/book/' + book_id)
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
@@ -725,5 +740,38 @@ def add_book(request):
             return render_to_response('addbook.html',
                                       {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
                                        'book_form': book_form}, )
+    else:
+        return render_to_response('skip.html', {'instruction': '请先登录'})
+
+
+def management(request):
+    """
+    管理员界面
+    :param request:请求
+    return:管理员界面
+    """
+    user_id = request.session.get('user_id', )
+    if user_id:
+        if request.method == 'POST':
+            sreach_form = SreachForm(request.POST)
+            if sreach_form.is_valid():
+                keyword = sreach_form.cleaned_data['sreach']
+                results = search(keyword)
+                return render_to_response('result.html', {'results': results})
+        else:
+            sreach_form = SreachForm()
+            user = User.objects.get(user_id=user_id)
+            avatar = {0: 10000, 1: user_id}
+            user_count = User.objects.all().count()
+            book_count = Book.objects.all().count()
+            author_count = Author.objects.all().count()
+            return render_to_response('management.html', {
+                'sreach_form': sreach_form,
+                'user': user,
+                'avatar': avatar[user.image],
+                'user_count': user_count,
+                'book_count': book_count,
+                'author_count': author_count
+            }, )
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
