@@ -6,6 +6,7 @@
 import re
 import time
 from datetime import datetime
+import random
 from threading import Thread
 
 import pymysql
@@ -39,7 +40,8 @@ def insert_table(data1, data2, data3, data4, data5, data6, data7, data8, data9, 
     """
     conn = connect_db()
     cursor = conn.cursor()
-    sql = 'INSERT INTO `bims_book` VALUES (\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12, data13, data14)
+    sql = 'INSERT INTO `bims_book` VALUES (\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (
+        data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12, data13, data14)
     print(sql)
     log.write(str(datetime.now()) + '--' + data2 + '正在入表!' + '\n')
     try:
@@ -124,7 +126,7 @@ def get_book_info(book_url):
     headers = {
         'user-agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36',
         'cookie': 'Hm_lvt_7705e8554135f4d7b42e62562322b3ad=1484974041; __utma=188916852.147433586.1484974041.1484974041.1484974041.1; __utmz=188916852.1484974041.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); gwdang_brwext_p_fold=1; from_device=chrome; gwdang_brwext_share=0; gwdang_brwext_more_force=0; gwdang_permanent_id=8ff6636d818b176b2e20d542b10610d6; gwdang_brwext_is_open=0; gwdang_brwext_first=1; gwdang_brwext_position=0; gwdang_brwext_close_update=0; gwdang_brwext_close_update_hour=0; gwdang_brwext_close_install=0; gwdang_brwext_style=top; gwdang_brwext_notice=0; gwdang_brwext_fold=0; gwdang_brwext_show_tip=1; gwdang_brwext_show_popup=1; gwdang_brwext_hide_shoptip=0; gwdang_brwext_apptg_close=0; gwdang_brwext_show_lowpri=1; gwdang_brwext_show_guessfavor=1; gwdang_brwext_show_lowpri_right=1; gwdang_brwext_show_guessfavor_right=1; gwdang_brwext_show_vips=1; gwdang_brwext_show_wishlist=1; gwdang_brwext_show_guess=1; gwdang_brwext_show_promo=1; gwdang_search_way=0; history=%2C3165475-3%2C1234971-3%2C2798902-3%2C2689300-3%2C848824-3%2C3244605-3%2C4062312-3%2C912146-3%2C1234967-3'
-        }
+    }
     web_data = requests.get(book_url, headers=headers)
     status = {
         100: '继续',
@@ -248,27 +250,12 @@ def start_spider(low, high):
         book_info = get_book_info(book_class_and_url['book_url'])
         book_id = int(book_class_and_url['book_id']) + 10000
         content_summary = re.sub("'", '"', book_info['content_summary'])
-        insert_table(book_id, book_info['book_name'], book_info['author_name'], book_info['press_house'], 0, book_info['publication_date'], book_info['pages'], book_info['price'], book_info['package'], book_info['isbn'], content_summary, book_class_and_url['book_class'], 0, 0)
+        insert_table(book_id, book_info['book_name'], book_info['author_name'], book_info['press_house'], 0,
+                     book_info['publication_date'], book_info['pages'], book_info['price'], book_info['package'],
+                     book_info['isbn'], content_summary, book_class_and_url['book_class'], 0, 0)
         log.write(str(datetime.now()) + '--' + book_info['book_name'] + '入库成功!' + '\n')
         print(book_info['book_name'] + '入库成功!')
         time.sleep(0.5)
-
-
-def main_csv_to_table():
-    """
-    文件入表main函数 直接运行
-    """
-    with open('./all_book.csv', 'r', encoding='utf-8') as data_source:
-        for line in data_source:
-            data = line.split(',')
-            conn = connect_db()
-            cursor = conn.cursor()
-            sql = 'INSERT INTO `%s`VALUES (%d,\'%s\',\'%s\',\'%s\')' % (
-                'all_book', int(data[0]), data[1], data[2], data[3])
-            print(sql)
-            cursor.execute(sql)
-            conn.commit()
-            conn.close()
 
 
 def main_get_bookname_and_url():
@@ -285,7 +272,8 @@ def main_get_bookname_and_url():
             if re.search("'", book_url['name']):
                 continue
             else:
-                insert_table('all_book_temp', 'book_class', 'book_name', 'book_url', title_url['title'], book_url['name'], book_url['url'])
+                insert_table('all_book_temp', 'book_class', 'book_name', 'book_url', title_url['title'],
+                             book_url['name'], book_url['url'])
     print('运行完成!')
 
 
@@ -349,6 +337,29 @@ def main_multithreading_spider():
     # for thread in threads:
     #     thread.join()
     # print('运行完成!')
+
+
+def main_csv_to_table(index):
+    """
+    文件入表main函数 直接运行
+    """
+    with open(r'E:\bims_book.csv', 'r', encoding='utf-8') as data_source:
+        for i, line in enumerate(data_source):
+            if i >= int(index)-1:
+                print(line)
+                day = datetime.today().date().day + random.randint(-11, 0)
+                create_date = str(datetime.today().date())[:7] + '-' + str(day)
+                data = line.split(',')
+                conn = connect_db()
+                cursor = conn.cursor()
+                sql = 'INSERT INTO `bims_book`VALUES (%d,\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',%d,\'%s\',\'%s\',\'%s\',%d)' % (
+                    int(data[0]), data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], int(data[9]),
+                    data[10], data[11], create_date, 0)
+                print(sql)
+                cursor.execute(sql)
+                conn.commit()
+                conn.close()
+
 
 # 运行程序
 if __name__ == '__main__':
