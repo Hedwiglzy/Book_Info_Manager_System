@@ -361,6 +361,19 @@ def main_csv_to_table(index):
                 conn.close()
 
 
+def set_create_date(index):
+    for i in range(index):
+        day = datetime.today().date().day + random.randint(-12, 0)
+        create_date = str(datetime.today().date())[:7] + '-' + str(day)
+        conn = connect_db()
+        cursor = conn.cursor()
+        sql = 'update `bims_book` set `create_date` = "%s" where `book_id` = %d' % (create_date, i+10001)
+        print(sql)
+        cursor.execute(sql)
+        conn.commit()
+        conn.close()
+
+
 # 运行程序
 if __name__ == '__main__':
     print('go!')

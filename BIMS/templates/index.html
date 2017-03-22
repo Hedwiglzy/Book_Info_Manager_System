@@ -53,8 +53,8 @@
                                  alt="{{ hot_book.book_name }}" title="{{ hot_book.book_name }}">
                         </a>
                     </div>
-                    <div><a href={% url 'book' hot_book.book_id %}><strong>{{ hot_book.book_name|truncatechars:'11' }}</strong></a></div>
-                    <div><a href={% url 'author' hot_book.author_id %}>{{ hot_book.author_name|truncatechars:'11' }}</a></div>
+                    <div><a href={% url 'book' hot_book.book_id %}><strong>{{ hot_book.book_name|truncatechars:'10' }}</strong></a></div>
+                    <div><a href={% url 'author' hot_book.author_id %}>{{ hot_book.author_name|truncatechars:'10' }}</a></div>
                 </div>
             {% endfor %}
         </div>
@@ -77,8 +77,8 @@
                                  alt="{{ new_book.book_name }}" title="{{ new_book.book_name }}">
                         </a>
                     </div>
-                    <div><a href={% url 'book' new_book.book_id %}><strong>{{ new_book.book_name|truncatechars:'11' }}</strong></a></div>
-                    <div><a href={% url 'author' new_book.author_id %}>{{ new_book.author_name|truncatechars:'11' }}</a></div>
+                    <div><a href={% url 'book' new_book.book_id %}><strong>{{ new_book.book_name|truncatechars:'10' }}</strong></a></div>
+                    <div><a href={% url 'author' new_book.author_id %}>{{ new_book.author_name|truncatechars:'10' }}</a></div>
                 </div>
             {% endfor %}
         </div>
@@ -114,13 +114,13 @@
                         <div>
                             <a href={% url 'book' authorbook.book_id %}>
                                 <strong>
-                                    {{ authorbook.book_name|truncatechars:'11' }}
+                                    {{ authorbook.book_name|truncatechars:'10' }}
                                 </strong>
                             </a>
                         </div>
                         <div>
                             <a href={% url 'author' authorbook.author_id %}>
-                                {{ authorbook.author_name|truncatechars:'11' }}
+                                {{ authorbook.author_name|truncatechars:'10' }}
                             </a>
                         </div>
                     </div>
@@ -157,9 +157,9 @@
                             </a>
                         </div>
                         <div>
-                            <a href={% url 'book' tagbook.book_id %}><strong>{{ tagbook.book_name|truncatechars:'11' }}</strong></a>
+                            <a href={% url 'book' tagbook.book_id %}><strong>{{ tagbook.book_name|truncatechars:'10' }}</strong></a>
                         </div>
-                        <div><a href={% url 'author' tagbook.author_id %}>{{ tagbook.author_name|truncatechars:'11' }}</a></div>
+                        <div><a href={% url 'author' tagbook.author_id %}>{{ tagbook.author_name|truncatechars:'10' }}</a></div>
                     </div>
                 {% endfor %}
             </div>
