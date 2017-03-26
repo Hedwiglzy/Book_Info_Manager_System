@@ -19,6 +19,9 @@
     <h5>当前注册用户数为：{{ user_count }}</h5>
     <h5>当前图书总数为：{{ book_count }}</h5>
     <h5>当前作者总数为：{{ author_count }}</h5>
+    {% for system_user in all_users %}
+        <p>{{ system_user.user_name }}</p>
+    {% endfor %}
     <a href={% url 'addbook' %}>
 		<button class="btn btn-info btn-group-lg" href=>添加图书</button>
 	</a>

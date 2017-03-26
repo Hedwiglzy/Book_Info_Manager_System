@@ -67,6 +67,7 @@ for i, book_info in enumerate(book_infos):
         book_id = book_info['book_id']
         book_url = book_info['book_url'].rstrip()
         web_data = requests.get(book_url, headers=headers)
+        print(web_data.status_code)
         print('爬取' + str(i+1) + ' ' + book_url + '成功')
         soup = BeautifulSoup(web_data.text, 'lxml')
         img_url = soup.find_all(class_='nbg')

@@ -53,7 +53,7 @@
                                  alt="{{ hot_book.book_name }}" title="{{ hot_book.book_name }}">
                         </a>
                     </div>
-                    <div><a href={% url 'book' hot_book.book_id %}><strong>{{ hot_book.book_name|truncatechars:'10' }}</strong></a></div>
+                    <div><a href={% url 'book' hot_book.book_id %}><strong>{{ hot_book.book_name|truncatechars:'9' }}</strong></a></div>
                     <div><a href={% url 'author' hot_book.author_id %}>{{ hot_book.author_name|truncatechars:'10' }}</a></div>
                 </div>
             {% endfor %}

@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/font-awesome.min.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/navbar.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/custom/author.css' %}">
-	<title>{{ book.book_name }}</title>
+	<title>{{ author.author_name }}</title>
 </head>
 
 <body>
@@ -54,7 +54,10 @@
 							<img class=" img-thumbnail" src="../../static/image/book/cover/{{ author_book.book_id }}.jpg" alt="{{ author_book.book_name }}" title="{{ author_book.book_name }}">
 						</a>
 					</div>
-					<div style="text-align: center"><a href={% url 'book' author_book.book_id %}><strong>{{ author_book.book_name }}</strong></a></div>
+					<div style="text-align: center">
+                        <a href={% url 'book' author_book.book_id %}>
+                        <strong>{{ author_book.book_name|truncatechars:'10' }}</strong></a>
+                    </div>
 				</div>
 				{% endfor %}
 			</div>
