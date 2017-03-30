@@ -160,3 +160,4 @@ $RECYCLE.BIN/
 BIMS/spider/log.txt
 *.txt
 *.jpg
+*.json
