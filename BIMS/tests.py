@@ -15,9 +15,9 @@ plt.show()
 #%%
 import matplotlib.pyplot as plt
 import numpy as np
-import mpld3
+# import mpld3
 
-mpld3.enable_notebook()
+# mpld3.enable_notebook()
 fig, ax = plt.subplots(subplot_kw=dict(axisbg='#EEEEEE'))
 ax.grid(color='white', linestyle='solid')
 N = 50
