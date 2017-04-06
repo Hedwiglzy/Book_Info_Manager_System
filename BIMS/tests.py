@@ -12,9 +12,9 @@ plt.plot(X, Y, '--')
 plt.show()
 
 #%%
-np.arange(0, 10, 1)
-np.linspace(1, 10, 10)
-np.logspace(1, 3, 20)
+np.arange(0, 10, 2)
+np.linspace(1, 10, 5)
+# np.logspace(1, 3, 20)
 
 #%%
 import numpy as np
