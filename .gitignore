@@ -160,5 +160,5 @@ $RECYCLE.BIN/
 BIMS/spider/log.txt
 *.txt
 *.jpg
-*.json
-.vscode/last.sql
+.vscode/
+.vs
