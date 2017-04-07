@@ -49,3 +49,9 @@ plt.title("PyPlot First Example")
 # plt.ylim(-1.2, 1.2)
 plt.legend()
 plt.show()
+
+
+#%%
+import numpy as np
+A = np.arange(5)
+print(A)
