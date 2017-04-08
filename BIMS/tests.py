@@ -53,5 +53,7 @@ plt.show()
 
 #%%
 import numpy as np
-A = np.arange(5)
-print(A)
+b = np.arange(12).reshape(3,4)
+b.sum(axis = 0)
+b.sum(axis = 1)
+b.max(axis = 1)
