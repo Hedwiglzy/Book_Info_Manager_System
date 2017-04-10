@@ -9,11 +9,14 @@ import numpy
 from django.db.models import Max, Avg
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
+import plotly.offline as py
+import plotly.graph_objs as go
 # from django.views.decorators.cache import cache_page
 # from django.http import HttpResponse
 
 from BIMS.models import User, Book, Author, CollectionBook, CollectionAuthor, BookEvaluate, BookNote, BookScore
 from BIMS.tools.forms import LoginForm, RegisterForm, SreachForm, EvaluateForm, NoteForm, BookForm
+
 
 # Create your views here.
 
@@ -59,7 +62,8 @@ def get_author_collection(user_id):
     autuor_collections = []
     collections = CollectionAuthor.objects.filter(user_id=user_id)
     for collection in collections:
-        autuor_collections.append(Author.objects.get(author_id=collection.author_id))
+        autuor_collections.append(
+            Author.objects.get(author_id=collection.author_id))
     return autuor_collections
 
 
@@ -153,16 +157,21 @@ def get_book_info(request, book_id):
             book_id = int(book_id)
             book = Book.objects.get(book_id=book_id)
             author = Author.objects.get(author_id=book.author_id)
-            evaluates = BookEvaluate.objects.filter(book_id=book_id).order_by('-create_date')
-            book_evaluates = evaluates[0:6] if len(evaluates) > 6 else evaluates
-            notes = BookNote.objects.filter(book_id=book_id).order_by('-create_date')
+            evaluates = BookEvaluate.objects.filter(
+                book_id=book_id).order_by('-create_date')
+            book_evaluates = evaluates[0:6] if len(
+                evaluates) > 6 else evaluates
+            notes = BookNote.objects.filter(
+                book_id=book_id).order_by('-create_date')
             book_notes = notes[0:3] if len(notes) > 3 else notes
-            is_collection = CollectionBook.objects.filter(user_id=user_id, book_id=book_id)
+            is_collection = CollectionBook.objects.filter(
+                user_id=user_id, book_id=book_id)
             if is_collection:
                 collection = 1
             else:
                 collection = 0
-            collect_num = CollectionBook.objects.filter(book_id=book_id).count()
+            collect_num = CollectionBook.objects.filter(
+                book_id=book_id).count()
             book_socre = BookScore.objects.filter(book_id=book_id)
             if book_socre:
                 book_socre = book_socre.aggregate(Avg('score'))['score__avg']
@@ -261,7 +270,8 @@ def login(request):
                 else:
                     request.session['user_id'] = user_id
                     return HttpResponseRedirect('/index/')
-                    # return HttpResponseRedirect(reverse(get_user_info, args=[user_id]))
+                    # return HttpResponseRedirect(reverse(get_user_info,
+                    # args=[user_id]))
             else:
                 return render_to_response('skip.html', {'instruction': '密码错误'})
     else:
@@ -610,7 +620,8 @@ def add_book_collection(request, book_id):
     """
     user_id = request.session.get('user_id', )
     if user_id:
-        evaluate = CollectionBook(user_id=user_id, book_id=int(book_id), create_date=datetime.date.today())
+        evaluate = CollectionBook(user_id=user_id, book_id=int(
+            book_id), create_date=datetime.date.today())
         evaluate.save()
         return HttpResponseRedirect('/book/' + book_id)
     else:
@@ -640,7 +651,8 @@ def set_userinfo(request):
                 remark = register_form.cleaned_data['remark']
                 upload = register_form.cleaned_data['image']
                 if upload:
-                    image = open('BIMS/static/image/avatar/hd/% s.jpg' % str(user_id), 'wb')
+                    image = open('BIMS/static/image/avatar/hd/% s.jpg' %
+                                 str(user_id), 'wb')
                     image.write(upload.read())
                     image.close()
                     image_state = 1
@@ -701,10 +713,12 @@ def add_book(request):
                 content_summary = book_form.cleaned_data['content_summary']
                 title = book_form.cleaned_data['title']
                 try:
-                    author = Author.objects.get(author_name__contains=author_name)
+                    author = Author.objects.get(
+                        author_name__contains=author_name)
                 except Author.DoesNotExist:
                     author_max_id = Author.objects.all()
-                    author_id = int(author_max_id.aggregate(Max('author_id'))['author_id__max']) + 1
+                    author_id = int(author_max_id.aggregate(
+                        Max('author_id'))['author_id__max']) + 1
                 else:
                     author_id = author.author_id
                 book = Book(book_name=book_name, author_name=author_name, press_house=press_house,
@@ -715,13 +729,15 @@ def add_book(request):
                 try:
                     Author.objects.get(author_id=author_id)
                 except Author.DoesNotExist:
-                    author = Author(author_id=author_id, author_name=author_name)
+                    author = Author(author_id=author_id,
+                                    author_name=author_name)
                     author.save()
                 else:
                     pass
                 upload = book_form.cleaned_data['image']
                 if upload:
-                    image = open('BIMS/static/image/book/cover/% s.jpg' % str(book.book_id), 'wb')
+                    image = open('BIMS/static/image/book/cover/% s.jpg' %
+                                 str(book.book_id), 'wb')
                     image.write(upload.read())
                     image.close()
                 return HttpResponseRedirect('/index/')
@@ -761,7 +777,7 @@ def management(request):
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
             avatar = {0: 10000, 1: user_id}
-            user_count = User.objects.all().count()-1
+            user_count = User.objects.all().count() - 1
             book_count = Book.objects.all().count()
             author_count = Author.objects.all().count()
             all_users = User.objects.all().exclude(user_id=99999)
@@ -774,5 +790,38 @@ def management(request):
                 'author_count': author_count,
                 'all_users': all_users
             }, )
+    else:
+        return render_to_response('skip.html', {'instruction': '请先登录'})
+
+
+def sys_info(request):
+    """
+    系统信息
+    :param request:请求
+    """
+    user_id = request.session.get('user_id', )
+    if user_id:
+        if request.method == 'POST':
+            sreach_form = SreachForm(request.POST)
+            if sreach_form.is_valid():
+                keyword = sreach_form.cleaned_data['sreach']
+                results = search(keyword)
+                return render_to_response('result.html', {'results': results})
+        else:
+            titles_and_counts = Book.objects.raw(
+                'select book_id,title,count(1) as count from bims_book group by title'
+            )
+            titles = [title_and_count.title for title_and_count in titles_and_counts]
+            counts = [title_and_count.count for title_and_count in titles_and_counts]
+            # book_data = [
+            #     {
+            #         'x': titles,
+            #         'y': counts
+            #     }
+            # ]
+            trace = go.Pie(labels=titles, values=counts)
+            py.plot([trace], filename='E:/GitHub/Book_Info_Manager_System/BIMS/templates/pie-for-dashboard', auto_open=False)
+            # py.plot(book_data, filename='E:/GitHub/Book_Info_Manager_System/BIMS/templates/sysinfo', auto_open=False)
+            return render_to_response('pie-for-dashboard.html')
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})

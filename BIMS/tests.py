@@ -53,7 +53,64 @@ plt.show()
 
 #%%
 import numpy as np
-b = np.arange(12).reshape(3,4)
-b.sum(axis = 0)
-b.sum(axis = 1)
-b.max(axis = 1)
+b = np.arange(12).reshape(3, 4)
+b.sum(axis=0)
+b.sum(axis=1)
+b.max(axis=1)
+
+
+#%%
+import pymysql
+
+
+def connect_db():
+    """
+    连接数据库
+    """
+    connection = pymysql.connect(
+        host='127.0.0.1',
+        port=3306,
+        user='root',
+        password='qwer1234',
+        db='BIMS',
+        charset='utf8mb4',
+        cursorclass=pymysql.cursors.DictCursor
+    )
+    return connection
+
+
+def select(table_name):
+    """
+    从表里面选择数据
+    """
+    conn = connect_db()
+    cursor = conn.cursor()
+    sql = 'select * from %s' % table_name
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    conn.commit()
+    conn.close()
+    return result
+
+
+RESULT = select('bims_user')
+for info in RESULT:
+    print(info)
+
+
+#%%
+import plotly
+from plotly.graph_objs import Scatter, Layout
+
+plotly.offline.init_notebook_mode(connected=True)
+print('ok')
+plotly.offline.iplot({
+    "data": [Scatter(x=[1, 2, 3, 4], y=[4, 3, 2, 1])],
+    "layout": Layout(title="hello world")
+})
+print('ok')
+
+#%%
+from BIMS.models import User, Book
+x = Book.objects.all().count
+print(x)

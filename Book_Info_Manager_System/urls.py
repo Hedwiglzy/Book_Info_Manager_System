@@ -43,4 +43,5 @@ urlpatterns = [
     url(r'^setuserinfo/$', views.set_userinfo, name='setuserinfo'),
     url(r'^addbook/$', views.add_book, name='addbook'),
     url(r'^management/$', views.management, name='management'),
+    url(r'^sysinfo/$', views.sys_info, name='sysinfo'),
     ]
