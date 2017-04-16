@@ -5,14 +5,15 @@
 """
 import datetime
 
-import numpy
-from django.db.models import Max, Avg
-from django.http import HttpResponseRedirect
+# import numpy
+import json
+from django.db.models import Max, Avg 
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render_to_response
 import plotly.offline as py
 import plotly.graph_objs as go
+from django.http import HttpResponse
 # from django.views.decorators.cache import cache_page
-# from django.http import HttpResponse
 
 from BIMS.models import User, Book, Author, CollectionBook, CollectionAuthor, BookEvaluate, BookNote, BookScore
 from BIMS.tools.forms import LoginForm, RegisterForm, SreachForm, EvaluateForm, NoteForm, BookForm
@@ -83,6 +84,25 @@ def get_author_book(author_id):
     return Book.objects.filter(author_id=author_id)
 
 
+def get_book_score(book_id):
+    """
+    求出图书综合评分
+    :param book_id:图书ID
+    计算公式如下：weighted rank (WR) = (v ÷ (v+m)) × R + (m ÷ (v+m)) × C
+    其中：
+    R = average for the movie (mean) = (Rating) （是用普通的方法计算出的平均分）
+    v = number of votes for the movie = (votes) （投票人数）
+    m = minimum votes required (currently 10) （需要的最小票数）
+    C = the mean vote across the whole report (currently) （目前所有电影的平均得分）
+    """
+    rating = BookScore.objects.filter(book_id=book_id).aggregate(Avg('score'))['score__avg']
+    votes = BookScore.objects.filter(book_id=book_id).count()
+    minimum = 10
+    currently = BookScore.objects.aggregate(Avg('score'))['score__avg']
+    book_score = (votes / (votes + minimum)) * rating + (minimum / (votes + minimum)) * currently
+    return book_score
+
+
 def get_user_info(request):
     """
     用户信息
@@ -95,8 +115,9 @@ def get_user_info(request):
             sreach_form = SreachForm(request.POST)
             if sreach_form.is_valid():
                 keyword = sreach_form.cleaned_data['sreach']
-                results = search(keyword)
-                return render_to_response('result.html', {'results': results})
+                request.session['user_id'] = user_id
+                request.session['keyword'] = keyword
+                return HttpResponseRedirect('/result/')
         else:
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
@@ -143,11 +164,13 @@ def get_book_info(request, book_id):
     user_id = request.session.get('user_id', )
     if user_id:
         if request.method == 'POST':
-            sreach_form = SreachForm(request.POST)
-            if sreach_form.is_valid():
-                keyword = sreach_form.cleaned_data['sreach']
-                results = search(keyword)
-                return render_to_response('result.html', {'results': results})
+            if request.method == 'POST':
+                sreach_form = SreachForm(request.POST)
+                if sreach_form.is_valid():
+                    keyword = sreach_form.cleaned_data['sreach']
+                    request.session['user_id'] = user_id
+                    request.session['keyword'] = keyword
+                    return HttpResponseRedirect('/result/')
         else:
             sreach_form = SreachForm()
             evaluate_form = EvaluateForm()
@@ -170,20 +193,26 @@ def get_book_info(request, book_id):
                 collection = 1
             else:
                 collection = 0
-            collect_num = CollectionBook.objects.filter(
-                book_id=book_id).count()
-            book_socre = BookScore.objects.filter(book_id=book_id)
-            if book_socre:
-                book_socre = book_socre.aggregate(Avg('score'))['score__avg']
+            collect_num = CollectionBook.objects.filter(book_id=book_id).count()
+            is_score = BookScore.objects.filter(book_id=book_id)
+            if is_score:
+                # book_socre = book_socre.aggregate(Avg('score'))['score__avg']
+                book_score = round(get_book_score(book_id), 1)
             else:
-                book_socre = '无人评价'
+                book_score = '无人评价'
             evaluate_num = BookScore.objects.filter(book_id=book_id).count()
+            my_score = BookScore.objects.filter(
+                user_id=user_id, book_id=book_id)
+            if my_score:
+                my_score = my_score[0].score+1
+            else:
+                my_score = 0
             return render_to_response('book.html',
                                       {'sreach_form': sreach_form, 'evaluate_form': evaluate_form, 'user': user,
-                                       'avatar': avatar[user.image], 'book': book, 'book_score': book_socre,
+                                       'avatar': avatar[user.image], 'book': book, 'book_score': book_score,
                                        'collect_num': collect_num, 'evaluate_num': evaluate_num, 'author': author,
                                        'book_evaluates': book_evaluates, 'book_notes': book_notes,
-                                       'note_form': note_form, 'collection': collection}, )
+                                       'note_form': note_form, 'collection': collection, 'my_score': my_score}, )
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})
 
@@ -201,8 +230,9 @@ def get_author_info(request, author_id):
             sreach_form = SreachForm(request.POST)
             if sreach_form.is_valid():
                 keyword = sreach_form.cleaned_data['sreach']
-                results = search(keyword)
-                return render_to_response('result.html', {'results': results})
+                request.session['user_id'] = user_id
+                request.session['keyword'] = keyword
+                return HttpResponseRedirect('/result/')
         else:
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
@@ -270,8 +300,7 @@ def login(request):
                 else:
                     request.session['user_id'] = user_id
                     return HttpResponseRedirect('/index/')
-                    # return HttpResponseRedirect(reverse(get_user_info,
-                    # args=[user_id]))
+                    # return HttpResponseRedirect(reverse(get_user_info, args=[user_id]))
             else:
                 return render_to_response('skip.html', {'instruction': '密码错误'})
     else:
@@ -597,8 +626,9 @@ def get_note(request, note_id):
             sreach_form = SreachForm(request.POST)
             if sreach_form.is_valid():
                 keyword = sreach_form.cleaned_data['sreach']
-                results = search(keyword)
-                return render_to_response('result.html', {'results': results})
+                request.session['user_id'] = user_id
+                request.session['keyword'] = keyword
+                return HttpResponseRedirect('/result/')
         else:
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
@@ -620,8 +650,7 @@ def add_book_collection(request, book_id):
     """
     user_id = request.session.get('user_id', )
     if user_id:
-        evaluate = CollectionBook(user_id=user_id, book_id=int(
-            book_id), create_date=datetime.date.today())
+        evaluate = CollectionBook(user_id=user_id, book_id=int(book_id), create_date=datetime.date.today())
         evaluate.save()
         return HttpResponseRedirect('/book/' + book_id)
     else:
@@ -771,8 +800,9 @@ def management(request):
             sreach_form = SreachForm(request.POST)
             if sreach_form.is_valid():
                 keyword = sreach_form.cleaned_data['sreach']
-                results = search(keyword)
-                return render_to_response('result.html', {'results': results})
+                request.session['user_id'] = user_id
+                request.session['keyword'] = keyword
+                return HttpResponseRedirect('/result/')
         else:
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
@@ -805,23 +835,33 @@ def sys_info(request):
             sreach_form = SreachForm(request.POST)
             if sreach_form.is_valid():
                 keyword = sreach_form.cleaned_data['sreach']
-                results = search(keyword)
-                return render_to_response('result.html', {'results': results})
+                request.session['user_id'] = user_id
+                request.session['keyword'] = keyword
+                return HttpResponseRedirect('/result/')
         else:
             titles_and_counts = Book.objects.raw(
                 'select book_id,title,count(1) as count from bims_book group by title'
             )
             titles = [title_and_count.title for title_and_count in titles_and_counts]
             counts = [title_and_count.count for title_and_count in titles_and_counts]
-            # book_data = [
-            #     {
-            #         'x': titles,
-            #         'y': counts
-            #     }
-            # ]
             trace = go.Pie(labels=titles, values=counts)
             py.plot([trace], filename='E:/GitHub/Book_Info_Manager_System/BIMS/templates/pie-for-dashboard', auto_open=False)
             # py.plot(book_data, filename='E:/GitHub/Book_Info_Manager_System/BIMS/templates/sysinfo', auto_open=False)
             return render_to_response('pie-for-dashboard.html')
+    else:
+        return render_to_response('skip.html', {'instruction': '请先登录'})
+
+
+def add_book_score(request, book_id):
+    """
+    图书评分
+    """
+    user_id = request.session.get('user_id', )
+    if user_id:
+        if request.is_ajax():
+            score = request.POST.get('book_score')
+            book_score = BookScore(user_id=user_id, book_id=book_id, score=score, create_date=datetime.date.today())
+            book_score.save()
+            return HttpResponseRedirect('/book/' + book_id)
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})

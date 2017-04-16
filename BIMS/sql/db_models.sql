@@ -94,7 +94,7 @@ CREATE TABLE `BIMS_bookscore` (
   `op_id`       INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
   `book_id`     INTEGER                NOT NULL,
   `user_id`     INTEGER                NOT NULL,
-  `score`       DECIMAL(10, 1)         NOT NULL,
+  `score`       INTEGER                NOT NULL,
   `create_date` DATE                   NOT NULL
 )
   AUTO_INCREMENT = 10001;
@@ -107,5 +107,3 @@ CREATE TABLE all_book
   book_name  VARCHAR(500),
   book_url   VARCHAR(100)
 );
-
-

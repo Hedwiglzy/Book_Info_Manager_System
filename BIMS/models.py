@@ -129,7 +129,7 @@ class BookScore(models.Model):
     op_id = models.AutoField(primary_key=True)  # 流水号
     book_id = models.IntegerField()  # 图书ID
     user_id = models.IntegerField()  # 用户ID
-    score = models.DecimalField(max_digits=10, decimal_places=1, null=True)  # 评分
+    score = models.IntegerField()    # 评分
     create_date = models.DateField()  # 评分日期
 
     def __str__(self):
