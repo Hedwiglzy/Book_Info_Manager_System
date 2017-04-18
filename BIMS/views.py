@@ -6,18 +6,15 @@
 import datetime
 
 # import numpy
-import json
-from django.db.models import Max, Avg 
-from django.http import HttpResponseRedirect, JsonResponse
+# import json
+from django.db.models import Max, Avg
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 import plotly.offline as py
 import plotly.graph_objs as go
-from django.http import HttpResponse
 # from django.views.decorators.cache import cache_page
-
 from BIMS.models import User, Book, Author, CollectionBook, CollectionAuthor, BookEvaluate, BookNote, BookScore
 from BIMS.tools.forms import LoginForm, RegisterForm, SreachForm, EvaluateForm, NoteForm, BookForm
-
 
 # Create your views here.
 
@@ -99,7 +96,7 @@ def get_book_score(book_id):
     votes = BookScore.objects.filter(book_id=book_id).count()
     minimum = 10
     currently = BookScore.objects.aggregate(Avg('score'))['score__avg']
-    book_score = (votes / (votes + minimum)) * rating + (minimum / (votes + minimum)) * currently
+    book_score = round((votes / (votes + minimum)) * rating + (minimum / (votes + minimum)) * currently, 1)
     return book_score
 
 
@@ -197,7 +194,7 @@ def get_book_info(request, book_id):
             is_score = BookScore.objects.filter(book_id=book_id)
             if is_score:
                 # book_socre = book_socre.aggregate(Avg('score'))['score__avg']
-                book_score = round(get_book_score(book_id), 1)
+                book_score = get_book_score(book_id)
             else:
                 book_score = '无人评价'
             evaluate_num = BookScore.objects.filter(book_id=book_id).count()
@@ -862,6 +859,8 @@ def add_book_score(request, book_id):
             score = request.POST.get('book_score')
             book_score = BookScore(user_id=user_id, book_id=book_id, score=score, create_date=datetime.date.today())
             book_score.save()
-            return HttpResponseRedirect('/book/' + book_id)
+            response = HttpResponse('successed')
+            response.status_code = 204
+            return response
     else:
         return render_to_response('skip.html', {'instruction': '请先登录'})

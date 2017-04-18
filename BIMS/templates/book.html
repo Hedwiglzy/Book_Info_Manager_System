@@ -251,18 +251,18 @@
         var book_score = 0
         $('[href="javascript:"]').click(function () {
             book_score = $(this).html();
-            var score = {
-                'book_score': book_score
+            var info = {
+                'book_score': book_score,
             };
             $.ajax({
                 type: 'POST',
                 url: '/score/{{ book.book_id|safe }}/',
                 dataType: 'json',
-                data: score,
+                data: info,
                 success: function (data_get) {
                 }
             });
-            javascript:location.reload();
+            setTimeout("window.location.reload()",200);
         });
     </script>
 {% endif %}
