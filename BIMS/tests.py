@@ -114,3 +114,19 @@ print('ok')
 from BIMS.models import User, Book
 x = Book.objects.all().count
 print(x)
+
+#装饰器
+def decorator(func):
+    def wrapper(a, b):
+        print('a--> %d b-->%d' % (a, b))
+        return func(a, b)
+    return wrapper
+
+
+@decorator
+def add(a, b):
+    c = a + b
+    print(c)
+
+
+add(1, 2)
