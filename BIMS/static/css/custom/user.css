@@ -19,6 +19,7 @@
 .userinfo_top {
     font-family: 微软雅黑, sans-serif;
     margin-bottom: 10px;
+    width: 800px;
 }
 
 .username {
@@ -30,7 +31,7 @@
     height: 40px;
     font-size: 18px;
     padding-top: 12px;
-    padding-right: 0;
+    padding-left: 0;
 }
 
 .other_info {

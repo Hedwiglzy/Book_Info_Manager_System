@@ -192,7 +192,6 @@ def get_book_info(request, book_id):
             collect_num = CollectionBook.objects.filter(book_id=book_id).count()
             is_score = BookScore.objects.filter(book_id=book_id)
             if is_score:
-                # book_socre = book_socre.aggregate(Avg('score'))['score__avg']
                 book_score = get_book_score(book_id)
             else:
                 book_score = '无人评价'
@@ -386,9 +385,6 @@ def explore(request):
         sreach_form = SreachForm()
         user = User.objects.get(user_id=user_id)
         avatar = {0: 10000, 1: user_id}
-        # book = list(Book.objects.order_by('?')[:1])
-        # note = list(BookNote.objects.order_by('?')[:1])
-        # author = list(Author.objects.order_by('?')[:1])
         book = Book.objects.get(book_id=random.randint(10001, Book.objects.all().count()+10000))
         note = BookNote.objects.get(note_id=random.randint(10001, BookNote.objects.all().count()+10000))
         author = Author.objects.get(author_id=random.randint(10001, Author.objects.all().count()+10000))
@@ -439,9 +435,20 @@ def result(request):
         avatar = {0: 10000, 1: user_id}
         keyword = request.session.get('keyword', ' ')
         search_results = search(keyword)
+        if len(search_results)%10 == 0:
+            result_pages = [i for i in range(len(search_results)/10)]
+        else:
+            result_pages = [i for i in range(int(len(search_results)/10)+1)]
+        # result_pages = [i for i in range(len(search_results)/10)]
         return render_to_response('result.html',
-                                  {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
-                                   'results': search_results, 'title': '搜索结果'})
+                                  {
+                                      'sreach_form': sreach_form,
+                                      'user': user,
+                                      'avatar': avatar[user.image],
+                                      'results': search_results,
+                                      'result_pages': result_pages,
+                                      'title': '搜索结果'
+                                  })
 
 
 @login_required
@@ -517,9 +524,20 @@ def get_tag_book(request, tag):
         user = User.objects.get(user_id=user_id)
         avatar = {0: 10000, 1: user_id}
         tag_books = Book.objects.filter(title=tag)
+        if len(tag_books)%10 == 0:
+            result_pages = [i for i in range(len(tag_books)/10)]
+        else:
+            result_pages = [i for i in range(int(len(tag_books)/10)+1)]
+        # result_pages = [i for i in range(len(tag_books)/10)]
         return render_to_response('result.html',
-                                  {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
-                                   'results': tag_books, 'title': tag + '类所有图书'})
+                                  {
+                                      'sreach_form': sreach_form,
+                                      'user': user,
+                                      'avatar': avatar[user.image],
+                                      'results': tag_books,
+                                      'result_pages': result_pages,
+                                      'title': tag + '类所有图书'
+                                  })
 
 
 def add_evaluate(request):
@@ -831,3 +849,11 @@ def add_book_score(request, book_id):
         return response
     else:
         return HttpResponseRedirect('/book/' + book_id)
+
+@login_required
+def test_deco(request, user_id):
+    """
+    装饰器测试
+    """
+    info = 'user id is %d' % int(user_id)
+    return HttpResponse(info)
