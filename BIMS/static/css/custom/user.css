@@ -67,7 +67,12 @@
     margin-bottom: 5px;
 }
 
-h1, .h1, h2, .h2, h3, .h3 {
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
     margin-top: 10px;
     margin-bottom: 5px;
 }
@@ -86,6 +91,12 @@ h1, .h1, h2, .h2, h3, .h3 {
 .note_title {
     height: 30px;
     padding-left: 0;
+}
+
+.author_name :hover,
+.note_title :hover {
+    color: #095fb3;
+    text-decoration: underline;
 }
 
 .note_time {

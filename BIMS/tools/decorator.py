@@ -15,14 +15,14 @@ def login_required(func):
     登录认证
     :param func:函数
     """
-    def wrapper(request, *args):
+    def wrapper(request, *args, **kwargs):
         """
         检查是否登录
         :param request:请求
         """
         user_id = request.session.get('user_id', )
         if user_id:
-            return func(request, *args)
+            return func(request, *args, **kwargs)
         else:
             return render_to_response('skip.html', {'instruction': '请先登录'})
     return wrapper

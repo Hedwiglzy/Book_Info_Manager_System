@@ -38,6 +38,8 @@ def search(keyword):
         search_result.append(book)
     for book in Book.objects.filter(title__contains=keyword):
         search_result.append(book)
+    search_result = set(search_result)
+    search_result = sorted(search_result, key=lambda result_book: result_book.book_id)
     return search_result
 
 
@@ -115,7 +117,7 @@ def get_user_info(request):
             keyword = sreach_form.cleaned_data['sreach']
             request.session['user_id'] = user_id
             request.session['keyword'] = keyword
-            return HttpResponseRedirect('/result/')
+            return HttpResponseRedirect('/result/1/')
     else:
         sreach_form = SreachForm()
         user = User.objects.get(user_id=user_id)
@@ -166,7 +168,7 @@ def get_book_info(request, book_id):
                     keyword = sreach_form.cleaned_data['sreach']
                     request.session['user_id'] = user_id
                     request.session['keyword'] = keyword
-                    return HttpResponseRedirect('/result/')
+                    return HttpResponseRedirect('/result/1/')
         else:
             sreach_form = SreachForm()
             evaluate_form = EvaluateForm()
@@ -227,7 +229,7 @@ def get_author_info(request, author_id):
                 keyword = sreach_form.cleaned_data['sreach']
                 request.session['user_id'] = user_id
                 request.session['keyword'] = keyword
-                return HttpResponseRedirect('/result/')
+                return HttpResponseRedirect('/result/1/')
         else:
             sreach_form = SreachForm()
             user = User.objects.get(user_id=user_id)
@@ -327,7 +329,7 @@ def index(request):
             keyword = sreach_form.cleaned_data['sreach']
             request.session['user_id'] = user_id
             request.session['keyword'] = keyword
-            return HttpResponseRedirect('/result/')
+            return HttpResponseRedirect('/result/1/')
     else:
         sreach_form = SreachForm()
         user = User.objects.get(user_id=user_id)
@@ -380,7 +382,7 @@ def explore(request):
             keyword = sreach_form.cleaned_data['sreach']
             request.session['user_id'] = user_id
             request.session['keyword'] = keyword
-            return HttpResponseRedirect('/result/')
+            return HttpResponseRedirect('/result/1/')
     else:
         sreach_form = SreachForm()
         user = User.objects.get(user_id=user_id)
@@ -407,7 +409,7 @@ def all_tags(request):
             keyword = sreach_form.cleaned_data['sreach']
             request.session['user_id'] = user_id
             request.session['keyword'] = keyword
-            return HttpResponseRedirect('/result/')
+            return HttpResponseRedirect('/result/1/')
     else:
         sreach_form = SreachForm()
         user = User.objects.get(user_id=user_id)
@@ -417,7 +419,7 @@ def all_tags(request):
 
 
 @login_required
-def result(request):
+def result(request, page):
     """
     搜索结果界面
     :param request:请求
@@ -428,25 +430,26 @@ def result(request):
         if sreach_form.is_valid():
             keyword = sreach_form.cleaned_data['sreach']
             request.session['keyword'] = keyword
-            return HttpResponseRedirect('/result/')
+            return HttpResponseRedirect('/result/1/')
     else:
         sreach_form = SreachForm()
         user = User.objects.get(user_id=user_id)
         avatar = {0: 10000, 1: user_id}
         keyword = request.session.get('keyword', ' ')
         search_results = search(keyword)
-        if len(search_results)%10 == 0:
-            result_pages = [i for i in range(len(search_results)/10)]
-        else:
+        if len(search_results) % 10 == 0:
             result_pages = [i for i in range(int(len(search_results)/10)+1)]
-        # result_pages = [i for i in range(len(search_results)/10)]
+        else:
+            result_pages = [i for i in range(int(len(search_results)/10)+2)]
+        search_results = search_results[0+(10*int(page))-10:10+(10*int(page))-10]
         return render_to_response('result.html',
                                   {
                                       'sreach_form': sreach_form,
                                       'user': user,
                                       'avatar': avatar[user.image],
                                       'results': search_results,
-                                      'result_pages': result_pages,
+                                      'result_pages': {'result_pages': result_pages, 'len': len(result_pages)-1},
+                                      'page': {'prev': int(page)-1, 'now': int(page), 'next': int(page)+1},
                                       'title': '搜索结果'
                                   })
 
@@ -464,7 +467,7 @@ def get_hot_book(request):
         if sreach_form.is_valid():
             keyword = sreach_form.cleaned_data['sreach']
             request.session['keyword'] = keyword
-            return HttpResponseRedirect('/result/')
+            return HttpResponseRedirect('/result/1/')
     else:
         sreach_form = SreachForm()
         user = User.objects.get(user_id=user_id)
@@ -493,7 +496,7 @@ def get_new_book(request):
         if sreach_form.is_valid():
             keyword = sreach_form.cleaned_data['sreach']
             request.session['keyword'] = keyword
-            return HttpResponseRedirect('/result/')
+            return HttpResponseRedirect('/result/1/')
     else:
         sreach_form = SreachForm()
         user = User.objects.get(user_id=user_id)
@@ -505,7 +508,7 @@ def get_new_book(request):
 
 
 @login_required
-def get_tag_book(request, tag):
+def get_tag_book(request, tag, page):
     """
     图书分类
     :param request: 请求
@@ -518,14 +521,14 @@ def get_tag_book(request, tag):
         if sreach_form.is_valid():
             keyword = sreach_form.cleaned_data['sreach']
             request.session['keyword'] = keyword
-            return HttpResponseRedirect('/result/')
+            return HttpResponseRedirect('/result/1/')
     else:
         sreach_form = SreachForm()
         user = User.objects.get(user_id=user_id)
         avatar = {0: 10000, 1: user_id}
         tag_books = Book.objects.filter(title=tag)
         if len(tag_books)%10 == 0:
-            result_pages = [i for i in range(len(tag_books)/10)]
+            result_pages = [i for i in range(int(len(tag_books)/10))]
         else:
             result_pages = [i for i in range(int(len(tag_books)/10)+1)]
         # result_pages = [i for i in range(len(tag_books)/10)]
@@ -534,8 +537,9 @@ def get_tag_book(request, tag):
                                       'sreach_form': sreach_form,
                                       'user': user,
                                       'avatar': avatar[user.image],
+                                      'result_pages': {'result_pages': result_pages, 'len': len(result_pages) - 1},
+                                      'page': {'prev': int(page) - 1, 'now': int(page), 'next': int(page) + 1},
                                       'results': tag_books,
-                                      'result_pages': result_pages,
                                       'title': tag + '类所有图书'
                                   })
 
@@ -622,7 +626,7 @@ def get_note(request, note_id):
             keyword = sreach_form.cleaned_data['sreach']
             request.session['user_id'] = user_id
             request.session['keyword'] = keyword
-            return HttpResponseRedirect('/result/')
+            return HttpResponseRedirect('/result/1/')
     else:
         sreach_form = SreachForm()
         user = User.objects.get(user_id=user_id)
@@ -788,7 +792,7 @@ def management(request):
             keyword = sreach_form.cleaned_data['sreach']
             request.session['user_id'] = user_id
             request.session['keyword'] = keyword
-            return HttpResponseRedirect('/result/')
+            return HttpResponseRedirect('/result/1/')
     else:
         sreach_form = SreachForm()
         user = User.objects.get(user_id=user_id)
@@ -821,7 +825,7 @@ def sys_info(request):
             keyword = sreach_form.cleaned_data['sreach']
             request.session['user_id'] = user_id
             request.session['keyword'] = keyword
-            return HttpResponseRedirect('/result/')
+            return HttpResponseRedirect('/result/1/')
     else:
         titles_and_counts = Book.objects.raw(
             'select book_id,title,count(1) as count from bims_book group by title'
