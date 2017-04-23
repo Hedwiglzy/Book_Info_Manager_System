@@ -107,25 +107,25 @@
                     {% if page.now < 4 or page.now > result_pages.len|add:-3 %}
                         {% ifequal page.now 1 %}
                             <li class="active">
-                            {% else %}
+                                {% else %}
                             <li>
                         {% endifequal %}
-                            <a href={% url 'result' 1 %}>1</a>
-                        </li>
+                    <a href={% url 'result' 1 %}>1</a>
+                    </li>
                         {% ifequal page.now 2 %}
                             <li class="active">
-                            {% else %}
+                                {% else %}
                             <li>
                         {% endifequal %}
-                            <a href={% url 'result' 2 %}>2</a>
-                        </li>
+                    <a href={% url 'result' 2 %}>2</a>
+                    </li>
                         {% ifequal page.now 3 %}
                             <li class="active">
-                            {% else %}
+                                {% else %}
                             <li>
                         {% endifequal %}
-                            <a href={% url 'result' 3 %}>3</a>
-                        </li>
+                    <a href={% url 'result' 3 %}>3</a>
+                    </li>
                         <li class="disabled">
                             <a>...</a>
                         </li>
@@ -134,25 +134,137 @@
                         </li>
                         {% ifequal page.now result_pages.len|add:-2 %}
                             <li class="active">
-                            {% else %}
+                                {% else %}
                             <li>
                         {% endifequal %}
-                            <a href={% url 'result' result_pages.len|add:-2 %}>{{ result_pages.len|add:-2 }}</a>
-                        </li>
+                    <a href={% url 'result' result_pages.len|add:-2 %}>{{ result_pages.len|add:-2 }}</a>
+                    </li>
                         {% ifequal page.now result_pages.len|add:-1 %}
                             <li class="active">
-                            {% else %}
+                                {% else %}
                             <li>
                         {% endifequal %}
-                            <a href={% url 'result' result_pages.len|add:-1 %}>{{ result_pages.len|add:-1 }}</a>
-                        </li>
+                    <a href={% url 'result' result_pages.len|add:-1 %}>{{ result_pages.len|add:-1 }}</a>
+                    </li>
                         {% ifequal page.now result_pages.len %}
                             <li class="active">
-                            {% else %}
+                                {% else %}
                             <li>
                         {% endifequal %}
-                            <a href={% url 'result' result_pages.len %}>{{ result_pages.len }}</a>
+                    <a href={% url 'result' result_pages.len %}>{{ result_pages.len }}</a>
+                    </li>
+                    {% elif page.now < 5 %}
+                        {% ifequal page.now 1 %}
+                            <li class="active">
+                                {% else %}
+                            <li>
+                        {% endifequal %}
+                    <a href={% url 'result' 1 %}>1</a>
+                    </li>
+                        {% ifequal page.now 2 %}
+                            <li class="active">
+                                {% else %}
+                            <li>
+                        {% endifequal %}
+                    <a href={% url 'result' 2 %}>2</a>
+                    </li>
+                        {% ifequal page.now 3 %}
+                            <li class="active">
+                                {% else %}
+                            <li>
+                        {% endifequal %}
+                    <a href={% url 'result' 3 %}>3</a>
+                    </li>
+                        {% ifequal page.now 4 %}
+                            <li class="active">
+                                {% else %}
+                            <li>
+                        {% endifequal %}
+                    <a href={% url 'result' 4 %}>4</a>
+                    </li>
+                        <li class="disabled">
+                            <a>...</a>
                         </li>
+                        <li class="disabled">
+                            <a>...</a>
+                        </li>
+                        {% ifequal page.now result_pages.len|add:-2 %}
+                            <li class="active">
+                                {% else %}
+                            <li>
+                        {% endifequal %}
+                    <a href={% url 'result' result_pages.len|add:-2 %}>{{ result_pages.len|add:-2 }}</a>
+                    </li>
+                        {% ifequal page.now result_pages.len|add:-1 %}
+                            <li class="active">
+                                {% else %}
+                            <li>
+                        {% endifequal %}
+                    <a href={% url 'result' result_pages.len|add:-1 %}>{{ result_pages.len|add:-1 }}</a>
+                    </li>
+                        {% ifequal page.now result_pages.len %}
+                            <li class="active">
+                                {% else %}
+                            <li>
+                        {% endifequal %}
+                    <a href={% url 'result' result_pages.len %}>{{ result_pages.len }}</a>
+                    </li>
+                    {% elif page.now > result_pages.len|add:-4 %}
+                        {% ifequal page.now 1 %}
+                            <li class="active">
+                                {% else %}
+                            <li>
+                        {% endifequal %}
+                    <a href={% url 'result' 1 %}>1</a>
+                    </li>
+                        {% ifequal page.now 2 %}
+                            <li class="active">
+                                {% else %}
+                            <li>
+                        {% endifequal %}
+                    <a href={% url 'result' 2 %}>2</a>
+                    </li>
+                        {% ifequal page.now 3 %}
+                            <li class="active">
+                                {% else %}
+                            <li>
+                        {% endifequal %}
+                    <a href={% url 'result' 3 %}>3</a>
+                    </li>
+                        <li class="disabled">
+                            <a>...</a>
+                        </li>
+                        <li class="disabled">
+                            <a>...</a>
+                        </li>
+                        {% ifequal page.now result_pages.len|add:-3 %}
+                            <li class="active">
+                                {% else %}
+                            <li>
+                        {% endifequal %}
+                    <a href={% url 'result' result_pages.len|add:-3 %}>{{ result_pages.len|add:-3 }}</a>
+                    </li>
+                        {% ifequal page.now result_pages.len|add:-2 %}
+                            <li class="active">
+                                {% else %}
+                            <li>
+                        {% endifequal %}
+                    <a href={% url 'result' result_pages.len|add:-2 %}>{{ result_pages.len|add:-2 }}</a>
+                    </li>
+                        {% ifequal page.now result_pages.len|add:-1 %}
+                            <li class="active">
+                                {% else %}
+                            <li>
+                        {% endifequal %}
+                    <a href={% url 'result' result_pages.len|add:-1 %}>{{ result_pages.len|add:-1 }}</a>
+                    </li>
+                        {% ifequal page.now result_pages.len %}
+                            <li class="active">
+                                {% else %}
+                            <li>
+                        {% endifequal %}
+                    <a href={% url 'result' result_pages.len %}>{{ result_pages.len }}</a>
+                    </li>
                     {% else %}
                         <li>
                             <a href={% url 'result' 1 %}>1</a>

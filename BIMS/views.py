@@ -854,6 +854,7 @@ def add_book_score(request, book_id):
     else:
         return HttpResponseRedirect('/book/' + book_id)
 
+
 @login_required
 def test_deco(request, user_id):
     """
