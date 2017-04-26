@@ -23,20 +23,20 @@ CREATE TABLE `BIMS_user` (
 -- 图书信息表 --
 CREATE TABLE bims_book
 (
-  `book_id`         INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `book_id`          INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
   `book_name`        VARCHAR(100)           NOT NULL,
   `author_name`      VARCHAR(100)           NOT NULL,
-  `press_house`      VARCHAR(100),
-  `translator`       VARCHAR(100),
-  `publication_date` VARCHAR(100),
-  `pages`            VARCHAR(100),
-  `price`            VARCHAR(100),
-  `package`          VARCHAR(100),
-  `isbn`             BIGINT(20),
-  `content_summary`  LONGTEXT,
-  `title`            VARCHAR(100),
-  `create_date`      DATE,
-  `author_id`        INT(11)
+  `press_house`      VARCHAR(100)           NULL,
+  `translator`       VARCHAR(100)           NULL,
+  `publication_date` VARCHAR(100)           NULL,
+  `pages`            VARCHAR(100)           NULL,
+  `price`            VARCHAR(100)           NULL,
+  `package`          VARCHAR(100)           NULL,
+  `isbn`             BIGINT(20)             NULL,
+  `content_summary`  LONGTEXT               NULL,
+  `title`            VARCHAR(100)           NULL,
+  `create_date`      DATE                   NULL,
+  `author_id`        INTEGER                NULL
 )
   AUTO_INCREMENT = 10001;
 
