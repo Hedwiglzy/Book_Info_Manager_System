@@ -3,12 +3,11 @@
 
 """ 爬取作者信息 """
 
-
 import pymysql
 import requests
 import time
+import re
 from bs4 import BeautifulSoup
-
 
 __pyname__ = 'spider_author'
 __author__ = 'Hedwig'
@@ -37,7 +36,7 @@ def select_table():
     """
     conn = connect_db()
     cursor = conn.cursor()
-    cursor.execute("select `book_url` from all_book")
+    cursor.execute("SELECT `book_url` FROM all_book")
     result = cursor.fetchall()
     conn.commit()
     conn.close()
@@ -45,6 +44,12 @@ def select_table():
 
 
 def spider_author(book_url, headers):
+    """
+    爬取作者信息
+    :param book_url: 图书url
+    :param headers: headers
+    :return: 
+    """
     web_data = requests.get(book_url, headers=headers)
     print(web_data.status_code)
     soup = BeautifulSoup(web_data.text, 'lxml')
@@ -68,16 +73,70 @@ def spider_author(book_url, headers):
     conn.close()
 
 
-print('go!')
-index = int(input('输入起始编号:'))
-book_infos = select_table()
-headers = {
+def handle_authornation_info():
+    """
+    处理作者国籍信息
+    :return: 
+    """
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT `author_name` FROM bims_author")
+    result = cursor.fetchall()
+    for info in result:
+        match = re.search(r'【(.+?)】', info['author_name'])
+        if match:
+            nationality = match.group(0)[1:-1]
+            sql = 'update bims_author set nationality = \'%s\' WHERE author_name = \'%s\'' % (nationality, info['author_name'])
+            print(sql)
+            cursor.execute(sql)
+    conn.commit()
+    conn.close()
+
+
+def handle_authorname_info():
+    """
+    处理作者名字信息
+    :return: 
+    """
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT `author_name` FROM bims_author")
+    result = cursor.fetchall()
+    for info in result:
+        match = re.search(r'〕(.+?)+', info['author_name'])
+        if match:
+            author_name = match.group(0)[1:]
+            sql = 'update bims_author set author_name = \'%s\' WHERE author_name = \'%s\'' % (author_name, info['author_name'])
+            print(sql)
+            cursor.execute(sql)
+    conn.commit()
+    conn.close()
+
+
+def test():
+    word = '[日]东野圭吾'
+    if re.search('\[', word):
+        print(word)
+    else:
+        print('no')
+
+
+# if __name__ == '__main__':
+#     # handle_authornation_info()
+#     # handle_authorname_info()
+
+
+if __name__ == '__main__':
+    print('go!')  # 开始爬取数据
+    index = int(input('输入起始编号:'))
+    book_infos = select_table()
+    headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36',
         'Cookie': 'bid=E4Idlx5piXA'
     }
-for i, book_info in enumerate(book_infos):
-    if i >= index-1:
-        book_url = book_info['book_url'].rstrip()
-        spider_author(book_url, headers)
-        time.sleep(0.5)
-print('end')
+    for i, book_info in enumerate(book_infos):
+        if i >= index - 1:
+            book_url = book_info['book_url'].rstrip()
+            spider_author(book_url, headers)
+            time.sleep(0.5)
+    print('end')
