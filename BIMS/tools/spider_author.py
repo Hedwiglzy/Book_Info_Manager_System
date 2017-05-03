@@ -80,10 +80,10 @@ def handle_authornation_info():
     """
     conn = connect_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT `author_name` FROM bims_author")
+    cursor.execute("SELECT `author_name` FROM all_author_handle")
     result = cursor.fetchall()
     for info in result:
-        match = re.search(r'【(.+?)】', info['author_name'])
+        match = re.search(r'\((.+?)\)', info['author_name'])
         if match:
             nationality = match.group(0)[1:-1]
             sql = 'update bims_author set nationality = \'%s\' WHERE author_name = \'%s\'' % (nationality, info['author_name'])
@@ -103,7 +103,7 @@ def handle_authorname_info():
     cursor.execute("SELECT `author_name` FROM bims_author")
     result = cursor.fetchall()
     for info in result:
-        match = re.search(r'〕(.+?)+', info['author_name'])
+        match = re.search(r'\](.+?)+', info['author_name'])
         if match:
             author_name = match.group(0)[1:]
             sql = 'update bims_author set author_name = \'%s\' WHERE author_name = \'%s\'' % (author_name, info['author_name'])
@@ -113,30 +113,30 @@ def handle_authorname_info():
     conn.close()
 
 
-def test():
-    word = '[日]东野圭吾'
-    if re.search('\[', word):
-        print(word)
-    else:
-        print('no')
-
-
-# if __name__ == '__main__':
-#     # handle_authornation_info()
-#     # handle_authorname_info()
+# def test():
+#     word = '[日]东野圭吾'
+#     if re.search('\[', word):
+#         print(word)
+#     else:
+#         print('no')
 
 
 if __name__ == '__main__':
-    print('go!')  # 开始爬取数据
-    index = int(input('输入起始编号:'))
-    book_infos = select_table()
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36',
-        'Cookie': 'bid=E4Idlx5piXA'
-    }
-    for i, book_info in enumerate(book_infos):
-        if i >= index - 1:
-            book_url = book_info['book_url'].rstrip()
-            spider_author(book_url, headers)
-            time.sleep(0.5)
-    print('end')
+    # handle_authornation_info()
+    handle_authorname_info()
+
+
+# if __name__ == '__main__':
+#     print('go!')  # 开始爬取数据
+#     index = int(input('输入起始编号:'))
+#     book_infos = select_table()
+#     headers = {
+#         'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36',
+#         'Cookie': 'bid=E4Idlx5piXA'
+#     }
+#     for i, book_info in enumerate(book_infos):
+#         if i >= index - 1:
+#             book_url = book_info['book_url'].rstrip()
+#             spider_author(book_url, headers)
+#             time.sleep(0.5)
+#     print('end')

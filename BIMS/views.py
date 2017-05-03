@@ -152,6 +152,7 @@ def get_user_info(request):
                                                 'notes_and_books': notes_and_books}, )
 
 
+@login_required
 def get_book_info(request, book_id):
     """
     图书信息
@@ -160,60 +161,58 @@ def get_book_info(request, book_id):
     :return:图书信息
     """
     user_id = request.session.get('user_id', )
-    if user_id:
+    if request.method == 'POST':
         if request.method == 'POST':
-            if request.method == 'POST':
-                sreach_form = SreachForm(request.POST)
-                if sreach_form.is_valid():
-                    keyword = sreach_form.cleaned_data['sreach']
-                    request.session['user_id'] = user_id
-                    request.session['keyword'] = keyword
-                    return HttpResponseRedirect('/result/1/')
-        else:
-            sreach_form = SreachForm()
-            evaluate_form = EvaluateForm()
-            note_form = NoteForm()
-            user = User.objects.get(user_id=user_id)
-            avatar = {0: 10000, 1: user_id}
-            book_id = int(book_id)
-            book = Book.objects.get(book_id=book_id)
-            author = Author.objects.get(author_id=book.author_id)
-            evaluates = BookEvaluate.objects.filter(
-                book_id=book_id).order_by('-create_date')
-            book_evaluates = evaluates[0:6] if len(
-                evaluates) > 6 else evaluates
-            notes = BookNote.objects.filter(
-                book_id=book_id).order_by('-create_date')
-            book_notes = notes[0:3] if len(notes) > 3 else notes
-            is_collection = CollectionBook.objects.filter(
-                user_id=user_id, book_id=book_id)
-            if is_collection:
-                collection = 1
-            else:
-                collection = 0
-            collect_num = CollectionBook.objects.filter(book_id=book_id).count()
-            is_score = BookScore.objects.filter(book_id=book_id)
-            if is_score:
-                book_score = get_book_score(book_id)
-            else:
-                book_score = '无人评价'
-            evaluate_num = BookScore.objects.filter(book_id=book_id).count()
-            my_score = BookScore.objects.filter(
-                user_id=user_id, book_id=book_id)
-            if my_score:
-                my_score = my_score[0].score+1
-            else:
-                my_score = 0
-            return render_to_response('book.html',
-                                      {'sreach_form': sreach_form, 'evaluate_form': evaluate_form, 'user': user,
-                                       'avatar': avatar[user.image], 'book': book, 'book_score': book_score,
-                                       'collect_num': collect_num, 'evaluate_num': evaluate_num, 'author': author,
-                                       'book_evaluates': book_evaluates, 'book_notes': book_notes,
-                                       'note_form': note_form, 'collection': collection, 'my_score': my_score}, )
+            sreach_form = SreachForm(request.POST)
+            if sreach_form.is_valid():
+                keyword = sreach_form.cleaned_data['sreach']
+                request.session['user_id'] = user_id
+                request.session['keyword'] = keyword
+                return HttpResponseRedirect('/result/1/')
     else:
-        return render_to_response('skip.html', {'instruction': '请先登录'})
+        sreach_form = SreachForm()
+        evaluate_form = EvaluateForm()
+        note_form = NoteForm()
+        user = User.objects.get(user_id=user_id)
+        avatar = {0: 10000, 1: user_id}
+        book_id = int(book_id)
+        book = Book.objects.get(book_id=book_id)
+        author = Author.objects.get(author_id=book.author_id)
+        evaluates = BookEvaluate.objects.filter(
+            book_id=book_id).order_by('-create_date')
+        book_evaluates = evaluates[0:6] if len(
+            evaluates) > 6 else evaluates
+        notes = BookNote.objects.filter(
+            book_id=book_id).order_by('-create_date')
+        book_notes = notes[0:3] if len(notes) > 3 else notes
+        is_collection = CollectionBook.objects.filter(
+            user_id=user_id, book_id=book_id)
+        if is_collection:
+            collection = 1
+        else:
+            collection = 0
+        collect_num = CollectionBook.objects.filter(book_id=book_id).count()
+        is_score = BookScore.objects.filter(book_id=book_id)
+        if is_score:
+            book_score = get_book_score(book_id)
+        else:
+            book_score = '无人评价'
+        evaluate_num = BookScore.objects.filter(book_id=book_id).count()
+        my_score = BookScore.objects.filter(
+            user_id=user_id, book_id=book_id)
+        if my_score:
+            my_score = my_score[0].score+1
+        else:
+            my_score = 0
+        return render_to_response('book.html',
+                                  {'sreach_form': sreach_form, 'evaluate_form': evaluate_form, 'user': user,
+                                   'avatar': avatar[user.image], 'book': book, 'book_score': book_score,
+                                   'collect_num': collect_num, 'evaluate_num': evaluate_num, 'author': author,
+                                   'book_evaluates': book_evaluates, 'book_notes': book_notes,
+                                   'note_form': note_form, 'collection': collection, 'my_score': my_score}, )
 
 
+@login_required
 def get_author_info(request, author_id):
     """
     图书信息
@@ -222,26 +221,23 @@ def get_author_info(request, author_id):
     :return:作者信息
     """
     user_id = request.session.get('user_id', )
-    if user_id:
-        if request.method == 'POST':
-            sreach_form = SreachForm(request.POST)
-            if sreach_form.is_valid():
-                keyword = sreach_form.cleaned_data['sreach']
-                request.session['user_id'] = user_id
-                request.session['keyword'] = keyword
-                return HttpResponseRedirect('/result/1/')
-        else:
-            sreach_form = SreachForm()
-            user = User.objects.get(user_id=user_id)
-            avatar = {0: 10000, 1: user_id}
-            author_id = int(author_id)
-            author = Author.objects.get(author_id=author_id)
-            author_books = Book.objects.filter(author_id=author_id)
-            return render_to_response('author.html',
-                                      {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
-                                       'author': author, 'author_books': author_books}, )
+    if request.method == 'POST':
+        sreach_form = SreachForm(request.POST)
+        if sreach_form.is_valid():
+            keyword = sreach_form.cleaned_data['sreach']
+            request.session['user_id'] = user_id
+            request.session['keyword'] = keyword
+            return HttpResponseRedirect('/result/1/')
     else:
-        return render_to_response('skip.html', {'instruction': '请先登录'})
+        sreach_form = SreachForm()
+        user = User.objects.get(user_id=user_id)
+        avatar = {0: 10000, 1: user_id}
+        author_id = int(author_id)
+        author = Author.objects.get(author_id=author_id)
+        author_books = Book.objects.filter(author_id=author_id)
+        return render_to_response('author.html',
+                                  {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
+                                   'author': author, 'author_books': author_books}, )
 
 
 def register(request):
@@ -342,7 +338,7 @@ def index(request):
             hot_books.append(hot_book)
         new_books = Book.objects.order_by('-create_date')[0:12]
         hot_authors = Book.objects.raw(
-            'SELECT book_id,author_id FROM bims_book GROUP BY author_id ORDER BY count(author_id) DESC LIMIT 3')
+            'SELECT book_id,author_id FROM bims_book WHERE author_id !=10000 GROUP BY author_id ORDER BY count(author_id) DESC LIMIT 3')
         authors_and_books = []
         for author in hot_authors:
             author_books = get_author_book(author.author_id)[0:5]
@@ -423,6 +419,7 @@ def result(request, page):
     """
     搜索结果界面
     :param request:请求
+    :param page:页码
     """
     user_id = request.session.get('user_id', )
     if request.method == 'POST':
@@ -513,6 +510,7 @@ def get_tag_book(request, tag, page):
     图书分类
     :param request: 请求
     :param tag: 图书的标签
+    :param page:页数
     :return: 返回分类的图书
     """
     user_id = request.session.get('user_id', )
@@ -527,7 +525,7 @@ def get_tag_book(request, tag, page):
         user = User.objects.get(user_id=user_id)
         avatar = {0: 10000, 1: user_id}
         tag_books = Book.objects.filter(title=tag)
-        if len(tag_books)%10 == 0:
+        if len(tag_books) % 10 == 0:
             result_pages = [i for i in range(int(len(tag_books)/10))]
         else:
             result_pages = [i for i in range(int(len(tag_books)/10)+1)]
