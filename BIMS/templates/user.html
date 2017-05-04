@@ -9,203 +9,201 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/font-awesome.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/custom/navbar.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/custom/user.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom/bookcollection.css' %}">
     <title>{{ user.user_name }}的主页</title>
 </head>
 
 <body>
-{% include 'include/navbar.html' %}
-<div class="row blank"></div>
-<div class="row info">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-2 img">
-        <img src="../../static/image/avatar/hd/{{ avatar }}.jpg" alt="{{ user.user_name }}" class="img-thumbnail">
+    {% include 'include/navbar.html' %}
+    <div class="row blank"></div>
+    <div class="row info">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-2 img">
+            <img src="../../static/image/avatar/hd/{{ avatar }}.jpg" alt="{{ user.user_name }}" class="img-thumbnail">
+        </div>
+        <div class="col-lg-3 userinfo">
+            <div class="row userinfo_top">
+                <div class="col-lg-2 username">
+                    {{ user.user_name }}
+                </div>
+                <div class="col-lg-10 remark">
+                    {{ user.remark }}
+                </div>
+            </div>
+            <div class="row other_info">
+                <div class="col-lg-4">
+                    邮箱
+                </div>
+                <div class="col-lg-8">
+                    {{ user.email }}
+                </div>
+            </div>
+            <div class="row other_info">
+                <div class="col-lg-4">
+                    所在地
+                </div>
+                <div class="col-lg-8">
+                    {{ user.province }} {{ user.city }}
+                </div>
+            </div>
+            <div class="row other_info">
+                <div class="col-lg-4">
+                    生日
+                </div>
+                <div class="col-lg-8">
+                    {{ user.birthday }}
+                </div>
+            </div>
+            <div class="row other_info">
+                <div class="col-lg-4">
+                    性别
+                </div>
+                <div class="col-lg-8">
+                    {{ sex }}
+                </div>
+            </div>
+            <div class="row other_info">
+                <div class="col-lg-4">
+                    注册日期
+                </div>
+                <div class="col-lg-8">
+                    {{ user.create_date }}
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-lg-3 userinfo">
-        <div class="row userinfo_top">
-            <div class="col-lg-2 username">
-                {{ user.user_name }}
-            </div>
-            <div class="col-lg-10 remark">
-                {{ user.remark }}
-            </div>
-        </div>
-        <div class="row other_info">
-            <div class="col-lg-4">
-                邮箱
-            </div>
-            <div class="col-lg-8">
-                {{ user.email }}
-            </div>
-        </div>
-        <div class="row other_info">
-            <div class="col-lg-4">
-                所在地
-            </div>
-            <div class="col-lg-8">
-                {{ user.province }} {{ user.city }}
-            </div>
-        </div>
-        <div class="row other_info">
-            <div class="col-lg-4">
-                生日
-            </div>
-            <div class="col-lg-8">
-                {{ user.birthday }}
-            </div>
-        </div>
-        <div class="row other_info">
-            <div class="col-lg-4">
-                性别
-            </div>
-            <div class="col-lg-8">
-                {{ sex }}
-            </div>
-        </div>
-        <div class="row other_info">
-            <div class="col-lg-4">
-                注册日期
-            </div>
-            <div class="col-lg-8">
-                {{ user.create_date }}
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row ">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-8 my_collection" style="height:{{ height }}px">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#book_collections" data-toggle='tab'>收藏的图书</a></li>
-            <li><a href="#author_collections" data-toggle='tab'>收藏的作者</a></li>
-            <li><a href="#notes" data-toggle='tab'>读书笔记</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane fade  in active" id="book_collections">
-                <div class="row book_list" style="height: {{ height }}px">
-                    {% if book_collections %}
-                        {% for book in book_collections %}
-                            <div class="col-lg-2 book_info">
-                                <div class="book_cover">
-                                    <a href={% url 'book' book.book_id %}>
-                                        <img class=" img-thumbnail"
-                                             src="../static/image/book/cover/{{ book.book_id }}.jpg"
-                                             alt="{{ book.book_name }}" title="{{ book.book_name }}">
+    <div class="row ">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8 my_collection" style="height:{{ height }}px">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#book_collections" data-toggle='tab'>收藏的图书</a></li>
+                <li><a href="#author_collections" data-toggle='tab'>收藏的作者</a></li>
+                <li><a href="#notes" data-toggle='tab'>读书笔记</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade  in active" id="book_collections">
+                    <div class="row book_list" style="height: {{ height }}px">
+                        {% if book_collections %} {% for book in book_collections %}
+                        <div class="col-lg-2 book_info">
+                            <div class="book_cover">
+                                <div class="xsq_deal_wrapper">
+                                    <a class="saleDeal" href={% url 'book' book.book_id %}>
+                                        <div class="dealCon">
+                                            <!--<img class=" img-thumbnail" src="../static/image/book/cover/{{ book.book_id }}.jpg" alt="{{ book.book_name }}" title="{{ book.book_name }}">-->
+                                            <img class="dealImg" src="../static/image/book/cover/{{ book.book_id }}.jpg" alt="{{ book.book_name }}" title="{{ book.book_name }}">
+                                            <div class="stock">
+                                                <div class="xsqMask"></div>
+                                                <span class="stockWord">haha</span>
+                                            </div>
+                                        </div>
                                     </a>
                                 </div>
-                                <div>
-                                    <a href={% url 'book' book.book_id %}><strong>{{ book.book_name|truncatechars:'10' }}</strong></a>
-                                </div>
-                                <div><a href="#">{{ book.author_name|truncatechars:'10' }}</a></div>
                             </div>
-                        {% endfor %}
-                    {% else %}
+                            <div>
+                                <a href={% url 'book' book.book_id %}><strong>{{ book.book_name|truncatechars:'10' }}</strong></a>
+                            </div>
+                            <div><a href="#">{{ book.author_name|truncatechars:'10' }}</a></div>
+                        </div>
+                        {% endfor %} {% else %}
                         <h3>暂无图书收藏</h3>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="author_collections">
+                    {% if authors_and_books %} {% for author_and_book in authors_and_books %}
+                    <div class="row author_list">
+                        <div class="col-lg-4  author_info">
+                            <a href={% url 'author' author_and_book.author.author_id %}>
+                                <div class="author_name">
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <h3>
+                                                <strong>{{ author_and_book.author.author_name }}</strong>
+                                            </h3>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <a href={% url 'delauthorcollection' author_and_book.author.author_id %}>
+                                                <button type="button" class="btn btn-danger del_button">
+                                                        删除
+                                                    </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="author_instruction">
+                                <small>
+                                        {{ author_and_book.author.author_summary|truncatechars:'200' }}
+                                    </small>
+                            </div>
+                        </div>
+                        {% for book in author_and_book.book %}
+                        <div class="col-lg-2 book_info ">
+                            <div class="book_cover ">
+                                <a href={% url 'book' book.book_id %}>
+                                    <img class=" img-thumbnail " src="../static/image/book/cover/{{ book.book_id }}.jpg" alt="{{ book.book_name }} " title="{{ book.book_name }} ">
+                                </a>
+                            </div>
+                            <div>
+                                <a href={% url 'book' book.book_id %}>
+                                    <strong>{{ book.book_name|truncatechars:'10' }}</strong>
+                                </a>
+                            </div>
+                            <div>
+                                <a href={% url 'author' author_and_book.author.author_id %}>{{ book.author_name|truncatechars:'10' }}</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %} {% else %}
+                    <h3>暂无作者收藏</h3>
+                    {% endif %}
+                </div>
+                <div class="tab-pane fade" id="notes">
+                    {% if notes_and_books %} {% for note_and_book in notes_and_books %}
+                    <div class="row note_list">
+                        <div class="col-lg-10 note_info">
+                            <div class="row note_top">
+                                <div class="col-lg-9 note_title">
+                                    <a href={% url 'note' note_and_book.note.note_id %}>
+                                        <h4>
+                                            <strong>
+                                                    {{ note_and_book.note.title }}
+                                                </strong>
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div class="col-lg-3 note_time">{{ note_and_book.note.create_date }}</div>
+                            </div>
+                            <div class="note_content">
+                                <p>
+                                    {{ note_and_book.note.content|truncatechars:'500' }}</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 book_info">
+                            <div class="book_cover">
+                                <a href={% url 'book' note_and_book.book.book_id %}>
+                                    <img class=" img-thumbnail" src="../static/image/book/cover/{{ note_and_book.book.book_id }}.jpg" alt="{{ note_and_book.book.book_name }}"
+                                        title="{{ note_and_book.book.book_name }}">
+                                </a>
+                            </div>
+                            <div>
+                                <a href={% url 'book' note_and_book.book.book_id %}><strong>{{ note_and_book.book.book_name }}</strong></a>
+                            </div>
+                            <div>
+                                <a href={% url 'author' note_and_book.book.author_id %}>{{ note_and_book.book.author_name }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %} {% else %}
+                    <h3>暂无读书笔记</h3>
                     {% endif %}
                 </div>
             </div>
-            <div class="tab-pane fade" id="author_collections">
-                {% if authors_and_books %}
-                    {% for author_and_book in authors_and_books %}
-                        <div class="row author_list">
-                            <div class="col-lg-4  author_info">
-                                <a href={% url 'author' author_and_book.author.author_id %}>
-                                    <div class="author_name">
-                                        <div class="row">
-                                            <div class="col-lg-8">
-                                                <h3>
-                                                    <strong>{{ author_and_book.author.author_name }}</strong>
-                                                </h3>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <a href={% url 'delauthorcollection' author_and_book.author.author_id %}>
-                                                    <button type="button" class="btn btn-danger del_button">
-                                                        删除
-                                                    </button>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="author_instruction">
-                                    <small>
-                                        {{ author_and_book.author.author_summary|truncatechars:'200' }}
-                                    </small>
-                                </div>
-                            </div>
-                            {% for book in author_and_book.book %}
-                                <div class="col-lg-2 book_info ">
-                                    <div class="book_cover ">
-                                        <a href={% url 'book' book.book_id %}>
-                                            <img class=" img-thumbnail "
-                                                 src="../static/image/book/cover/{{ book.book_id }}.jpg"
-                                                 alt="{{ book.book_name }} " title="{{ book.book_name }} ">
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <a href={% url 'book' book.book_id %}>
-                                            <strong>{{ book.book_name|truncatechars:'10' }}</strong>
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <a href={% url 'author' author_and_book.author.author_id %}>{{ book.author_name|truncatechars:'10' }}</a>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <h3>暂无作者收藏</h3>
-                {% endif %}
-            </div>
-            <div class="tab-pane fade" id="notes">
-                {% if notes_and_books %}
-                    {% for note_and_book in notes_and_books %}
-                        <div class="row note_list">
-                            <div class="col-lg-10 note_info">
-                                <div class="row note_top">
-                                    <div class="col-lg-9 note_title">
-                                        <a href={% url 'note' note_and_book.note.note_id %}>
-                                            <h4>
-                                                <strong>
-                                                    {{ note_and_book.note.title }}
-                                                </strong>
-                                            </h4>
-                                        </a>
-                                    </div>
-                                    <div class="col-lg-3 note_time">{{ note_and_book.note.create_date }}</div>
-                                </div>
-                                <div class="note_content">
-                                    <p>
-                                        {{ note_and_book.note.content|truncatechars:'500' }}</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 book_info">
-                                <div class="book_cover">
-                                    <a href={% url 'book' note_and_book.book.book_id %}>
-                                        <img class=" img-thumbnail"
-                                             src="../static/image/book/cover/{{ note_and_book.book.book_id }}.jpg"
-                                             alt="{{ note_and_book.book.book_name }}"
-                                             title="{{ note_and_book.book.book_name }}">
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href={% url 'book' note_and_book.book.book_id %}><strong>{{ note_and_book.book.book_name }}</strong></a>
-                                </div>
-                                <div>
-                                    <a href={% url 'author' note_and_book.book.author_id %}>{{ note_and_book.book.author_name }}</a>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <h3>暂无读书笔记</h3>
-                {% endif %}
-            </div>
         </div>
+        <div class="col-lg-2 "></div>
     </div>
-    <div class="col-lg-2 "></div>
-</div>
-{% include 'include/footer.html' %}
+    {% include 'include/footer.html' %}
 </body>
 
 </html>

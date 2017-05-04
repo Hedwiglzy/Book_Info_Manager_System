@@ -1,0 +1,81 @@
+.xsq_deal_wrapper,
+.saleDeal {
+    position: relative;
+    display: block;
+    float: left;
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    margin-left: 4px;
+}
+
+.xsq_deal_wrapper,
+.saleDeal {
+    width: 195px;
+    margin-left: 5px;
+}
+
+.saleDeal:hover .dealCon .stock {
+    bottom: 0;
+}
+
+.saleDeal {
+    width: 195px;
+    margin-left: 5px;
+}
+
+.dealCon {
+    position: relative;
+    width: 192px;
+    height: 192px;
+    overflow: hidden;
+}
+
+.dealCon,
+.dealImg {
+    width: 195px;
+    height: 195px;
+}
+
+.dealImg {
+    width: 192px;
+    height: 192px;
+}
+
+.stock {
+    width: 100%;
+    height: 20px;
+    overflow: hidden;
+    font: 13px/20px '微软雅黑';
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    border-bottom: 24px;
+    transition: all .2s;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    bottom: -24px;
+    left: 0;
+    z-index: 1;
+}
+
+.stockWord {
+    position: relative;
+    z-index: 2;
+    font-size: 12px;
+}
+
+.xsqMask {
+    opacity: .4;
+    filter: alpha(opacity=40);
+    /*z-index: 1;*/
+}
+
+.xsqMask {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #000;
+}
