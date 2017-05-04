@@ -15,30 +15,52 @@
 <body>
 {% include 'include/navbar.html' %}
 <div class="row blank"></div>
-<div class="row author_info">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-8">
-        <div class="row author_name">
-            <h2>
-                {{ author.author_name }}
-            </h2>
-            <span class="nationality">
-				[{{ author.nationality }}]
-			</span>
-        </div>
-        <div class="row author_introduction">
-            <div class="author_introduction_title">
-                作者简介 &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
-            </div>
-            <div>
-                <p>
-                    {{ author.author_summary|truncatechars:"200" }}
-                </p>
-            </div>
-        </div>
+{% ifequal author.author_id 10000 %}
+    <div class="col-lg-3"></div>
+    <div class="col-lg-9">
+        <h2>暂无简介</h2>
+        <button onclick="history.go(-1)" class="btn btn-default btn-group-lg">返回</button>
     </div>
-    <div class="col-lg-2"></div>
-</div>
+{% else %}
+    <div class="row author_info">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="row author_name">
+                <div class="col-lg-10 author_name_top">
+                    <h2>
+                        {{ author.author_name }}
+                    </h2>
+                    {% if author.nationality %}
+                        <span class="nationality">
+                    [{{ author.nationality }}]
+                </span>
+                    {% else %}
+                    {% endif %}
+                </div>
+                <div class="col-lg-2 collect_author">
+                    {% if is_collection %}
+                        <button type="button" class="btn btn-default btn-group-lg active">已收藏</button>
+                    {% else %}
+                        <a href={% url 'addauthorcollection' author.author_id %}>
+                            <button type="button" class="btn btn-info btn-group-lg">收藏作者</button>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row author_introduction">
+                <div class="author_introduction_title">
+                    作者简介 &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+                </div>
+                <div>
+                    <p>
+                        {{ author.author_summary|truncatechars:"200" }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+{% endifequal %}
 {% ifequal author.author_id 10000 %}
 {% else %}
     <div class="row author_books">
@@ -60,7 +82,7 @@
                         </div>
                         <div style="text-align: center">
                             <a href={% url 'book' author_book.book_id %}>
-                                <strong>{{ author_book.book_name|truncatechars:'10' }}</strong></a>
+                                <strong>{{ author_book.book_name|truncatechars:'9' }}</strong></a>
                         </div>
                     </div>
                 {% endfor %}

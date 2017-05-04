@@ -185,12 +185,7 @@ def get_book_info(request, book_id):
         notes = BookNote.objects.filter(
             book_id=book_id).order_by('-create_date')
         book_notes = notes[0:3] if len(notes) > 3 else notes
-        is_collection = CollectionBook.objects.filter(
-            user_id=user_id, book_id=book_id)
-        if is_collection:
-            collection = 1
-        else:
-            collection = 0
+        is_collection = CollectionBook.objects.filter(user_id=user_id, book_id=book_id)
         collect_num = CollectionBook.objects.filter(book_id=book_id).count()
         is_score = BookScore.objects.filter(book_id=book_id)
         if is_score:
@@ -209,7 +204,7 @@ def get_book_info(request, book_id):
                                    'avatar': avatar[user.image], 'book': book, 'book_score': book_score,
                                    'collect_num': collect_num, 'evaluate_num': evaluate_num, 'author': author,
                                    'book_evaluates': book_evaluates, 'book_notes': book_notes,
-                                   'note_form': note_form, 'collection': collection, 'my_score': my_score}, )
+                                   'note_form': note_form, 'is_collection': is_collection, 'my_score': my_score}, )
 
 
 @login_required
@@ -235,9 +230,10 @@ def get_author_info(request, author_id):
         author_id = int(author_id)
         author = Author.objects.get(author_id=author_id)
         author_books = Book.objects.filter(author_id=author_id)
+        is_collection = CollectionAuthor.objects.filter(user_id=user_id, author_id=author_id)
         return render_to_response('author.html',
                                   {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
-                                   'author': author, 'author_books': author_books}, )
+                                   'author': author, 'author_books': author_books, 'is_collection': is_collection}, )
 
 
 def register(request):
@@ -644,9 +640,51 @@ def add_book_collection(request, book_id):
     :return:
     """
     user_id = request.session.get('user_id', )
-    evaluate = CollectionBook(user_id=user_id, book_id=int(book_id), create_date=datetime.date.today())
-    evaluate.save()
+    book_collection = CollectionBook(user_id=user_id, book_id=int(book_id), create_date=datetime.date.today())
+    book_collection.save()
     return HttpResponseRedirect('/book/' + book_id)
+
+
+@login_required
+def add_author_collection(request, author_id):
+    """
+    添加作者收藏
+    :param request:请求
+    :param author_id:图书ID
+    :return:
+    """
+    user_id = request.session.get('user_id', )
+    author_collection = CollectionAuthor(user_id=user_id, author_id=int(author_id), create_date=datetime.date.today())
+    author_collection.save()
+    return HttpResponseRedirect('/author/' + author_id)
+
+
+@login_required
+def del_book_collection(request, book_id):
+    """
+    删除图书收藏
+    :param request:请求
+    :param book_id:图书ID
+    :return:
+    """
+    user_id = request.session.get('user_id', )
+    book_collection = CollectionAuthor.objects.filter(user_id=user_id, author_id=int(book_id))
+    book_collection.delete()
+    return HttpResponseRedirect('/user/')
+
+
+@login_required
+def del_author_collection(request, author_id):
+    """
+    删除作者收藏
+    :param request:请求
+    :param author_id:作者ID
+    :return:
+    """
+    user_id = request.session.get('user_id', )
+    author_collection = CollectionAuthor.objects.filter(user_id=user_id, author_id=int(author_id))
+    author_collection.delete()
+    return HttpResponseRedirect('/user/')
 
 
 @login_required

@@ -94,7 +94,7 @@
                 </div>
             </div>
             <div class="row is_colleciton">
-                {% if collection %}
+                {% if is_collection %}
                     <div class="col-lg-4 my_colleciton_title">
                         已收藏
                     </div>
@@ -262,7 +262,7 @@
                 success: function (data_get) {
                 }
             });
-            setTimeout("window.location.reload()",200);
+            setTimeout("window.location.reload()", 200);
         });
     </script>
 {% endif %}

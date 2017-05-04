@@ -15,6 +15,12 @@
 .author_name {
     margin-bottom: 10px;
 }
+.author_name_top{
+    margin-left: -15px;
+}
+.collect_author{
+    margin-top: 30px;
+}
 
 .author_introduction {
     height: 120px;
