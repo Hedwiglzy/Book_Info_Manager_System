@@ -660,7 +660,7 @@ def add_author_collection(request, author_id):
 
 
 @login_required
-def del_book_collection(request, book_id):
+def del_book_collection(request):
     """
     删除图书收藏
     :param request:请求
@@ -668,9 +668,15 @@ def del_book_collection(request, book_id):
     :return:
     """
     user_id = request.session.get('user_id', )
-    book_collection = CollectionAuthor.objects.filter(user_id=user_id, author_id=int(book_id))
-    book_collection.delete()
-    return HttpResponseRedirect('/user/')
+    if request.is_ajax():
+        book_id = request.POST.get('book_id')
+        book_collection = CollectionBook.objects.filter(user_id=user_id, book_id=int(book_id))
+        book_collection.delete()
+        response = HttpResponse('successed')
+        response.status_code = 204
+        return response
+    else:
+        return HttpResponseRedirect('/user/')
 
 
 @login_required

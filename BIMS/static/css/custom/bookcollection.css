@@ -3,16 +3,14 @@
     position: relative;
     display: block;
     float: left;
-    width: 200px;
+    width: 140px;
     height: 200px;
     background: #fff;
-    margin-left: 4px;
 }
 
 .xsq_deal_wrapper,
 .saleDeal {
-    width: 195px;
-    margin-left: 5px;
+    width: 140px;
 }
 
 .saleDeal:hover .dealCon .stock {
@@ -20,26 +18,25 @@
 }
 
 .saleDeal {
-    width: 195px;
-    margin-left: 5px;
+    width: 140px;
 }
 
 .dealCon {
     position: relative;
-    width: 192px;
-    height: 192px;
+    width: 140px;
+    height: 200px;
     overflow: hidden;
 }
 
 .dealCon,
 .dealImg {
-    width: 195px;
-    height: 195px;
+    width: 140px;
+    height: 200px;
 }
 
 .dealImg {
-    width: 192px;
-    height: 192px;
+    width: 140px;
+    height: 200px;
 }
 
 .stock {
@@ -78,4 +75,11 @@
     left: 0;
     top: 0;
     background: #000;
+}
+
+.delcollection{
+    background: transparent;
+    width: 150px;
+    margin-left: -2px;
+    margin-top: -10px;
 }
