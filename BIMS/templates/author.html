@@ -53,7 +53,11 @@
                 </div>
                 <div>
                     <p>
-                        {{ author.author_summary|truncatechars:"200" }}
+                        {% if author.author_summary %}
+                            {{ author.author_summary|truncatechars:"200" }}
+                        {% else %}
+                            暂无简介
+                        {% endif %}
                     </p>
                 </div>
             </div>

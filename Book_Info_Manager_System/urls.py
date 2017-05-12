@@ -22,6 +22,7 @@ import BIMS.views as views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/image/favicon.ico')),
+    url(r'^$', views.login, name='login'),
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^register/$', views.register, name='register'),

@@ -24,13 +24,19 @@
         </ol>
         <div class="carousel-inner">
             <div class="item active">
-                <img src="../static/image/top_line/1.jpg" alt="第一张">
+                <a href={% url 'note' 10002 %}>
+                    <img src="../static/image/top_line/1.jpg" alt="第一张">
+                </a>
             </div>
             <div class="item">
-                <img src="../static/image/top_line/2.jpg" alt="第二张">
+                <a href={% url 'note' 10003 %}>
+                    <img src="../static/image/top_line/2.jpg" alt="第二张">
+                </a>
             </div>
             <div class="item">
-                <img src="../static/image/top_line/3.jpg" alt="第三张">
+                <a href={% url 'note' 10004 %}>
+                    <img src="../static/image/top_line/3.jpg" alt="第三张">
+                </a>
             </div>
         </div>
         <a href="#myCarousel" data-slide="prev" class="carousel-control left">&lsaquo;</a>

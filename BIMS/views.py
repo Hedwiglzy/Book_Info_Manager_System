@@ -828,30 +828,33 @@ def management(request):
     return:管理员界面
     """
     user_id = request.session.get('user_id', )
-    if request.method == 'POST':
-        sreach_form = SreachForm(request.POST)
-        if sreach_form.is_valid():
-            keyword = sreach_form.cleaned_data['sreach']
-            request.session['user_id'] = user_id
-            request.session['keyword'] = keyword
-            return HttpResponseRedirect('/result/1/')
+    if user_id == 99999:
+        if request.method == 'POST':
+            sreach_form = SreachForm(request.POST)
+            if sreach_form.is_valid():
+                keyword = sreach_form.cleaned_data['sreach']
+                request.session['user_id'] = user_id
+                request.session['keyword'] = keyword
+                return HttpResponseRedirect('/result/1/')
+        else:
+            sreach_form = SreachForm()
+            user = User.objects.get(user_id=user_id)
+            avatar = {0: 10000, 1: user_id}
+            user_count = User.objects.all().count() - 1
+            book_count = Book.objects.all().count()
+            author_count = Author.objects.all().count()
+            all_users = User.objects.all().exclude(user_id=99999)
+            return render_to_response('management.html', {
+                'sreach_form': sreach_form,
+                'user': user,
+                'avatar': avatar[user.image],
+                'user_count': user_count,
+                'book_count': book_count,
+                'author_count': author_count,
+                'all_users': all_users
+            }, )
     else:
-        sreach_form = SreachForm()
-        user = User.objects.get(user_id=user_id)
-        avatar = {0: 10000, 1: user_id}
-        user_count = User.objects.all().count() - 1
-        book_count = Book.objects.all().count()
-        author_count = Author.objects.all().count()
-        all_users = User.objects.all().exclude(user_id=99999)
-        return render_to_response('management.html', {
-            'sreach_form': sreach_form,
-            'user': user,
-            'avatar': avatar[user.image],
-            'user_count': user_count,
-            'book_count': book_count,
-            'author_count': author_count,
-            'all_users': all_users
-        }, )
+        return HttpResponseRedirect('/index/')
 
 
 @login_required
