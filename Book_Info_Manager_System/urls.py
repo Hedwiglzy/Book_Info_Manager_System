@@ -48,6 +48,5 @@ urlpatterns = [
     url(r'^addbook/$', views.add_book, name='addbook'),
     url(r'^management/$', views.management, name='management'),
     url(r'^sysinfo/$', views.sys_info, name='sysinfo'),
-    url(r'^score/(\d+)/$', views.add_book_score, name='score'),
-    url(r'^test_deco/(\d+)/$', views.test_deco, name='test_deco')
+    url(r'^score/(\d+)/$', views.add_book_score, name='score')
     ]

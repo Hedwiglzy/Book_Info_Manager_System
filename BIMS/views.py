@@ -411,6 +411,71 @@ def all_tags(request):
 
 
 @login_required
+def get_hot_book(request):
+    """
+    热门图书
+    :param request: 请求
+    :return: 热门图书结果界面
+    """
+    user_id = request.session.get('user_id', )
+    if request.method == 'POST':
+        sreach_form = SreachForm(request.POST)
+        if sreach_form.is_valid():
+            keyword = sreach_form.cleaned_data['sreach']
+            request.session['keyword'] = keyword
+            return HttpResponseRedirect('/result/1/')
+    else:
+        sreach_form = SreachForm()
+        user = User.objects.get(user_id=user_id)
+        avatar = {0: 10000, 1: user_id}
+        hot_book_ids = Book.objects.raw(
+            'SELECT book_id FROM bims_collectionbook GROUP BY book_id ORDER BY count(book_id) DESC LIMIT 20')
+        hot_books = []
+        for hot_book_id in hot_book_ids:
+            hot_book = Book.objects.get(book_id=hot_book_id.book_id)
+            hot_books.append(hot_book)
+        return render_to_response('result.html',
+                                  {
+                                      'sreach_form': sreach_form,
+                                      'user': user,
+                                      'avatar': avatar[user.image],
+                                      'results': hot_books,
+                                      'title': '热门图书',
+                                      'page': 'no'
+                                  })
+
+
+@login_required
+def get_new_book(request):
+    """
+    最新图书
+    :param request:
+    :return:
+    """
+    user_id = request.session.get('user_id', )
+    if request.method == 'POST':
+        sreach_form = SreachForm(request.POST)
+        if sreach_form.is_valid():
+            keyword = sreach_form.cleaned_data['sreach']
+            request.session['keyword'] = keyword
+            return HttpResponseRedirect('/result/1/')
+    else:
+        sreach_form = SreachForm()
+        user = User.objects.get(user_id=user_id)
+        avatar = {0: 10000, 1: user_id}
+        new_books = Book.objects.order_by('-create_date')[0:20]
+        return render_to_response('result.html',
+                                  {
+                                      'sreach_form': sreach_form,
+                                      'user': user,
+                                      'avatar': avatar[user.image],
+                                      'results': new_books,
+                                      'title': '最新上架',
+                                      'page': 'no'
+                                  })
+
+
+@login_required
 def result(request, page):
     """
     搜索结果界面
@@ -448,59 +513,6 @@ def result(request, page):
 
 
 @login_required
-def get_hot_book(request):
-    """
-    热门图书
-    :param request: 请求
-    :return: 热门图书结果界面
-    """
-    user_id = request.session.get('user_id', )
-    if request.method == 'POST':
-        sreach_form = SreachForm(request.POST)
-        if sreach_form.is_valid():
-            keyword = sreach_form.cleaned_data['sreach']
-            request.session['keyword'] = keyword
-            return HttpResponseRedirect('/result/1/')
-    else:
-        sreach_form = SreachForm()
-        user = User.objects.get(user_id=user_id)
-        avatar = {0: 10000, 1: user_id}
-        hot_book_ids = Book.objects.raw(
-            'SELECT book_id FROM bims_collectionbook GROUP BY book_id ORDER BY count(book_id) DESC LIMIT 20')
-        hot_books = []
-        for hot_book_id in hot_book_ids:
-            hot_book = Book.objects.get(book_id=hot_book_id.book_id)
-            hot_books.append(hot_book)
-        return render_to_response('result.html',
-                                  {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
-                                   'results': hot_books, 'title': '热门图书'})
-
-
-@login_required
-def get_new_book(request):
-    """
-    最新图书
-    :param request:
-    :return:
-    """
-    user_id = request.session.get('user_id', )
-    if request.method == 'POST':
-        sreach_form = SreachForm(request.POST)
-        if sreach_form.is_valid():
-            keyword = sreach_form.cleaned_data['sreach']
-            request.session['keyword'] = keyword
-            return HttpResponseRedirect('/result/1/')
-    else:
-        sreach_form = SreachForm()
-        user = User.objects.get(user_id=user_id)
-        avatar = {0: 10000, 1: user_id}
-        new_books = Book.objects.order_by('-create_date')[0:20]
-        return render_to_response('result.html',
-                                  {'sreach_form': sreach_form, 'user': user, 'avatar': avatar[user.image],
-                                   'results': new_books, 'title': '最新上架'})
-
-
-@login_required
 def get_tag_book(request, tag, page):
     """
     图书分类
@@ -525,7 +537,7 @@ def get_tag_book(request, tag, page):
             result_pages = [i for i in range(int(len(tag_books)/10))]
         else:
             result_pages = [i for i in range(int(len(tag_books)/10)+1)]
-        # result_pages = [i for i in range(len(tag_books)/10)]
+        tag_books = tag_books[0+(10*int(page))-10:10+(10*int(page))-10]
         return render_to_response('result.html',
                                   {
                                       'sreach_form': sreach_form,
@@ -898,12 +910,3 @@ def add_book_score(request, book_id):
         return response
     else:
         return HttpResponseRedirect('/book/' + book_id)
-
-
-@login_required
-def test_deco(request, user_id):
-    """
-    装饰器测试
-    """
-    info = 'user id is %d' % int(user_id)
-    return HttpResponse(info)

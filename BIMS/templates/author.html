@@ -54,7 +54,7 @@
                 <div>
                     <p>
                         {% if author.author_summary %}
-                            {{ author.author_summary|truncatechars:"200" }}
+                            {{ author.author_summary|truncatechars:"400" }}
                         {% else %}
                             暂无简介
                         {% endif %}
